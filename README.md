@@ -196,7 +196,7 @@ A second workflow (`ci.yaml`) runs on every push and pull request to lint the sc
 ### Phase 3 - Tooling
 
 - [x] GitHub Pages site with sortable and filterable table
-- [ ] GitHub Issues alert when a price changes by more than 10%
+- [x] GitHub Issues alert when a price changes by more than 10%
 - [ ] Embeddable price badge for other repositories
 - [ ] REST-like endpoint via jsDelivr CDN with CORS support
 
