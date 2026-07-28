@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 Sort prices.json, update last_updated, and regenerate the README pricing table.
 
@@ -7,7 +6,7 @@ Run manually or via the GitHub Actions daily workflow.
 
 import json
 import re
-from datetime import date
+from datetime import datetime, timezone
 from pathlib import Path
 
 ROOT = Path(__file__).parent.parent
@@ -103,7 +102,7 @@ def main() -> None:
         key=lambda m: (m["provider"], m.get("input_per_1m_usd") or 0)
     )
 
-    today = date.today().isoformat()
+    today = datetime.now(tz=timezone.utc).date().isoformat()
     data["last_updated"] = today
 
     # Write sorted + updated prices

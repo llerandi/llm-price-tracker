@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Validate the structure and content of data/prices.json."""
 
 import json
