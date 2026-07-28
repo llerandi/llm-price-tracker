@@ -1,4 +1,4 @@
-# llm-price-tracker
+# LLM Price Tracker
 
 [![CI](https://img.shields.io/github/actions/workflow/status/llerandi/llm-price-tracker/ci.yaml?label=CI&logo=github)](https://github.com/llerandi/llm-price-tracker/actions/workflows/ci.yaml)
 [![License](https://img.shields.io/github/license/llerandi/llm-price-tracker)](LICENSE)
