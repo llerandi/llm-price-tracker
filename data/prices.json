@@ -13,7 +13,11 @@
       "supports_function_calling": true,
       "is_reasoning": false,
       "tier": "efficient",
-      "notes": ""
+      "notes": "",
+      "batch_input_per_1m_usd": null,
+      "batch_output_per_1m_usd": null,
+      "cache_read_per_1m_usd": null,
+      "cache_write_per_1m_usd": null
     },
     {
       "provider": "AI21 Labs",
@@ -26,7 +30,11 @@
       "supports_function_calling": true,
       "is_reasoning": false,
       "tier": "flagship",
-      "notes": ""
+      "notes": "",
+      "batch_input_per_1m_usd": null,
+      "batch_output_per_1m_usd": null,
+      "cache_read_per_1m_usd": null,
+      "cache_write_per_1m_usd": null
     },
     {
       "provider": "Anthropic",
@@ -39,7 +47,11 @@
       "supports_function_calling": true,
       "is_reasoning": false,
       "tier": "efficient",
-      "notes": ""
+      "notes": "",
+      "batch_input_per_1m_usd": 0.5,
+      "batch_output_per_1m_usd": 2.5,
+      "cache_read_per_1m_usd": 0.1,
+      "cache_write_per_1m_usd": 1.25
     },
     {
       "provider": "Anthropic",
@@ -52,7 +64,11 @@
       "supports_function_calling": true,
       "is_reasoning": false,
       "tier": "performance",
-      "notes": ""
+      "notes": "",
+      "batch_input_per_1m_usd": 1.0,
+      "batch_output_per_1m_usd": 5.0,
+      "cache_read_per_1m_usd": 0.2,
+      "cache_write_per_1m_usd": 2.5
     },
     {
       "provider": "Anthropic",
@@ -65,7 +81,11 @@
       "supports_function_calling": true,
       "is_reasoning": false,
       "tier": "flagship",
-      "notes": ""
+      "notes": "",
+      "batch_input_per_1m_usd": 2.5,
+      "batch_output_per_1m_usd": 12.5,
+      "cache_read_per_1m_usd": 0.5,
+      "cache_write_per_1m_usd": 6.25
     },
     {
       "provider": "Anthropic",
@@ -78,7 +98,11 @@
       "supports_function_calling": true,
       "is_reasoning": false,
       "tier": "flagship",
-      "notes": ""
+      "notes": "",
+      "batch_input_per_1m_usd": 5.0,
+      "batch_output_per_1m_usd": 25.0,
+      "cache_read_per_1m_usd": 1.0,
+      "cache_write_per_1m_usd": 12.5
     },
     {
       "provider": "Cohere",
@@ -91,7 +115,11 @@
       "supports_function_calling": true,
       "is_reasoning": false,
       "tier": "efficient",
-      "notes": ""
+      "notes": "",
+      "batch_input_per_1m_usd": null,
+      "batch_output_per_1m_usd": null,
+      "cache_read_per_1m_usd": null,
+      "cache_write_per_1m_usd": null
     },
     {
       "provider": "Cohere",
@@ -104,7 +132,11 @@
       "supports_function_calling": true,
       "is_reasoning": false,
       "tier": "performance",
-      "notes": ""
+      "notes": "",
+      "batch_input_per_1m_usd": null,
+      "batch_output_per_1m_usd": null,
+      "cache_read_per_1m_usd": null,
+      "cache_write_per_1m_usd": null
     },
     {
       "provider": "Cohere",
@@ -117,7 +149,11 @@
       "supports_function_calling": true,
       "is_reasoning": false,
       "tier": "flagship",
-      "notes": ""
+      "notes": "",
+      "batch_input_per_1m_usd": null,
+      "batch_output_per_1m_usd": null,
+      "cache_read_per_1m_usd": null,
+      "cache_write_per_1m_usd": null
     },
     {
       "provider": "Fireworks AI",
@@ -130,7 +166,11 @@
       "supports_function_calling": true,
       "is_reasoning": false,
       "tier": "performance",
-      "notes": "Hosted open-source model (Meta)."
+      "notes": "Hosted open-source model (Meta).",
+      "batch_input_per_1m_usd": null,
+      "batch_output_per_1m_usd": null,
+      "cache_read_per_1m_usd": null,
+      "cache_write_per_1m_usd": null
     },
     {
       "provider": "Google",
@@ -143,7 +183,11 @@
       "supports_function_calling": true,
       "is_reasoning": false,
       "tier": "efficient",
-      "notes": ""
+      "notes": "",
+      "batch_input_per_1m_usd": null,
+      "batch_output_per_1m_usd": null,
+      "cache_read_per_1m_usd": null,
+      "cache_write_per_1m_usd": null
     },
     {
       "provider": "Google",
@@ -156,7 +200,11 @@
       "supports_function_calling": true,
       "is_reasoning": false,
       "tier": "performance",
-      "notes": ""
+      "notes": "",
+      "batch_input_per_1m_usd": null,
+      "batch_output_per_1m_usd": null,
+      "cache_read_per_1m_usd": null,
+      "cache_write_per_1m_usd": null
     },
     {
       "provider": "Google",
@@ -169,7 +217,11 @@
       "supports_function_calling": true,
       "is_reasoning": false,
       "tier": "flagship",
-      "notes": "Input $2.50/1M above 200K tokens; output $15.00/1M above 200K tokens."
+      "notes": "Input $2.50/1M above 200K tokens; output $15.00/1M above 200K tokens.",
+      "batch_input_per_1m_usd": null,
+      "batch_output_per_1m_usd": null,
+      "cache_read_per_1m_usd": null,
+      "cache_write_per_1m_usd": null
     },
     {
       "provider": "Mistral",
@@ -182,7 +234,11 @@
       "supports_function_calling": true,
       "is_reasoning": false,
       "tier": "efficient",
-      "notes": "Optimized for software engineering tasks."
+      "notes": "Optimized for software engineering tasks.",
+      "batch_input_per_1m_usd": null,
+      "batch_output_per_1m_usd": null,
+      "cache_read_per_1m_usd": null,
+      "cache_write_per_1m_usd": null
     },
     {
       "provider": "Mistral",
@@ -195,7 +251,11 @@
       "supports_function_calling": true,
       "is_reasoning": false,
       "tier": "efficient",
-      "notes": ""
+      "notes": "",
+      "batch_input_per_1m_usd": null,
+      "batch_output_per_1m_usd": null,
+      "cache_read_per_1m_usd": null,
+      "cache_write_per_1m_usd": null
     },
     {
       "provider": "Mistral",
@@ -208,7 +268,11 @@
       "supports_function_calling": true,
       "is_reasoning": false,
       "tier": "specialized",
-      "notes": "Optimized for code generation and completion."
+      "notes": "Optimized for code generation and completion.",
+      "batch_input_per_1m_usd": null,
+      "batch_output_per_1m_usd": null,
+      "cache_read_per_1m_usd": null,
+      "cache_write_per_1m_usd": null
     },
     {
       "provider": "Mistral",
@@ -221,7 +285,11 @@
       "supports_function_calling": true,
       "is_reasoning": false,
       "tier": "performance",
-      "notes": "Optimized for software engineering tasks."
+      "notes": "Optimized for software engineering tasks.",
+      "batch_input_per_1m_usd": null,
+      "batch_output_per_1m_usd": null,
+      "cache_read_per_1m_usd": null,
+      "cache_write_per_1m_usd": null
     },
     {
       "provider": "Mistral",
@@ -234,7 +302,11 @@
       "supports_function_calling": true,
       "is_reasoning": false,
       "tier": "performance",
-      "notes": ""
+      "notes": "",
+      "batch_input_per_1m_usd": null,
+      "batch_output_per_1m_usd": null,
+      "cache_read_per_1m_usd": null,
+      "cache_write_per_1m_usd": null
     },
     {
       "provider": "Mistral",
@@ -247,7 +319,11 @@
       "supports_function_calling": true,
       "is_reasoning": false,
       "tier": "flagship",
-      "notes": ""
+      "notes": "",
+      "batch_input_per_1m_usd": null,
+      "batch_output_per_1m_usd": null,
+      "cache_read_per_1m_usd": null,
+      "cache_write_per_1m_usd": null
     },
     {
       "provider": "OpenAI",
@@ -260,7 +336,11 @@
       "supports_function_calling": true,
       "is_reasoning": false,
       "tier": "efficient",
-      "notes": ""
+      "notes": "",
+      "batch_input_per_1m_usd": 0.075,
+      "batch_output_per_1m_usd": 0.3,
+      "cache_read_per_1m_usd": 0.075,
+      "cache_write_per_1m_usd": null
     },
     {
       "provider": "OpenAI",
@@ -273,7 +353,11 @@
       "supports_function_calling": true,
       "is_reasoning": false,
       "tier": "efficient",
-      "notes": ""
+      "notes": "",
+      "batch_input_per_1m_usd": 0.5,
+      "batch_output_per_1m_usd": 3.0,
+      "cache_read_per_1m_usd": 0.5,
+      "cache_write_per_1m_usd": null
     },
     {
       "provider": "OpenAI",
@@ -286,7 +370,11 @@
       "supports_function_calling": true,
       "is_reasoning": true,
       "tier": "efficient",
-      "notes": ""
+      "notes": "",
+      "batch_input_per_1m_usd": 0.55,
+      "batch_output_per_1m_usd": 2.2,
+      "cache_read_per_1m_usd": 0.55,
+      "cache_write_per_1m_usd": null
     },
     {
       "provider": "OpenAI",
@@ -299,7 +387,11 @@
       "supports_function_calling": true,
       "is_reasoning": true,
       "tier": "performance",
-      "notes": ""
+      "notes": "",
+      "batch_input_per_1m_usd": 1.0,
+      "batch_output_per_1m_usd": 4.0,
+      "cache_read_per_1m_usd": 1.0,
+      "cache_write_per_1m_usd": null
     },
     {
       "provider": "OpenAI",
@@ -312,7 +404,11 @@
       "supports_function_calling": true,
       "is_reasoning": false,
       "tier": "performance",
-      "notes": ""
+      "notes": "",
+      "batch_input_per_1m_usd": 1.25,
+      "batch_output_per_1m_usd": 5.0,
+      "cache_read_per_1m_usd": 1.25,
+      "cache_write_per_1m_usd": null
     },
     {
       "provider": "OpenAI",
@@ -325,7 +421,11 @@
       "supports_function_calling": true,
       "is_reasoning": false,
       "tier": "performance",
-      "notes": "Requests above 272K tokens charged at 2x input and 1.5x output."
+      "notes": "Requests above 272K tokens charged at 2x input and 1.5x output.",
+      "batch_input_per_1m_usd": 1.25,
+      "batch_output_per_1m_usd": 7.5,
+      "cache_read_per_1m_usd": 1.25,
+      "cache_write_per_1m_usd": null
     },
     {
       "provider": "OpenAI",
@@ -338,7 +438,11 @@
       "supports_function_calling": true,
       "is_reasoning": false,
       "tier": "flagship",
-      "notes": "Requests above 272K tokens charged at 2x input and 1.5x output."
+      "notes": "Requests above 272K tokens charged at 2x input and 1.5x output.",
+      "batch_input_per_1m_usd": 2.5,
+      "batch_output_per_1m_usd": 15.0,
+      "cache_read_per_1m_usd": 0.5,
+      "cache_write_per_1m_usd": null
     },
     {
       "provider": "Together AI",
@@ -351,7 +455,11 @@
       "supports_function_calling": true,
       "is_reasoning": false,
       "tier": "efficient",
-      "notes": "Hosted open-source model (Meta)."
+      "notes": "Hosted open-source model (Meta).",
+      "batch_input_per_1m_usd": null,
+      "batch_output_per_1m_usd": null,
+      "cache_read_per_1m_usd": null,
+      "cache_write_per_1m_usd": null
     },
     {
       "provider": "Together AI",
@@ -364,7 +472,11 @@
       "supports_function_calling": true,
       "is_reasoning": false,
       "tier": "performance",
-      "notes": "Hosted open-source model (DeepSeek)."
+      "notes": "Hosted open-source model (DeepSeek).",
+      "batch_input_per_1m_usd": null,
+      "batch_output_per_1m_usd": null,
+      "cache_read_per_1m_usd": null,
+      "cache_write_per_1m_usd": null
     }
   ]
 }

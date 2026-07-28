@@ -48,6 +48,40 @@ Prices in USD per 1 million tokens. Sorted by provider, then by input price.
 | Together AI | DeepSeek V3.1 | $0.60 | $1.70 | 128K | tools |
 <!-- PRICING_TABLE_END -->
 
+---
+
+## Batch and Cache Pricing
+
+Some providers offer discounted rates for asynchronous (batch) processing and prompt caching. Prices in USD per 1 million tokens.
+
+- **Batch**: requests are queued and processed asynchronously (typically within 24 hours) at ~50% off standard rates.
+- **Cache read**: tokens served from the prompt cache at a fraction of the standard input cost.
+- **Cache write**: tokens written to the cache, billed once at a slight premium over the standard input cost (Anthropic only).
+
+<!-- BATCH_CACHE_TABLE_START -->
+| Provider | Model | Batch Input ($/1M) | Batch Output ($/1M) | Cache Read ($/1M) | Cache Write ($/1M) |
+|----------|-------|:------------------:|:-------------------:|:-----------------:|:------------------:|
+| Anthropic | Claude Haiku 4.5 | $0.50 | $2.50 | $0.10 | $1.25 |
+| Anthropic | Claude Sonnet 5 | $1.00 | $5.00 | $0.20 | $2.50 |
+| Anthropic | Claude Opus 5 | $2.50 | $12.50 | $0.50 | $6.25 |
+| Anthropic | Claude Fable 5 | $5.00 | $25.00 | $1.00 | $12.50 |
+| OpenAI | GPT-4o mini | $0.07 | $0.30 | $0.07 | N/A |
+| OpenAI | GPT-5.6 Luna | $0.50 | $3.00 | $0.50 | N/A |
+| OpenAI | o4-mini | $0.55 | $2.20 | $0.55 | N/A |
+| OpenAI | o3 | $1.00 | $4.00 | $1.00 | N/A |
+| OpenAI | GPT-4o | $1.25 | $5.00 | $1.25 | N/A |
+| OpenAI | GPT-5.6 Terra | $1.25 | $7.50 | $1.25 | N/A |
+| OpenAI | GPT-5.6 Sol | $2.50 | $15.00 | $0.50 | N/A |
+<!-- BATCH_CACHE_TABLE_END -->
+
+> **Official batch and caching docs:**
+> [Anthropic batch](https://docs.anthropic.com/en/docs/build-with-claude/message-batches) -
+> [Anthropic caching](https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching) -
+> [OpenAI batch](https://platform.openai.com/docs/guides/batch) -
+> [OpenAI caching](https://platform.openai.com/docs/guides/prompt-caching)
+
+---
+
 > **Notes on specific models:**
 > - Gemini 2.5 Pro: input $2.50/1M and output $15.00/1M above 200K tokens.
 > - GPT-5.6 Sol and Terra: requests above 272K tokens charged at 2x input and 1.5x output.
@@ -105,6 +139,10 @@ Each entry in `models` contains:
 | `is_reasoning` | boolean | Whether the model is a reasoning (chain-of-thought) model |
 | `tier` | string | `efficient`, `performance`, `flagship`, or `specialized` |
 | `notes` | string | Any pricing caveats or special conditions |
+| `batch_input_per_1m_usd` | number or null | Batch input cost per 1M tokens (optional) |
+| `batch_output_per_1m_usd` | number or null | Batch output cost per 1M tokens (optional) |
+| `cache_read_per_1m_usd` | number or null | Prompt cache read cost per 1M tokens (optional) |
+| `cache_write_per_1m_usd` | number or null | Prompt cache write cost per 1M tokens (optional) |
 
 ---
 
@@ -148,7 +186,7 @@ A second workflow (`ci.yaml`) runs on every push and pull request to lint the sc
 ### Phase 2 - Expand
 
 - [x] Add providers: Cohere, Together AI, Fireworks AI, AI21 Labs
-- [ ] Add batch pricing and prompt caching columns
+- [x] Add batch pricing and prompt caching columns
 - [ ] Track price history with daily snapshots
 
 ### Phase 3 - Tooling

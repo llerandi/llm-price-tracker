@@ -20,6 +20,13 @@ REQUIRED_FIELDS: dict[str, type | tuple[type, ...]] = {
     "tier": str,
 }
 
+OPTIONAL_FIELDS: dict[str, type | tuple[type, ...]] = {
+    "batch_input_per_1m_usd": (int, float, type(None)),
+    "batch_output_per_1m_usd": (int, float, type(None)),
+    "cache_read_per_1m_usd": (int, float, type(None)),
+    "cache_write_per_1m_usd": (int, float, type(None)),
+}
+
 VALID_TIERS = {"efficient", "performance", "flagship", "specialized"}
 
 
@@ -52,7 +59,19 @@ def validate(data: dict) -> list[str]:
                     f"got {type(model[field]).__name__}."
                 )
 
-        for price_field in ("input_per_1m_usd", "output_per_1m_usd"):
+        for field, expected_type in OPTIONAL_FIELDS.items():
+            if field in model and not isinstance(model[field], expected_type):
+                errors.append(
+                    f"{prefix}: '{field}' should be {expected_type}, "
+                    f"got {type(model[field]).__name__}."
+                )
+
+        all_price_fields = (
+            "input_per_1m_usd", "output_per_1m_usd",
+            "batch_input_per_1m_usd", "batch_output_per_1m_usd",
+            "cache_read_per_1m_usd", "cache_write_per_1m_usd",
+        )
+        for price_field in all_price_fields:
             value = model.get(price_field)
             if value is not None and value < 0:
                 errors.append(f"{prefix}: '{price_field}' must be >= 0.")
