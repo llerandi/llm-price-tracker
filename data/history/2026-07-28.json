@@ -96,8 +96,8 @@
       "model_id": "gemini-2.5-flash-lite",
       "input_per_1m_usd": 0.1,
       "output_per_1m_usd": 0.4,
-      "batch_input_per_1m_usd": null,
-      "batch_output_per_1m_usd": null,
+      "batch_input_per_1m_usd": 0.05,
+      "batch_output_per_1m_usd": 0.2,
       "cache_read_per_1m_usd": 0.01,
       "cache_write_per_1m_usd": null
     },
@@ -126,8 +126,8 @@
       "model_id": "gemini-2.5-pro",
       "input_per_1m_usd": 1.25,
       "output_per_1m_usd": 10.0,
-      "batch_input_per_1m_usd": null,
-      "batch_output_per_1m_usd": null,
+      "batch_input_per_1m_usd": 0.625,
+      "batch_output_per_1m_usd": 5.0,
       "cache_read_per_1m_usd": 0.125,
       "cache_write_per_1m_usd": null
     },
@@ -289,7 +289,7 @@
       "batch_input_per_1m_usd": 1.25,
       "batch_output_per_1m_usd": 7.5,
       "cache_read_per_1m_usd": 1.25,
-      "cache_write_per_1m_usd": 3.125
+      "cache_write_per_1m_usd": 3.13
     },
     {
       "provider": "OpenAI",
