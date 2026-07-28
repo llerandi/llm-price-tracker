@@ -233,6 +233,20 @@ A second workflow (`ci.yaml`) runs on every push and pull request to lint the sc
 
 ---
 
+## Troubleshooting
+
+**The live site or badges show stale data after a push to main.**
+
+jsDelivr CDN caches files for a period after each push. To force a refresh:
+
+1. Purge the CDN cache by opening this URL in your browser:
+   ```
+   https://purge.jsdelivr.net/gh/llerandi/llm-price-tracker@main/data/prices.json
+   ```
+2. Hard-refresh the live site (`Ctrl+Shift+R` on Windows/Linux, `Cmd+Shift+R` on Mac).
+
+---
+
 ## Roadmap
 
 ### Phase 1 - Foundation
