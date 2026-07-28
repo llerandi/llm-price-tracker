@@ -6,8 +6,11 @@
 [![Last commit](https://img.shields.io/github/last-commit/llerandi/llm-price-tracker)](https://github.com/llerandi/llm-price-tracker/commits/main)
 [![Updated daily](https://img.shields.io/badge/last--updated-2026--07--28-brightgreen)](https://github.com/llerandi/llm-price-tracker/actions/workflows/update.yaml)
 [![Python](https://img.shields.io/badge/python-3.11%2B-blue?logo=python)](https://www.python.org/)
+[![Live site](https://img.shields.io/badge/live%20site-GitHub%20Pages-0969da)](https://llerandi.github.io/llm-price-tracker/)
 
 A daily-updated reference of LLM model pricing across all major providers. One source of truth for input/output token costs, context windows, and capabilities - structured as JSON so you can consume it programmatically.
+
+**Live site:** [llerandi.github.io/llm-price-tracker](https://llerandi.github.io/llm-price-tracker/) - sortable, filterable table updated daily.
 
 ---
 
@@ -192,7 +195,7 @@ A second workflow (`ci.yaml`) runs on every push and pull request to lint the sc
 
 ### Phase 3 - Tooling
 
-- [ ] GitHub Pages site with sortable and filterable table
+- [x] GitHub Pages site with sortable and filterable table
 - [ ] GitHub Issues alert when a price changes by more than 10%
 - [ ] Embeddable price badge for other repositories
 - [ ] REST-like endpoint via jsDelivr CDN with CORS support

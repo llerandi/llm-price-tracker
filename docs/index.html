@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LLM Price Tracker</title>
+  <meta name="description" content="Daily-updated LLM pricing across all major providers. Sortable, filterable, and available as JSON.">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --bg-alt: #f6f8fa;
+      --border: #d0d7de;
+      --text: #1f2328;
+      --text-muted: #57606a;
+      --primary: #0969da;
+      --header-bg: #1f2328;
+      --row-hover: #f6f8fa;
+      --pill-bg: #f1f3f5;
+      --pill-active: #0969da;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      font-size: 14px;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.5;
+    }
+    a { color: var(--primary); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    /* header */
+    header { background: var(--header-bg); color: #fff; padding: 20px 32px; }
+    header h1 { font-size: 20px; font-weight: 600; margin-bottom: 2px; }
+    header p { color: #8b949e; font-size: 13px; }
+    header a { color: #58a6ff; }
+
+    /* layout */
+    .container { max-width: 1200px; margin: 0 auto; padding: 24px; }
+
+    /* meta bar */
+    .meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      font-size: 13px;
+      color: var(--text-muted);
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    /* filters */
+    .filters {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      margin-bottom: 12px;
+    }
+    .search-box {
+      flex: 1;
+      min-width: 200px;
+      max-width: 320px;
+      padding: 7px 11px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 14px;
+      outline: none;
+    }
+    .search-box:focus {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(9,105,218,.12);
+    }
+    .pills { display: flex; gap: 6px; flex-wrap: wrap; }
+    .pill {
+      padding: 4px 11px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: var(--pill-bg);
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 500;
+      white-space: nowrap;
+      transition: all .12s;
+    }
+    .pill:hover { border-color: var(--primary); color: var(--primary); }
+    .pill.active { background: var(--pill-active); color: #fff; border-color: var(--pill-active); }
+
+    /* toggle */
+    .toggle-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 16px;
+      font-size: 13px;
+      color: var(--text-muted);
+      cursor: pointer;
+      user-select: none;
+    }
+    .toggle { position: relative; display: inline-block; width: 36px; height: 20px; flex-shrink: 0; }
+    .toggle input { opacity: 0; width: 0; height: 0; }
+    .slider {
+      position: absolute; inset: 0;
+      background: var(--border);
+      border-radius: 20px;
+      cursor: pointer;
+      transition: .18s;
+    }
+    .slider:before {
+      content: "";
+      position: absolute;
+      width: 14px; height: 14px;
+      left: 3px; bottom: 3px;
+      background: #fff;
+      border-radius: 50%;
+      transition: .18s;
+    }
+    .toggle input:checked + .slider { background: var(--primary); }
+    .toggle input:checked + .slider:before { transform: translateX(16px); }
+
+    /* section */
+    .section-title { font-size: 16px; font-weight: 600; margin: 32px 0 6px; }
+    .section-desc { color: var(--text-muted); font-size: 13px; margin-bottom: 14px; }
+
+    /* table */
+    .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 8px; }
+    table { width: 100%; border-collapse: collapse; }
+    th {
+      background: var(--bg-alt);
+      padding: 9px 13px;
+      text-align: left;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      color: var(--text-muted);
+      border-bottom: 1px solid var(--border);
+      white-space: nowrap;
+      cursor: pointer;
+      user-select: none;
+    }
+    th[data-col]:hover { color: var(--primary); }
+    th.sorted { color: var(--primary); }
+    .sort-icon { margin-left: 3px; opacity: .4; }
+    th.sorted .sort-icon { opacity: 1; }
+    td { padding: 8px 13px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+    tr:last-child td { border-bottom: none; }
+    tbody tr:hover td { background: var(--row-hover); }
+    .num { text-align: right; font-variant-numeric: tabular-nums; }
+    .center { text-align: center; }
+    .na { color: #bbbfc3; }
+
+    /* badges */
+    .cap {
+      display: inline-block;
+      padding: 1px 6px;
+      border-radius: 4px;
+      background: #ddf4ff;
+      color: #0550ae;
+      font-size: 11px;
+      margin: 0 1px;
+    }
+    .cap.reasoning { background: #fff8c5; color: #7d4e00; }
+    .tier-badge {
+      display: inline-block;
+      padding: 1px 7px;
+      border-radius: 10px;
+      font-size: 11px;
+      font-weight: 500;
+    }
+    .tier-efficient { background: #dafbe1; color: #116329; }
+    .tier-performance { background: #ddf4ff; color: #0550ae; }
+    .tier-flagship { background: #fff1e5; color: #953800; }
+    .tier-specialized { background: #f1f0ff; color: #5936b4; }
+
+    /* states */
+    .loading { padding: 64px; text-align: center; color: var(--text-muted); font-size: 15px; }
+    .empty { padding: 40px; text-align: center; color: var(--text-muted); }
+    .error-box {
+      padding: 16px 20px;
+      background: #ffebe9;
+      border: 1px solid #ffcecb;
+      border-radius: 8px;
+      color: #cf222e;
+      margin-bottom: 20px;
+    }
+
+    /* footer */
+    footer {
+      margin-top: 56px;
+      padding: 20px;
+      border-top: 1px solid var(--border);
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 600px) {
+      header { padding: 16px; }
+      .container { padding: 16px; }
+      .search-box { max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>LLM Price Tracker</h1>
+  <p>Daily-updated pricing across all major LLM providers.
+     Source: <a href="https://github.com/llerandi/llm-price-tracker">github.com/llerandi/llm-price-tracker</a></p>
+</header>
+
+<div class="container">
+  <div id="error-box" class="error-box" style="display:none"></div>
+  <div id="loading" class="loading">Loading pricing data...</div>
+
+  <div id="app" style="display:none">
+    <div class="meta">
+      <span>Last updated: <strong id="last-updated">-</strong></span>
+      <span>
+        <a href="https://cdn.jsdelivr.net/gh/llerandi/llm-price-tracker@main/data/prices.json" target="_blank">Raw JSON</a>
+        &nbsp;-&nbsp;
+        <a href="https://github.com/llerandi/llm-price-tracker" target="_blank">GitHub</a>
+      </span>
+    </div>
+
+    <div class="filters">
+      <input id="search" class="search-box" type="search" placeholder="Search provider or model...">
+      <div class="pills" id="provider-pills"></div>
+    </div>
+
+    <label class="toggle-row">
+      <span class="toggle">
+        <input type="checkbox" id="show-batch">
+        <span class="slider"></span>
+      </span>
+      Show batch and cache pricing
+    </label>
+
+    <h2 class="section-title">Standard Pricing</h2>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th data-col="provider" data-type="str">Provider <span class="sort-icon">↕</span></th>
+            <th data-col="model_name" data-type="str">Model <span class="sort-icon">↕</span></th>
+            <th data-col="input_per_1m_usd" data-type="num" class="num">Input $/1M <span class="sort-icon">↕</span></th>
+            <th data-col="output_per_1m_usd" data-type="num" class="num">Output $/1M <span class="sort-icon">↕</span></th>
+            <th data-col="context_window_k" data-type="num" class="num">Context <span class="sort-icon">↕</span></th>
+            <th data-col="tier" data-type="str" class="center">Tier <span class="sort-icon">↕</span></th>
+            <th class="center">Capabilities</th>
+          </tr>
+        </thead>
+        <tbody id="main-tbody"></tbody>
+      </table>
+    </div>
+
+    <div id="batch-section" style="display:none">
+      <h2 class="section-title">Batch and Cache Pricing</h2>
+      <p class="section-desc">
+        Batch requests are processed asynchronously (within 24 hours) at reduced rates.
+        Cache read prices apply to tokens served from the prompt cache.
+      </p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Provider</th>
+              <th>Model</th>
+              <th class="num">Batch Input $/1M</th>
+              <th class="num">Batch Output $/1M</th>
+              <th class="num">Cache Read $/1M</th>
+              <th class="num">Cache Write $/1M</th>
+            </tr>
+          </thead>
+          <tbody id="batch-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  Data updated daily via GitHub Actions -
+  <a href="https://github.com/llerandi/llm-price-tracker">GitHub</a> -
+  <a href="https://cdn.jsdelivr.net/gh/llerandi/llm-price-tracker@main/data/prices.json">JSON</a>
+</footer>
+
+<script>
+  const CDN_URL = "https://cdn.jsdelivr.net/gh/llerandi/llm-price-tracker@main/data/prices.json";
+
+  let models = [];
+  let sortCol = "provider";
+  let sortDir = 1;
+  let activeProvider = null;
+  let searchText = "";
+
+  async function init() {
+    try {
+      const res = await fetch(CDN_URL);
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      const data = await res.json();
+      models = data.models;
+      document.getElementById("last-updated").textContent = data.last_updated;
+      buildPills();
+      render();
+      document.getElementById("loading").style.display = "none";
+      document.getElementById("app").style.display = "";
+    } catch (e) {
+      document.getElementById("loading").style.display = "none";
+      const box = document.getElementById("error-box");
+      box.textContent = "Could not load pricing data: " + e.message + ". Try refreshing.";
+      box.style.display = "";
+    }
+  }
+
+  function buildPills() {
+    const providers = [...new Set(models.map(m => m.provider))].sort();
+    const container = document.getElementById("provider-pills");
+    [null, ...providers].forEach(p => {
+      const btn = document.createElement("button");
+      btn.className = "pill" + (p === null ? " active" : "");
+      btn.textContent = p === null ? "All" : p;
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".pill").forEach(el => el.classList.remove("active"));
+        btn.classList.add("active");
+        activeProvider = p;
+        render();
+      });
+      container.appendChild(btn);
+    });
+  }
+
+  function getVisible() {
+    return models.filter(m => {
+      if (activeProvider && m.provider !== activeProvider) return false;
+      if (searchText) {
+        const q = searchText.toLowerCase();
+        if (!m.provider.toLowerCase().includes(q) && !m.model_name.toLowerCase().includes(q)) return false;
+      }
+      return true;
+    });
+  }
+
+  function sortModels(list) {
+    return [...list].sort((a, b) => {
+      const av = a[sortCol], bv = b[sortCol];
+      if (av == null) return 1;
+      if (bv == null) return -1;
+      if (typeof av === "string") return sortDir * av.localeCompare(bv);
+      return sortDir * (av - bv);
+    });
+  }
+
+  function fmt(v, decimals = 2) {
+    if (v == null) return '<span class="na">-</span>';
+    return "$" + Number(v).toFixed(decimals);
+  }
+
+  function fmtCtx(k) {
+    if (k == null) return '<span class="na">-</span>';
+    return k >= 1000 ? (k / 1000) + "M" : k + "K";
+  }
+
+  function fmtCaps(m) {
+    const caps = [];
+    if (m.supports_vision) caps.push('<span class="cap">vision</span>');
+    if (m.supports_function_calling) caps.push('<span class="cap">tools</span>');
+    if (m.is_reasoning) caps.push('<span class="cap reasoning">reasoning</span>');
+    return caps.length ? caps.join("") : '<span class="na">-</span>';
+  }
+
+  function fmtTier(t) {
+    return `<span class="tier-badge tier-${t}">${t}</span>`;
+  }
+
+  function render() {
+    const visible = sortModels(getVisible());
+    renderMain(visible);
+    renderBatch(visible);
+    syncSortHeaders();
+  }
+
+  function renderMain(visible) {
+    const tbody = document.getElementById("main-tbody");
+    if (!visible.length) {
+      tbody.innerHTML = '<tr><td colspan="7" class="empty">No models match your filter.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = visible.map(m => `
+      <tr>
+        <td>${m.provider}</td>
+        <td>${m.model_name}</td>
+        <td class="num">${fmt(m.input_per_1m_usd)}</td>
+        <td class="num">${fmt(m.output_per_1m_usd)}</td>
+        <td class="num">${fmtCtx(m.context_window_k)}</td>
+        <td class="center">${fmtTier(m.tier)}</td>
+        <td class="center">${fmtCaps(m)}</td>
+      </tr>`).join("");
+  }
+
+  function renderBatch(visible) {
+    const hasBatchOrCache = m =>
+      m.batch_input_per_1m_usd != null || m.cache_read_per_1m_usd != null;
+    const rows = visible.filter(hasBatchOrCache);
+    const tbody = document.getElementById("batch-tbody");
+    if (!rows.length) {
+      tbody.innerHTML = '<tr><td colspan="6" class="empty">No batch or cache data for the current filter.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = rows.map(m => `
+      <tr>
+        <td>${m.provider}</td>
+        <td>${m.model_name}</td>
+        <td class="num">${fmt(m.batch_input_per_1m_usd)}</td>
+        <td class="num">${fmt(m.batch_output_per_1m_usd)}</td>
+        <td class="num">${fmt(m.cache_read_per_1m_usd)}</td>
+        <td class="num">${fmt(m.cache_write_per_1m_usd)}</td>
+      </tr>`).join("");
+  }
+
+  function syncSortHeaders() {
+    document.querySelectorAll("th[data-col]").forEach(th => {
+      const icon = th.querySelector(".sort-icon");
+      if (th.dataset.col === sortCol) {
+        th.classList.add("sorted");
+        icon.textContent = sortDir === 1 ? " ↑" : " ↓";
+      } else {
+        th.classList.remove("sorted");
+        icon.textContent = " ↕";
+      }
+    });
+  }
+
+  // sort headers
+  document.querySelectorAll("th[data-col]").forEach(th => {
+    th.addEventListener("click", () => {
+      if (sortCol === th.dataset.col) sortDir *= -1;
+      else { sortCol = th.dataset.col; sortDir = 1; }
+      render();
+    });
+  });
+
+  // search
+  document.getElementById("search").addEventListener("input", e => {
+    searchText = e.target.value.trim();
+    render();
+  });
+
+  // batch toggle
+  document.getElementById("show-batch").addEventListener("change", e => {
+    document.getElementById("batch-section").style.display = e.target.checked ? "" : "none";
+  });
+
+  init();
+</script>
+</body>
+</html>
