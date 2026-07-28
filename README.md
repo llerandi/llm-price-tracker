@@ -21,7 +21,6 @@ Prices in USD per 1 million tokens. Sorted by provider, then by input price.
 <!-- PRICING_TABLE_START -->
 | Provider | Model | Input ($/1M) | Output ($/1M) | Context | Capabilities |
 |----------|-------|:------------:|:-------------:|:-------:|:------------:|
-| AI21 Labs | Jamba 1.5 Mini | $0.20 | $0.40 | 256K | tools |
 | AI21 Labs | Jamba 1.7 Large | $2.00 | $8.00 | 256K | tools |
 | Anthropic | Claude Haiku 4.5 | $1.00 | $5.00 | 200K | vision, tools |
 | Anthropic | Claude Sonnet 5 | $2.00 | $10.00 | 200K | vision, tools |
@@ -30,23 +29,29 @@ Prices in USD per 1 million tokens. Sorted by provider, then by input price.
 | Cohere | Command R7B | $0.04 | $0.15 | 128K | tools |
 | Cohere | Command R | $0.15 | $0.60 | 128K | tools |
 | Cohere | Command R+ | $2.50 | $10.00 | 128K | tools |
-| Fireworks AI | Llama 3.1 70B | $0.90 | $0.90 | 128K | tools |
+| Fireworks AI | DeepSeek V4 Flash | $0.14 | $0.28 | 128K | tools |
 | Google | Gemini 2.5 Flash Lite | $0.10 | $0.40 | 1M | vision, tools |
-| Google | Gemini 2.5 Flash | $0.15 | $1.25 | 1M | vision, tools |
-| Google | Gemini 2.5 Pro | $1.00 | $10.00 | 2M | vision, tools |
+| Google | Gemini 2.5 Flash | $0.30 | $2.50 | 1M | vision, tools, reasoning |
+| Google | Gemini 3.5 Flash-Lite | $0.30 | $2.50 | 1M | vision, tools |
+| Google | Gemini 2.5 Pro | $1.25 | $10.00 | 2M | vision, tools |
+| Google | Gemini 3.5 Flash | $1.50 | $9.00 | 1M | vision, tools, reasoning |
+| Google | Gemini 3.6 Flash | $1.50 | $7.50 | 1M | vision, tools, reasoning |
 | Mistral | Devstral Small 2 | $0.10 | $0.30 | 128K | tools |
 | Mistral | Mistral Small 4 | $0.15 | $0.60 | 128K | tools |
 | Mistral | Codestral | $0.30 | $0.90 | 256K | tools |
 | Mistral | Devstral Medium 2 | $0.40 | $2.00 | 128K | tools |
 | Mistral | Mistral Large 3 | $0.50 | $1.50 | 128K | tools |
 | Mistral | Mistral Medium 3.5 | $1.50 | $7.50 | 128K | tools |
-| OpenAI | GPT-4o mini | $0.15 | $0.60 | 128K | vision, tools |
+| OpenAI | GPT-5 Nano | $0.05 | $0.40 | 32K | tools |
+| OpenAI | GPT-4.1 Nano | $0.10 | $0.40 | 1M | vision, tools |
+| OpenAI | GPT-4.1 Mini | $0.40 | $1.60 | 1M | vision, tools |
 | OpenAI | GPT-5.6 Luna | $1.00 | $6.00 | 272K | vision, tools |
 | OpenAI | o4-mini | $1.10 | $4.40 | 200K | tools, reasoning |
 | OpenAI | o3 | $2.00 | $8.00 | 200K | tools, reasoning |
-| OpenAI | GPT-4o | $2.50 | $10.00 | 128K | vision, tools |
+| OpenAI | GPT-4.1 | $2.00 | $8.00 | 1M | vision, tools |
 | OpenAI | GPT-5.6 Terra | $2.50 | $15.00 | 272K | vision, tools |
 | OpenAI | GPT-5.6 Sol | $5.00 | $30.00 | 272K | vision, tools |
+| OpenAI | GPT-5.5 | $5.00 | $30.00 | 272K | vision, tools |
 | Together AI | Llama 4 Scout | $0.18 | $0.59 | 128K | vision, tools |
 | Together AI | DeepSeek V3.1 | $0.60 | $1.70 | 128K | tools |
 <!-- PRICING_TABLE_END -->
@@ -59,7 +64,7 @@ Some providers offer discounted rates for asynchronous (batch) processing and pr
 
 - **Batch**: requests are queued and processed asynchronously (typically within 24 hours) at ~50% off standard rates.
 - **Cache read**: tokens served from the prompt cache at a fraction of the standard input cost.
-- **Cache write**: tokens written to the cache, billed once at a slight premium over the standard input cost (Anthropic only).
+- **Cache write**: tokens written to the cache, billed once at a slight premium over the standard input cost (Anthropic and GPT-5.6 models).
 
 <!-- BATCH_CACHE_TABLE_START -->
 | Provider | Model | Batch Input ($/1M) | Batch Output ($/1M) | Cache Read ($/1M) | Cache Write ($/1M) |
@@ -68,13 +73,23 @@ Some providers offer discounted rates for asynchronous (batch) processing and pr
 | Anthropic | Claude Sonnet 5 | $1.00 | $5.00 | $0.20 | $2.50 |
 | Anthropic | Claude Opus 5 | $2.50 | $12.50 | $0.50 | $6.25 |
 | Anthropic | Claude Fable 5 | $5.00 | $25.00 | $1.00 | $12.50 |
-| OpenAI | GPT-4o mini | $0.07 | $0.30 | $0.07 | N/A |
-| OpenAI | GPT-5.6 Luna | $0.50 | $3.00 | $0.50 | N/A |
+| Fireworks AI | DeepSeek V4 Flash | $0.07 | $0.14 | $0.07 | N/A |
+| Google | Gemini 2.5 Flash Lite | $0.05 | $0.20 | $0.01 | N/A |
+| Google | Gemini 2.5 Flash | $0.15 | $1.25 | $0.03 | N/A |
+| Google | Gemini 3.5 Flash-Lite | $0.15 | $1.25 | N/A | N/A |
+| Google | Gemini 2.5 Pro | $0.62 | $5.00 | $0.12 | N/A |
+| Google | Gemini 3.5 Flash | $0.75 | $4.50 | N/A | N/A |
+| Google | Gemini 3.6 Flash | $0.75 | $3.75 | N/A | N/A |
+| OpenAI | GPT-5 Nano | $0.03 | $0.20 | $0.01 | N/A |
+| OpenAI | GPT-4.1 Nano | $0.05 | $0.20 | $0.03 | N/A |
+| OpenAI | GPT-4.1 Mini | $0.20 | $0.80 | $0.10 | N/A |
+| OpenAI | GPT-5.6 Luna | $0.50 | $3.00 | $0.50 | $1.25 |
 | OpenAI | o4-mini | $0.55 | $2.20 | $0.55 | N/A |
 | OpenAI | o3 | $1.00 | $4.00 | $1.00 | N/A |
-| OpenAI | GPT-4o | $1.25 | $5.00 | $1.25 | N/A |
-| OpenAI | GPT-5.6 Terra | $1.25 | $7.50 | $1.25 | N/A |
-| OpenAI | GPT-5.6 Sol | $2.50 | $15.00 | $0.50 | N/A |
+| OpenAI | GPT-4.1 | $1.00 | $4.00 | $0.50 | N/A |
+| OpenAI | GPT-5.6 Terra | $1.25 | $7.50 | $1.25 | $3.13 |
+| OpenAI | GPT-5.6 Sol | $2.50 | $15.00 | $0.50 | $6.25 |
+| OpenAI | GPT-5.5 | $2.50 | $15.00 | $0.50 | N/A |
 <!-- BATCH_CACHE_TABLE_END -->
 
 > **Official batch and caching docs:**
@@ -87,7 +102,7 @@ Some providers offer discounted rates for asynchronous (batch) processing and pr
 
 > **Notes on specific models:**
 > - Gemini 2.5 Pro: input $2.50/1M and output $15.00/1M above 200K tokens.
-> - GPT-5.6 Sol and Terra: requests above 272K tokens charged at 2x input and 1.5x output.
+> - GPT-5.6 Sol, Terra, and Luna: requests above 272K tokens charged at 2x input and 1.5x output.
 >
 > **Official pricing pages:**
 > [AI21 Labs](https://docs.ai21.com/docs/usage-cost) -
