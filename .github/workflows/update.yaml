@@ -57,3 +57,35 @@ jobs:
           git add data/prices.json data/history/ data/badges/ data/providers/ README.md
           git diff --staged --quiet || git commit -m "chore: update prices and snapshot [skip ci]"
           git push
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: update
+    runs-on: ubuntu-latest
+    concurrency:
+      group: pages
+      cancel-in-progress: true
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    permissions:
+      pages: write
+      id-token: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs/
+
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
