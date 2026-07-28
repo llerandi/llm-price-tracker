@@ -41,8 +41,21 @@ def main() -> None:
     BADGES_DIR.mkdir(parents=True, exist_ok=True)
 
     data: dict = json.loads(PRICES_FILE.read_text(encoding="utf-8"))
-    count = 0
 
+    # Build the set of expected filenames so we can remove stale files.
+    expected: set[str] = set()
+    for model in data["models"]:
+        file_id = slug(model["model_id"])
+        for _, suffix in FIELDS:
+            expected.add(f"{file_id}-{suffix}.json")
+
+    removed = 0
+    for existing in BADGES_DIR.glob("*.json"):
+        if existing.name != ".gitkeep" and existing.name not in expected:
+            existing.unlink()
+            removed += 1
+
+    count = 0
     for model in data["models"]:
         model_id: str = model["model_id"]
         file_id = slug(model_id)
@@ -62,6 +75,8 @@ def main() -> None:
             )
             count += 1
 
+    if removed:
+        print(f"Removed {removed} stale badge file(s).")
     print(f"Generated {count} badge files for {len(data['models'])} models.")
 
 
