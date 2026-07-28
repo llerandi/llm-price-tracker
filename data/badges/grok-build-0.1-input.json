@@ -1,0 +1,6 @@
+{
+  "schemaVersion": 1,
+  "label": "Grok Build 0.1 input",
+  "message": "$1.00/1M",
+  "color": "blueviolet"
+}

@@ -1,0 +1,41 @@
+{
+  "provider": "xAI",
+  "last_updated": "2026-07-28",
+  "model_count": 2,
+  "models": [
+    {
+      "provider": "xAI",
+      "model_id": "grok-build-0.1",
+      "model_name": "Grok Build 0.1",
+      "input_per_1m_usd": 1.0,
+      "output_per_1m_usd": 2.0,
+      "context_window_k": 256,
+      "supports_vision": false,
+      "supports_function_calling": true,
+      "is_reasoning": false,
+      "tier": "specialized",
+      "notes": "Optimized for agentic coding tasks.",
+      "batch_input_per_1m_usd": null,
+      "batch_output_per_1m_usd": null,
+      "cache_read_per_1m_usd": null,
+      "cache_write_per_1m_usd": null
+    },
+    {
+      "provider": "xAI",
+      "model_id": "grok-4.3",
+      "model_name": "Grok 4.3",
+      "input_per_1m_usd": 1.25,
+      "output_per_1m_usd": 2.5,
+      "context_window_k": 1000,
+      "supports_vision": true,
+      "supports_function_calling": true,
+      "is_reasoning": true,
+      "tier": "performance",
+      "notes": "Supports non-reasoning and reasoning modes.",
+      "batch_input_per_1m_usd": null,
+      "batch_output_per_1m_usd": null,
+      "cache_read_per_1m_usd": 0.2,
+      "cache_write_per_1m_usd": null
+    }
+  ]
+}
