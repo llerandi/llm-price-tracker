@@ -25,10 +25,13 @@ jobs:
       - name: Run update script
         run: python scripts/update_prices.py
 
+      - name: Write daily snapshot
+        run: python scripts/snapshot.py
+
       - name: Commit changes if any
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/prices.json README.md
-          git diff --staged --quiet || git commit -m "chore: update prices and table [skip ci]"
+          git add data/prices.json data/history/ README.md
+          git diff --staged --quiet || git commit -m "chore: update prices and snapshot [skip ci]"
           git push
