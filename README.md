@@ -270,6 +270,19 @@ jsDelivr CDN caches files for a period after each push. To force a refresh:
 - [x] Embeddable price badge for other repositories
 - [x] REST-like endpoint via jsDelivr CDN with CORS support
 
+### Phase 4 - Insights
+
+- [ ] Price history chart on the live site (visualize changes over time per model)
+- [ ] Auto-generated changelog: markdown summary of price changes by date
+- [ ] Cost calculator on the live site (tokens x price = estimated cost)
+- [ ] Add providers: xAI (Grok), Perplexity, AWS Bedrock
+
+### Phase 5 - Community
+
+- [ ] Automated price verification: script that cross-checks prices against official pages
+- [ ] Support for multiple currencies (EUR, GBP) on the live site
+- [ ] npm / PyPI package wrapping the jsDelivr JSON endpoint
+
 ---
 
 ## License
