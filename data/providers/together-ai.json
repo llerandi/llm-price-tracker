@@ -1,0 +1,41 @@
+{
+  "provider": "Together AI",
+  "last_updated": "2026-07-28",
+  "model_count": 2,
+  "models": [
+    {
+      "provider": "Together AI",
+      "model_id": "meta-llama/Llama-4-Scout-17B-16E-Instruct",
+      "model_name": "Llama 4 Scout",
+      "input_per_1m_usd": 0.18,
+      "output_per_1m_usd": 0.59,
+      "context_window_k": 128,
+      "supports_vision": true,
+      "supports_function_calling": true,
+      "is_reasoning": false,
+      "tier": "efficient",
+      "notes": "Hosted open-source model (Meta).",
+      "batch_input_per_1m_usd": null,
+      "batch_output_per_1m_usd": null,
+      "cache_read_per_1m_usd": null,
+      "cache_write_per_1m_usd": null
+    },
+    {
+      "provider": "Together AI",
+      "model_id": "deepseek-ai/DeepSeek-V3-1",
+      "model_name": "DeepSeek V3.1",
+      "input_per_1m_usd": 0.6,
+      "output_per_1m_usd": 1.7,
+      "context_window_k": 128,
+      "supports_vision": false,
+      "supports_function_calling": true,
+      "is_reasoning": false,
+      "tier": "performance",
+      "notes": "Hosted open-source model (DeepSeek).",
+      "batch_input_per_1m_usd": null,
+      "batch_output_per_1m_usd": null,
+      "cache_read_per_1m_usd": null,
+      "cache_write_per_1m_usd": null
+    }
+  ]
+}

@@ -125,28 +125,45 @@ Use the [live site](https://llerandi.github.io/llm-price-tracker/) to browse all
 
 ---
 
-## Use the Data Programmatically
+## API Reference
 
-The `data/prices.json` file is the single source of truth. You can fetch it directly via jsDelivr CDN for zero-latency access:
+All endpoints are static JSON files served via jsDelivr CDN with full CORS support (`Access-Control-Allow-Origin: *`). No API key required. Updated daily.
 
-```
-https://cdn.jsdelivr.net/gh/llerandi/llm-price-tracker@main/data/prices.json
-```
+**Base URL:** `https://cdn.jsdelivr.net/gh/llerandi/llm-price-tracker@main`
 
-Example - fetch and filter in Python:
+| Endpoint | Description |
+|----------|-------------|
+| `/data/prices.json` | All models from all providers |
+| `/data/providers/{provider}.json` | Models for a single provider (e.g. `anthropic`, `openai`, `google`, `mistral`, `cohere`, `together-ai`, `fireworks-ai`, `ai21-labs`) |
+| `/data/history/YYYY-MM-DD.json` | Price snapshot for a given date |
+| `/data/badges/{model-id}-input.json` | shields.io endpoint badge for input price |
+| `/data/badges/{model-id}-output.json` | shields.io endpoint badge for output price |
+
+Model IDs that contain `/` (Fireworks AI, Together AI) use `-` in filenames.
+
+**Example - fetch all models and filter by price (Python):**
 
 ```python
 import urllib.request
 import json
 
-url = "https://cdn.jsdelivr.net/gh/llerandi/llm-price-tracker@main/data/prices.json"
-with urllib.request.urlopen(url) as r:
+BASE = "https://cdn.jsdelivr.net/gh/llerandi/llm-price-tracker@main"
+
+with urllib.request.urlopen(f"{BASE}/data/prices.json") as r:
     data = json.load(r)
 
-# Find all models under $1/1M input
 cheap = [m for m in data["models"] if (m["input_per_1m_usd"] or 999) < 1.0]
 for m in cheap:
     print(f"{m['provider']} {m['model_name']}: ${m['input_per_1m_usd']}/1M input")
+```
+
+**Example - fetch a single provider (JavaScript):**
+
+```js
+const res = await fetch(
+  "https://cdn.jsdelivr.net/gh/llerandi/llm-price-tracker@main/data/providers/anthropic.json"
+);
+const { models } = await res.json();
 ```
 
 ### JSON Schema
@@ -222,7 +239,7 @@ A second workflow (`ci.yaml`) runs on every push and pull request to lint the sc
 - [x] GitHub Pages site with sortable and filterable table
 - [x] GitHub Issues alert when a price changes by more than 10%
 - [x] Embeddable price badge for other repositories
-- [ ] REST-like endpoint via jsDelivr CDN with CORS support
+- [x] REST-like endpoint via jsDelivr CDN with CORS support
 
 ---
 
