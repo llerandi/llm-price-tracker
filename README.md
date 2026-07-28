@@ -169,6 +169,7 @@ All endpoints are static JSON files served via jsDelivr CDN with full CORS suppo
 | `/data/prices.json` | All models from all providers |
 | `/data/providers/{provider}.json` | Models for a single provider (e.g. `anthropic`, `openai`, `google`, `mistral`, `cohere`, `together-ai`, `fireworks-ai`, `ai21-labs`, `xai`, `perplexity`, `amazon-bedrock`) |
 | `/data/history/YYYY-MM-DD.json` | Price snapshot for a given date |
+| `/data/changelog.md` | All price changes and model additions/removals, newest first |
 | `/data/badges/{model-id}-input.json` | shields.io endpoint badge for input price |
 | `/data/badges/{model-id}-output.json` | shields.io endpoint badge for output price |
 
