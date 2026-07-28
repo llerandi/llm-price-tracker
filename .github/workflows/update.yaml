@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      issues: write
 
     steps:
       - name: Checkout
@@ -27,6 +28,21 @@ jobs:
 
       - name: Write daily snapshot
         run: python scripts/snapshot.py
+
+      - name: Detect price changes
+        id: detect
+        env:
+          SUMMARY_FILE: /tmp/price_changes.md
+        run: python scripts/detect_changes.py >> $GITHUB_OUTPUT
+
+      - name: Open issue for price changes
+        if: steps.detect.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh issue create \
+            --title "Price changes detected on $(date +%Y-%m-%d)" \
+            --body-file /tmp/price_changes.md
 
       - name: Commit changes if any
         run: |
