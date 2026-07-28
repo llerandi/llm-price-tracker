@@ -1,0 +1,58 @@
+{
+  "provider": "Perplexity",
+  "last_updated": "2026-07-28",
+  "model_count": 3,
+  "models": [
+    {
+      "provider": "Perplexity",
+      "model_id": "sonar",
+      "model_name": "Sonar",
+      "input_per_1m_usd": 1.0,
+      "output_per_1m_usd": 1.0,
+      "context_window_k": 128,
+      "supports_vision": false,
+      "supports_function_calling": false,
+      "is_reasoning": false,
+      "tier": "efficient",
+      "notes": "Online search model. Additional $5-12/1K request fee applies.",
+      "batch_input_per_1m_usd": null,
+      "batch_output_per_1m_usd": null,
+      "cache_read_per_1m_usd": null,
+      "cache_write_per_1m_usd": null
+    },
+    {
+      "provider": "Perplexity",
+      "model_id": "sonar-reasoning-pro",
+      "model_name": "Sonar Reasoning Pro",
+      "input_per_1m_usd": 2.0,
+      "output_per_1m_usd": 8.0,
+      "context_window_k": 128,
+      "supports_vision": false,
+      "supports_function_calling": false,
+      "is_reasoning": true,
+      "tier": "performance",
+      "notes": "Online search model with reasoning. Additional $6-14/1K request fee applies.",
+      "batch_input_per_1m_usd": null,
+      "batch_output_per_1m_usd": null,
+      "cache_read_per_1m_usd": null,
+      "cache_write_per_1m_usd": null
+    },
+    {
+      "provider": "Perplexity",
+      "model_id": "sonar-pro",
+      "model_name": "Sonar Pro",
+      "input_per_1m_usd": 3.0,
+      "output_per_1m_usd": 15.0,
+      "context_window_k": 200,
+      "supports_vision": false,
+      "supports_function_calling": false,
+      "is_reasoning": false,
+      "tier": "flagship",
+      "notes": "Online search model. Additional $6-14/1K request fee applies.",
+      "batch_input_per_1m_usd": null,
+      "batch_output_per_1m_usd": null,
+      "cache_read_per_1m_usd": null,
+      "cache_write_per_1m_usd": null
+    }
+  ]
+}

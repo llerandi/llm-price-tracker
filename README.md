@@ -22,6 +22,10 @@ Prices in USD per 1 million tokens. Sorted by provider, then by input price.
 | Provider | Model | Input ($/1M) | Output ($/1M) | Context | Capabilities |
 |----------|-------|:------------:|:-------------:|:-------:|:------------:|
 | AI21 Labs | Jamba 1.7 Large | $2.00 | $8.00 | 256K | tools |
+| Amazon Bedrock | Nova Micro | $0.04 | $0.14 | 128K | tools |
+| Amazon Bedrock | Nova Lite | $0.06 | $0.24 | 300K | vision, tools |
+| Amazon Bedrock | Nova Pro | $0.80 | $3.20 | 300K | vision, tools |
+| Amazon Bedrock | Nova Premier | $2.00 | $8.00 | 1M | vision, tools |
 | Anthropic | Claude Haiku 4.5 | $1.00 | $5.00 | 200K | vision, tools |
 | Anthropic | Claude Sonnet 5 | $2.00 | $10.00 | 200K | vision, tools |
 | Anthropic | Claude Opus 5 | $5.00 | $25.00 | 200K | vision, tools |
@@ -52,8 +56,13 @@ Prices in USD per 1 million tokens. Sorted by provider, then by input price.
 | OpenAI | GPT-5.6 Terra | $2.50 | $15.00 | 272K | vision, tools |
 | OpenAI | GPT-5.6 Sol | $5.00 | $30.00 | 272K | vision, tools |
 | OpenAI | GPT-5.5 | $5.00 | $30.00 | 272K | vision, tools |
+| Perplexity | Sonar | $1.00 | $1.00 | 128K | - |
+| Perplexity | Sonar Reasoning Pro | $2.00 | $8.00 | 128K | reasoning |
+| Perplexity | Sonar Pro | $3.00 | $15.00 | 200K | - |
 | Together AI | Llama 4 Scout | $0.18 | $0.59 | 128K | vision, tools |
 | Together AI | DeepSeek V3.1 | $0.60 | $1.70 | 128K | tools |
+| xAI | Grok Build 0.1 | $1.00 | $2.00 | 256K | tools |
+| xAI | Grok 4.3 | $1.25 | $2.50 | 1M | vision, tools, reasoning |
 <!-- PRICING_TABLE_END -->
 
 ---
@@ -69,6 +78,10 @@ Some providers offer discounted rates for asynchronous (batch) processing and pr
 <!-- BATCH_CACHE_TABLE_START -->
 | Provider | Model | Batch Input ($/1M) | Batch Output ($/1M) | Cache Read ($/1M) | Cache Write ($/1M) |
 |----------|-------|:------------------:|:-------------------:|:-----------------:|:------------------:|
+| Amazon Bedrock | Nova Micro | $0.02 | $0.07 | N/A | N/A |
+| Amazon Bedrock | Nova Lite | $0.03 | $0.12 | N/A | N/A |
+| Amazon Bedrock | Nova Pro | $0.40 | $1.60 | N/A | N/A |
+| Amazon Bedrock | Nova Premier | $1.00 | $4.00 | N/A | N/A |
 | Anthropic | Claude Haiku 4.5 | $0.50 | $2.50 | $0.10 | $1.25 |
 | Anthropic | Claude Sonnet 5 | $1.00 | $5.00 | $0.20 | $2.50 |
 | Anthropic | Claude Opus 5 | $2.50 | $12.50 | $0.50 | $6.25 |
@@ -90,6 +103,7 @@ Some providers offer discounted rates for asynchronous (batch) processing and pr
 | OpenAI | GPT-5.6 Terra | $1.25 | $7.50 | $1.25 | $3.13 |
 | OpenAI | GPT-5.6 Sol | $2.50 | $15.00 | $0.50 | $6.25 |
 | OpenAI | GPT-5.5 | $2.50 | $15.00 | $0.50 | N/A |
+| xAI | Grok 4.3 | N/A | N/A | $0.20 | N/A |
 <!-- BATCH_CACHE_TABLE_END -->
 
 > **Official batch and caching docs:**
@@ -103,16 +117,20 @@ Some providers offer discounted rates for asynchronous (batch) processing and pr
 > **Notes on specific models:**
 > - Gemini 2.5 Pro: input $2.50/1M and output $15.00/1M above 200K tokens.
 > - GPT-5.6 Sol, Terra, and Luna: requests above 272K tokens charged at 2x input and 1.5x output.
+> - Perplexity Sonar models: token prices above exclude a per-request fee of $5-14/1K requests (varies by search context size).
 >
 > **Official pricing pages:**
 > [AI21 Labs](https://docs.ai21.com/docs/usage-cost) -
+> [Amazon Bedrock](https://aws.amazon.com/bedrock/pricing/) -
 > [Anthropic](https://www.anthropic.com/pricing) -
 > [Cohere](https://cohere.com/pricing) -
 > [Fireworks AI](https://fireworks.ai/pricing) -
 > [Google](https://ai.google.dev/pricing) -
 > [Mistral](https://mistral.ai/technology/#pricing) -
 > [OpenAI](https://platform.openai.com/pricing) -
-> [Together AI](https://www.together.ai/pricing)
+> [Perplexity](https://docs.perplexity.ai/docs/getting-started/pricing) -
+> [Together AI](https://www.together.ai/pricing) -
+> [xAI](https://x.ai/api)
 
 ---
 
@@ -149,7 +167,7 @@ All endpoints are static JSON files served via jsDelivr CDN with full CORS suppo
 | Endpoint | Description |
 |----------|-------------|
 | `/data/prices.json` | All models from all providers |
-| `/data/providers/{provider}.json` | Models for a single provider (e.g. `anthropic`, `openai`, `google`, `mistral`, `cohere`, `together-ai`, `fireworks-ai`, `ai21-labs`) |
+| `/data/providers/{provider}.json` | Models for a single provider (e.g. `anthropic`, `openai`, `google`, `mistral`, `cohere`, `together-ai`, `fireworks-ai`, `ai21-labs`, `xai`, `perplexity`, `amazon-bedrock`) |
 | `/data/history/YYYY-MM-DD.json` | Price snapshot for a given date |
 | `/data/badges/{model-id}-input.json` | shields.io endpoint badge for input price |
 | `/data/badges/{model-id}-output.json` | shields.io endpoint badge for output price |
