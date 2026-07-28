@@ -47,8 +47,10 @@ def build_summary(
     lines = [
         f"## Price changes detected: {date_prev} to {date_curr}",
         "",
-        f"The following prices changed by more than {int(THRESHOLD * 100)}% "
-        "since the previous daily snapshot.",
+        (
+            f"The following prices changed by more than {int(THRESHOLD * 100)}% "
+            "since the previous daily snapshot."
+        ),
         "",
     ]
 
@@ -82,7 +84,7 @@ def build_summary(
     lines += [
         "---",
         "_Opened automatically by the daily update workflow._",
-        f"_Source: [data/prices.json](https://github.com/llerandi/llm-price-tracker/blob/main/data/prices.json)_",
+        "_Source: [data/prices.json](https://github.com/llerandi/llm-price-tracker/blob/main/data/prices.json)_",
     ]
 
     return "\n".join(lines)
