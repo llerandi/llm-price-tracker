@@ -1,10 +1,10 @@
 # llm-price-tracker
 
-[![CI](https://img.shields.io/github/actions/workflow/status/edullerandi/llm-price-tracker/ci.yaml?label=CI&logo=github)](https://github.com/edullerandi/llm-price-tracker/actions/workflows/ci.yaml)
-[![License](https://img.shields.io/github/license/edullerandi/llm-price-tracker)](LICENSE)
-[![Stars](https://img.shields.io/github/stars/edullerandi/llm-price-tracker?style=social)](https://github.com/edullerandi/llm-price-tracker/stargazers)
-[![Last commit](https://img.shields.io/github/last-commit/edullerandi/llm-price-tracker)](https://github.com/edullerandi/llm-price-tracker/commits/main)
-[![Updated daily](https://img.shields.io/badge/last--updated-2026--07--28-brightgreen)](https://github.com/edullerandi/llm-price-tracker/actions/workflows/update.yaml)
+[![CI](https://img.shields.io/github/actions/workflow/status/llerandi/llm-price-tracker/ci.yaml?label=CI&logo=github)](https://github.com/llerandi/llm-price-tracker/actions/workflows/ci.yaml)
+[![License](https://img.shields.io/github/license/llerandi/llm-price-tracker)](LICENSE)
+[![Stars](https://img.shields.io/github/stars/llerandi/llm-price-tracker?style=social)](https://github.com/llerandi/llm-price-tracker/stargazers)
+[![Last commit](https://img.shields.io/github/last-commit/llerandi/llm-price-tracker)](https://github.com/llerandi/llm-price-tracker/commits/main)
+[![Updated daily](https://img.shields.io/badge/last--updated-2026--07--28-brightgreen)](https://github.com/llerandi/llm-price-tracker/actions/workflows/update.yaml)
 [![Python](https://img.shields.io/badge/python-3.11%2B-blue?logo=python)](https://www.python.org/)
 
 A daily-updated reference of LLM model pricing across all major providers. One source of truth for input/output token costs, context windows, and capabilities - structured as JSON so you can consume it programmatically.
@@ -57,7 +57,7 @@ Prices in USD per 1 million tokens. Sorted by provider, then by input price.
 The `data/prices.json` file is the single source of truth. You can fetch it directly via jsDelivr CDN for zero-latency access:
 
 ```
-https://cdn.jsdelivr.net/gh/edullerandi/llm-price-tracker@main/data/prices.json
+https://cdn.jsdelivr.net/gh/llerandi/llm-price-tracker@main/data/prices.json
 ```
 
 Example - fetch and filter in Python:
@@ -66,7 +66,7 @@ Example - fetch and filter in Python:
 import urllib.request
 import json
 
-url = "https://cdn.jsdelivr.net/gh/edullerandi/llm-price-tracker@main/data/prices.json"
+url = "https://cdn.jsdelivr.net/gh/llerandi/llm-price-tracker@main/data/prices.json"
 with urllib.request.urlopen(url) as r:
     data = json.load(r)
 
