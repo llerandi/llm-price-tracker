@@ -31,7 +31,7 @@
       "supports_function_calling": true,
       "is_reasoning": false,
       "tier": "performance",
-      "notes": "",
+      "notes": "Introductory pricing through August 31, 2026; standard rates are $3.00/$15.00.",
       "batch_input_per_1m_usd": 1.0,
       "batch_output_per_1m_usd": 5.0,
       "cache_read_per_1m_usd": 0.2,

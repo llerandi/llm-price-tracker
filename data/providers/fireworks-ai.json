@@ -5,19 +5,19 @@
   "models": [
     {
       "provider": "Fireworks AI",
-      "model_id": "accounts/fireworks/models/llama-v3p1-70b-instruct",
-      "model_name": "Llama 3.1 70B",
-      "input_per_1m_usd": 0.9,
-      "output_per_1m_usd": 0.9,
+      "model_id": "accounts/fireworks/models/deepseek-v4-flash",
+      "model_name": "DeepSeek V4 Flash",
+      "input_per_1m_usd": 0.14,
+      "output_per_1m_usd": 0.28,
       "context_window_k": 128,
       "supports_vision": false,
       "supports_function_calling": true,
       "is_reasoning": false,
-      "tier": "performance",
-      "notes": "Hosted open-source model (Meta).",
-      "batch_input_per_1m_usd": null,
-      "batch_output_per_1m_usd": null,
-      "cache_read_per_1m_usd": null,
+      "tier": "efficient",
+      "notes": "Hosts open-source DeepSeek model.",
+      "batch_input_per_1m_usd": 0.07,
+      "batch_output_per_1m_usd": 0.14,
+      "cache_read_per_1m_usd": 0.07,
       "cache_write_per_1m_usd": null
     }
   ]

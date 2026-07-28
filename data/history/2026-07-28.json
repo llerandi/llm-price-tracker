@@ -3,16 +3,6 @@
   "models": [
     {
       "provider": "AI21 Labs",
-      "model_id": "jamba-1-5-mini",
-      "input_per_1m_usd": 0.2,
-      "output_per_1m_usd": 0.4,
-      "batch_input_per_1m_usd": null,
-      "batch_output_per_1m_usd": null,
-      "cache_read_per_1m_usd": null,
-      "cache_write_per_1m_usd": null
-    },
-    {
-      "provider": "AI21 Labs",
       "model_id": "jamba-1-7-large",
       "input_per_1m_usd": 2.0,
       "output_per_1m_usd": 8.0,
@@ -93,12 +83,12 @@
     },
     {
       "provider": "Fireworks AI",
-      "model_id": "accounts/fireworks/models/llama-v3p1-70b-instruct",
-      "input_per_1m_usd": 0.9,
-      "output_per_1m_usd": 0.9,
-      "batch_input_per_1m_usd": null,
-      "batch_output_per_1m_usd": null,
-      "cache_read_per_1m_usd": null,
+      "model_id": "accounts/fireworks/models/deepseek-v4-flash",
+      "input_per_1m_usd": 0.14,
+      "output_per_1m_usd": 0.28,
+      "batch_input_per_1m_usd": 0.07,
+      "batch_output_per_1m_usd": 0.14,
+      "cache_read_per_1m_usd": 0.07,
       "cache_write_per_1m_usd": null
     },
     {
@@ -108,26 +98,56 @@
       "output_per_1m_usd": 0.4,
       "batch_input_per_1m_usd": null,
       "batch_output_per_1m_usd": null,
-      "cache_read_per_1m_usd": null,
+      "cache_read_per_1m_usd": 0.01,
       "cache_write_per_1m_usd": null
     },
     {
       "provider": "Google",
       "model_id": "gemini-2.5-flash",
-      "input_per_1m_usd": 0.15,
-      "output_per_1m_usd": 1.25,
-      "batch_input_per_1m_usd": null,
-      "batch_output_per_1m_usd": null,
+      "input_per_1m_usd": 0.3,
+      "output_per_1m_usd": 2.5,
+      "batch_input_per_1m_usd": 0.15,
+      "batch_output_per_1m_usd": 1.25,
+      "cache_read_per_1m_usd": 0.03,
+      "cache_write_per_1m_usd": null
+    },
+    {
+      "provider": "Google",
+      "model_id": "gemini-3.5-flash-lite",
+      "input_per_1m_usd": 0.3,
+      "output_per_1m_usd": 2.5,
+      "batch_input_per_1m_usd": 0.15,
+      "batch_output_per_1m_usd": 1.25,
       "cache_read_per_1m_usd": null,
       "cache_write_per_1m_usd": null
     },
     {
       "provider": "Google",
       "model_id": "gemini-2.5-pro",
-      "input_per_1m_usd": 1.0,
+      "input_per_1m_usd": 1.25,
       "output_per_1m_usd": 10.0,
       "batch_input_per_1m_usd": null,
       "batch_output_per_1m_usd": null,
+      "cache_read_per_1m_usd": 0.125,
+      "cache_write_per_1m_usd": null
+    },
+    {
+      "provider": "Google",
+      "model_id": "gemini-3.5-flash",
+      "input_per_1m_usd": 1.5,
+      "output_per_1m_usd": 9.0,
+      "batch_input_per_1m_usd": 0.75,
+      "batch_output_per_1m_usd": 4.5,
+      "cache_read_per_1m_usd": null,
+      "cache_write_per_1m_usd": null
+    },
+    {
+      "provider": "Google",
+      "model_id": "gemini-3.6-flash",
+      "input_per_1m_usd": 1.5,
+      "output_per_1m_usd": 7.5,
+      "batch_input_per_1m_usd": 0.75,
+      "batch_output_per_1m_usd": 3.75,
       "cache_read_per_1m_usd": null,
       "cache_write_per_1m_usd": null
     },
@@ -193,12 +213,32 @@
     },
     {
       "provider": "OpenAI",
-      "model_id": "gpt-4o-mini",
-      "input_per_1m_usd": 0.15,
-      "output_per_1m_usd": 0.6,
-      "batch_input_per_1m_usd": 0.075,
-      "batch_output_per_1m_usd": 0.3,
-      "cache_read_per_1m_usd": 0.075,
+      "model_id": "gpt-5-nano",
+      "input_per_1m_usd": 0.05,
+      "output_per_1m_usd": 0.4,
+      "batch_input_per_1m_usd": 0.025,
+      "batch_output_per_1m_usd": 0.2,
+      "cache_read_per_1m_usd": 0.005,
+      "cache_write_per_1m_usd": null
+    },
+    {
+      "provider": "OpenAI",
+      "model_id": "gpt-4.1-nano",
+      "input_per_1m_usd": 0.1,
+      "output_per_1m_usd": 0.4,
+      "batch_input_per_1m_usd": 0.05,
+      "batch_output_per_1m_usd": 0.2,
+      "cache_read_per_1m_usd": 0.025,
+      "cache_write_per_1m_usd": null
+    },
+    {
+      "provider": "OpenAI",
+      "model_id": "gpt-4.1-mini",
+      "input_per_1m_usd": 0.4,
+      "output_per_1m_usd": 1.6,
+      "batch_input_per_1m_usd": 0.2,
+      "batch_output_per_1m_usd": 0.8,
+      "cache_read_per_1m_usd": 0.1,
       "cache_write_per_1m_usd": null
     },
     {
@@ -209,7 +249,7 @@
       "batch_input_per_1m_usd": 0.5,
       "batch_output_per_1m_usd": 3.0,
       "cache_read_per_1m_usd": 0.5,
-      "cache_write_per_1m_usd": null
+      "cache_write_per_1m_usd": 1.25
     },
     {
       "provider": "OpenAI",
@@ -233,12 +273,12 @@
     },
     {
       "provider": "OpenAI",
-      "model_id": "gpt-4o",
-      "input_per_1m_usd": 2.5,
-      "output_per_1m_usd": 10.0,
-      "batch_input_per_1m_usd": 1.25,
-      "batch_output_per_1m_usd": 5.0,
-      "cache_read_per_1m_usd": 1.25,
+      "model_id": "gpt-4.1",
+      "input_per_1m_usd": 2.0,
+      "output_per_1m_usd": 8.0,
+      "batch_input_per_1m_usd": 1.0,
+      "batch_output_per_1m_usd": 4.0,
+      "cache_read_per_1m_usd": 0.5,
       "cache_write_per_1m_usd": null
     },
     {
@@ -249,11 +289,21 @@
       "batch_input_per_1m_usd": 1.25,
       "batch_output_per_1m_usd": 7.5,
       "cache_read_per_1m_usd": 1.25,
-      "cache_write_per_1m_usd": null
+      "cache_write_per_1m_usd": 3.125
     },
     {
       "provider": "OpenAI",
       "model_id": "gpt-5.6-sol",
+      "input_per_1m_usd": 5.0,
+      "output_per_1m_usd": 30.0,
+      "batch_input_per_1m_usd": 2.5,
+      "batch_output_per_1m_usd": 15.0,
+      "cache_read_per_1m_usd": 0.5,
+      "cache_write_per_1m_usd": 6.25
+    },
+    {
+      "provider": "OpenAI",
+      "model_id": "gpt-5.5",
       "input_per_1m_usd": 5.0,
       "output_per_1m_usd": 30.0,
       "batch_input_per_1m_usd": 2.5,
