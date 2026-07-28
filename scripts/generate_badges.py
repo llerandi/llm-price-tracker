@@ -31,7 +31,7 @@ def slug(model_id: str) -> str:
     return model_id.replace("/", "-")
 
 
-def fmt_price(value: float | int | None) -> str:
+def fmt_price(value: float | None) -> str:
     if value is None:
         return "N/A"
     return f"${value:.2f}/1M"
