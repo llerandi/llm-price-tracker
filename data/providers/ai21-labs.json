@@ -1,0 +1,41 @@
+{
+  "provider": "AI21 Labs",
+  "last_updated": "2026-07-28",
+  "model_count": 2,
+  "models": [
+    {
+      "provider": "AI21 Labs",
+      "model_id": "jamba-1-5-mini",
+      "model_name": "Jamba 1.5 Mini",
+      "input_per_1m_usd": 0.2,
+      "output_per_1m_usd": 0.4,
+      "context_window_k": 256,
+      "supports_vision": false,
+      "supports_function_calling": true,
+      "is_reasoning": false,
+      "tier": "efficient",
+      "notes": "",
+      "batch_input_per_1m_usd": null,
+      "batch_output_per_1m_usd": null,
+      "cache_read_per_1m_usd": null,
+      "cache_write_per_1m_usd": null
+    },
+    {
+      "provider": "AI21 Labs",
+      "model_id": "jamba-1-7-large",
+      "model_name": "Jamba 1.7 Large",
+      "input_per_1m_usd": 2.0,
+      "output_per_1m_usd": 8.0,
+      "context_window_k": 256,
+      "supports_vision": false,
+      "supports_function_calling": true,
+      "is_reasoning": false,
+      "tier": "flagship",
+      "notes": "",
+      "batch_input_per_1m_usd": null,
+      "batch_output_per_1m_usd": null,
+      "cache_read_per_1m_usd": null,
+      "cache_write_per_1m_usd": null
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "provider": "Cohere",
+  "last_updated": "2026-07-28",
+  "model_count": 3,
+  "models": [
+    {
+      "provider": "Cohere",
+      "model_id": "command-r7b-08-2024",
+      "model_name": "Command R7B",
+      "input_per_1m_usd": 0.0375,
+      "output_per_1m_usd": 0.15,
+      "context_window_k": 128,
+      "supports_vision": false,
+      "supports_function_calling": true,
+      "is_reasoning": false,
+      "tier": "efficient",
+      "notes": "",
+      "batch_input_per_1m_usd": null,
+      "batch_output_per_1m_usd": null,
+      "cache_read_per_1m_usd": null,
+      "cache_write_per_1m_usd": null
+    },
+    {
+      "provider": "Cohere",
+      "model_id": "command-r-08-2024",
+      "model_name": "Command R",
+      "input_per_1m_usd": 0.15,
+      "output_per_1m_usd": 0.6,
+      "context_window_k": 128,
+      "supports_vision": false,
+      "supports_function_calling": true,
+      "is_reasoning": false,
+      "tier": "performance",
+      "notes": "",
+      "batch_input_per_1m_usd": null,
+      "batch_output_per_1m_usd": null,
+      "cache_read_per_1m_usd": null,
+      "cache_write_per_1m_usd": null
+    },
+    {
+      "provider": "Cohere",
+      "model_id": "command-r-plus-08-2024",
+      "model_name": "Command R+",
+      "input_per_1m_usd": 2.5,
+      "output_per_1m_usd": 10.0,
+      "context_window_k": 128,
+      "supports_vision": false,
+      "supports_function_calling": true,
+      "is_reasoning": false,
+      "tier": "flagship",
+      "notes": "",
+      "batch_input_per_1m_usd": null,
+      "batch_output_per_1m_usd": null,
+      "cache_read_per_1m_usd": null,
+      "cache_write_per_1m_usd": null
+    }
+  ]
+}
