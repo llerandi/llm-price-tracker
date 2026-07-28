@@ -174,6 +174,39 @@
     .tier-flagship { background: #fff1e5; color: #953800; }
     .tier-specialized { background: #f1f0ff; color: #5936b4; }
 
+    /* copy badge button */
+    .copy-btn {
+      background: none;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2px 7px;
+      font-size: 11px;
+      color: var(--text-muted);
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all .12s;
+    }
+    .copy-btn:hover { border-color: var(--primary); color: var(--primary); }
+    .copy-btn.copied { border-color: #2da44e; color: #2da44e; }
+
+    /* toast */
+    #toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #1f2328;
+      color: #fff;
+      padding: 8px 18px;
+      border-radius: 6px;
+      font-size: 13px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .2s;
+      z-index: 100;
+    }
+    #toast.show { opacity: 1; }
+
     /* states */
     .loading { padding: 64px; text-align: center; color: var(--text-muted); font-size: 15px; }
     .empty { padding: 40px; text-align: center; color: var(--text-muted); }
@@ -251,6 +284,7 @@
             <th data-col="context_window_k" data-type="num" class="num">Context <span class="sort-icon">↕</span></th>
             <th data-col="tier" data-type="str" class="center">Tier <span class="sort-icon">↕</span></th>
             <th class="center">Capabilities</th>
+            <th class="center">Badge</th>
           </tr>
         </thead>
         <tbody id="main-tbody"></tbody>
@@ -281,6 +315,8 @@
     </div>
   </div>
 </div>
+
+<div id="toast">Badge markdown copied!</div>
 
 <footer>
   Data updated daily via GitHub Actions -
@@ -386,7 +422,7 @@
   function renderMain(visible) {
     const tbody = document.getElementById("main-tbody");
     if (!visible.length) {
-      tbody.innerHTML = '<tr><td colspan="7" class="empty">No models match your filter.</td></tr>';
+      tbody.innerHTML = '<tr><td colspan="8" class="empty">No models match your filter.</td></tr>';
       return;
     }
     tbody.innerHTML = visible.map(m => `
@@ -398,7 +434,12 @@
         <td class="num">${fmtCtx(m.context_window_k)}</td>
         <td class="center">${fmtTier(m.tier)}</td>
         <td class="center">${fmtCaps(m)}</td>
+        <td class="center"><button class="copy-btn" data-id="${m.model_id.replace(/\//g, '-')}">Copy badge</button></td>
       </tr>`).join("");
+
+    tbody.querySelectorAll(".copy-btn").forEach(btn => {
+      btn.addEventListener("click", () => copyBadge(btn));
+    });
   }
 
   function renderBatch(visible) {
@@ -431,6 +472,40 @@
         th.classList.remove("sorted");
         icon.textContent = " ↕";
       }
+    });
+  }
+
+  // badge copy
+  const BADGE_BASE = "https://cdn.jsdelivr.net/gh/llerandi/llm-price-tracker@main/data/badges";
+  const SITE_URL = "https://llerandi.github.io/llm-price-tracker/";
+
+  function badgeMarkdown(fileId, label) {
+    const encoded = encodeURIComponent(`${BADGE_BASE}/${fileId}-input.json`);
+    const imgUrl = `https://img.shields.io/endpoint?url=${encoded}`;
+    return `[![${label} input price](${imgUrl})](${SITE_URL})`;
+  }
+
+  let toastTimer;
+  function showToast(msg) {
+    const toast = document.getElementById("toast");
+    toast.textContent = msg;
+    toast.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove("show"), 2000);
+  }
+
+  function copyBadge(btn) {
+    const fileId = btn.dataset.id;
+    const label = btn.closest("tr").querySelector("td:nth-child(2)").textContent;
+    const md = badgeMarkdown(fileId, label);
+    navigator.clipboard.writeText(md).then(() => {
+      btn.textContent = "Copied!";
+      btn.classList.add("copied");
+      showToast("Badge markdown copied to clipboard");
+      setTimeout(() => {
+        btn.textContent = "Copy badge";
+        btn.classList.remove("copied");
+      }, 2000);
     });
   }
 
