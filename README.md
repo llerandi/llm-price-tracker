@@ -101,6 +101,30 @@ Some providers offer discounted rates for asynchronous (batch) processing and pr
 
 ---
 
+## Embeddable Badges
+
+Add a live price badge to any README. Badges update daily and are served via jsDelivr CDN.
+
+**URL pattern:**
+
+```
+https://img.shields.io/endpoint?url=https%3A%2F%2Fcdn.jsdelivr.net%2Fgh%2Fllerandi%2Fllm-price-tracker%40main%2Fdata%2Fbadges%2F{model-id}-{input|output}.json
+```
+
+Model IDs with slashes (e.g. Fireworks AI, Together AI) have the `/` replaced with `-` in the filename. Browse all IDs in [`data/prices.json`](data/prices.json) or check [`data/badges/`](data/badges/).
+
+**Example - Claude Sonnet 5 input price:**
+
+[![Claude Sonnet 5 input](https://img.shields.io/endpoint?url=https%3A%2F%2Fcdn.jsdelivr.net%2Fgh%2Fllerandi%2Fllm-price-tracker%40main%2Fdata%2Fbadges%2Fclaude-sonnet-5-input.json)](https://llerandi.github.io/llm-price-tracker/)
+
+```markdown
+[![Claude Sonnet 5 input](https://img.shields.io/endpoint?url=https%3A%2F%2Fcdn.jsdelivr.net%2Fgh%2Fllerandi%2Fllm-price-tracker%40main%2Fdata%2Fbadges%2Fclaude-sonnet-5-input.json)](https://llerandi.github.io/llm-price-tracker/)
+```
+
+Use the [live site](https://llerandi.github.io/llm-price-tracker/) to browse all models and copy badge embed code directly.
+
+---
+
 ## Use the Data Programmatically
 
 The `data/prices.json` file is the single source of truth. You can fetch it directly via jsDelivr CDN for zero-latency access:
@@ -197,7 +221,7 @@ A second workflow (`ci.yaml`) runs on every push and pull request to lint the sc
 
 - [x] GitHub Pages site with sortable and filterable table
 - [x] GitHub Issues alert when a price changes by more than 10%
-- [ ] Embeddable price badge for other repositories
+- [x] Embeddable price badge for other repositories
 - [ ] REST-like endpoint via jsDelivr CDN with CORS support
 
 ---
