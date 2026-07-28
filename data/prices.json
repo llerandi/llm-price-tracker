@@ -3,6 +3,32 @@
   "last_updated": "2026-07-28",
   "models": [
     {
+      "provider": "AI21 Labs",
+      "model_id": "jamba-1-5-mini",
+      "model_name": "Jamba 1.5 Mini",
+      "input_per_1m_usd": 0.2,
+      "output_per_1m_usd": 0.4,
+      "context_window_k": 256,
+      "supports_vision": false,
+      "supports_function_calling": true,
+      "is_reasoning": false,
+      "tier": "efficient",
+      "notes": ""
+    },
+    {
+      "provider": "AI21 Labs",
+      "model_id": "jamba-1-7-large",
+      "model_name": "Jamba 1.7 Large",
+      "input_per_1m_usd": 2.0,
+      "output_per_1m_usd": 8.0,
+      "context_window_k": 256,
+      "supports_vision": false,
+      "supports_function_calling": true,
+      "is_reasoning": false,
+      "tier": "flagship",
+      "notes": ""
+    },
+    {
       "provider": "Anthropic",
       "model_id": "claude-haiku-4-5-20251001",
       "model_name": "Claude Haiku 4.5",
@@ -53,6 +79,58 @@
       "is_reasoning": false,
       "tier": "flagship",
       "notes": ""
+    },
+    {
+      "provider": "Cohere",
+      "model_id": "command-r7b-08-2024",
+      "model_name": "Command R7B",
+      "input_per_1m_usd": 0.0375,
+      "output_per_1m_usd": 0.15,
+      "context_window_k": 128,
+      "supports_vision": false,
+      "supports_function_calling": true,
+      "is_reasoning": false,
+      "tier": "efficient",
+      "notes": ""
+    },
+    {
+      "provider": "Cohere",
+      "model_id": "command-r-08-2024",
+      "model_name": "Command R",
+      "input_per_1m_usd": 0.15,
+      "output_per_1m_usd": 0.6,
+      "context_window_k": 128,
+      "supports_vision": false,
+      "supports_function_calling": true,
+      "is_reasoning": false,
+      "tier": "performance",
+      "notes": ""
+    },
+    {
+      "provider": "Cohere",
+      "model_id": "command-r-plus-08-2024",
+      "model_name": "Command R+",
+      "input_per_1m_usd": 2.5,
+      "output_per_1m_usd": 10.0,
+      "context_window_k": 128,
+      "supports_vision": false,
+      "supports_function_calling": true,
+      "is_reasoning": false,
+      "tier": "flagship",
+      "notes": ""
+    },
+    {
+      "provider": "Fireworks AI",
+      "model_id": "accounts/fireworks/models/llama-v3p1-70b-instruct",
+      "model_name": "Llama 3.1 70B",
+      "input_per_1m_usd": 0.9,
+      "output_per_1m_usd": 0.9,
+      "context_window_k": 128,
+      "supports_vision": false,
+      "supports_function_calling": true,
+      "is_reasoning": false,
+      "tier": "performance",
+      "notes": "Hosted open-source model (Meta)."
     },
     {
       "provider": "Google",
@@ -261,6 +339,32 @@
       "is_reasoning": false,
       "tier": "flagship",
       "notes": "Requests above 272K tokens charged at 2x input and 1.5x output."
+    },
+    {
+      "provider": "Together AI",
+      "model_id": "meta-llama/Llama-4-Scout-17B-16E-Instruct",
+      "model_name": "Llama 4 Scout",
+      "input_per_1m_usd": 0.18,
+      "output_per_1m_usd": 0.59,
+      "context_window_k": 128,
+      "supports_vision": true,
+      "supports_function_calling": true,
+      "is_reasoning": false,
+      "tier": "efficient",
+      "notes": "Hosted open-source model (Meta)."
+    },
+    {
+      "provider": "Together AI",
+      "model_id": "deepseek-ai/DeepSeek-V3-1",
+      "model_name": "DeepSeek V3.1",
+      "input_per_1m_usd": 0.6,
+      "output_per_1m_usd": 1.7,
+      "context_window_k": 128,
+      "supports_vision": false,
+      "supports_function_calling": true,
+      "is_reasoning": false,
+      "tier": "performance",
+      "notes": "Hosted open-source model (DeepSeek)."
     }
   ]
 }

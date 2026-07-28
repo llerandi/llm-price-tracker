@@ -18,10 +18,16 @@ Prices in USD per 1 million tokens. Sorted by provider, then by input price.
 <!-- PRICING_TABLE_START -->
 | Provider | Model | Input ($/1M) | Output ($/1M) | Context | Capabilities |
 |----------|-------|:------------:|:-------------:|:-------:|:------------:|
+| AI21 Labs | Jamba 1.5 Mini | $0.20 | $0.40 | 256K | tools |
+| AI21 Labs | Jamba 1.7 Large | $2.00 | $8.00 | 256K | tools |
 | Anthropic | Claude Haiku 4.5 | $1.00 | $5.00 | 200K | vision, tools |
 | Anthropic | Claude Sonnet 5 | $2.00 | $10.00 | 200K | vision, tools |
 | Anthropic | Claude Opus 5 | $5.00 | $25.00 | 200K | vision, tools |
 | Anthropic | Claude Fable 5 | $10.00 | $50.00 | 200K | vision, tools |
+| Cohere | Command R7B | $0.04 | $0.15 | 128K | tools |
+| Cohere | Command R | $0.15 | $0.60 | 128K | tools |
+| Cohere | Command R+ | $2.50 | $10.00 | 128K | tools |
+| Fireworks AI | Llama 3.1 70B | $0.90 | $0.90 | 128K | tools |
 | Google | Gemini 2.5 Flash Lite | $0.10 | $0.40 | 1M | vision, tools |
 | Google | Gemini 2.5 Flash | $0.15 | $1.25 | 1M | vision, tools |
 | Google | Gemini 2.5 Pro | $1.00 | $10.00 | 2M | vision, tools |
@@ -38,6 +44,8 @@ Prices in USD per 1 million tokens. Sorted by provider, then by input price.
 | OpenAI | GPT-4o | $2.50 | $10.00 | 128K | vision, tools |
 | OpenAI | GPT-5.6 Terra | $2.50 | $15.00 | 272K | vision, tools |
 | OpenAI | GPT-5.6 Sol | $5.00 | $30.00 | 272K | vision, tools |
+| Together AI | Llama 4 Scout | $0.18 | $0.59 | 128K | vision, tools |
+| Together AI | DeepSeek V3.1 | $0.60 | $1.70 | 128K | tools |
 <!-- PRICING_TABLE_END -->
 
 > **Notes on specific models:**
@@ -45,10 +53,14 @@ Prices in USD per 1 million tokens. Sorted by provider, then by input price.
 > - GPT-5.6 Sol and Terra: requests above 272K tokens charged at 2x input and 1.5x output.
 >
 > **Official pricing pages:**
+> [AI21 Labs](https://docs.ai21.com/docs/usage-cost) -
 > [Anthropic](https://www.anthropic.com/pricing) -
+> [Cohere](https://cohere.com/pricing) -
+> [Fireworks AI](https://fireworks.ai/pricing) -
 > [Google](https://ai.google.dev/pricing) -
 > [Mistral](https://mistral.ai/technology/#pricing) -
-> [OpenAI](https://platform.openai.com/pricing)
+> [OpenAI](https://platform.openai.com/pricing) -
+> [Together AI](https://www.together.ai/pricing)
 
 ---
 
@@ -135,7 +147,7 @@ A second workflow (`ci.yaml`) runs on every push and pull request to lint the sc
 
 ### Phase 2 - Expand
 
-- [ ] Add providers: Cohere, Together AI, Fireworks AI, AI21 Labs
+- [x] Add providers: Cohere, Together AI, Fireworks AI, AI21 Labs
 - [ ] Add batch pricing and prompt caching columns
 - [ ] Track price history with daily snapshots
 
