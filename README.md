@@ -167,7 +167,8 @@ A GitHub Actions workflow (`update.yaml`) runs daily at 06:00 UTC. It runs `scri
 1. Sorts all entries by provider and input price.
 2. Updates the `last_updated` timestamp in `prices.json`.
 3. Regenerates the pricing table in this README using HTML comment markers as boundaries.
-4. Commits and pushes if there are changes.
+4. Writes a compact daily snapshot to `data/history/YYYY-MM-DD.json` with just the pricing fields.
+5. Commits and pushes if there are changes.
 
 A second workflow (`ci.yaml`) runs on every push and pull request to lint the scripts and validate the JSON schema.
 
@@ -187,7 +188,7 @@ A second workflow (`ci.yaml`) runs on every push and pull request to lint the sc
 
 - [x] Add providers: Cohere, Together AI, Fireworks AI, AI21 Labs
 - [x] Add batch pricing and prompt caching columns
-- [ ] Track price history with daily snapshots
+- [x] Track price history with daily snapshots
 
 ### Phase 3 - Tooling
 
