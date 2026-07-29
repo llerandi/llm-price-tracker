@@ -337,7 +337,6 @@ jsDelivr CDN caches files for a period after each push. To force a refresh:
 ### Phase 3 - Tooling
 
 - [x] GitHub Pages site with sortable and filterable table
-- [x] GitHub Issues alert when a price changes by more than 10%
 - [x] Embeddable price badge for other repositories
 - [x] REST-like endpoint via jsDelivr CDN with CORS support
 
@@ -353,6 +352,14 @@ jsDelivr CDN caches files for a period after each push. To force a refresh:
 - [x] Automated price verification: script that cross-checks prices against official pages
 - [x] Support for multiple currencies (EUR, GBP) on the live site
 - [x] npm / PyPI package wrapping the jsDelivr JSON endpoint
+
+### Phase 6 - Automation and Discovery
+
+- [ ] Automated GitHub Issue when a price changes by more than 10% (subscribe via Watch -> Issues)
+- [ ] RSS/Atom feed of price changes, generated daily and served as static XML via jsDelivr CDN
+- [ ] Add providers: DeepSeek, Groq, Qwen (Alibaba Cloud)
+- [ ] Filters on the live site by tier, capabilities, and max price
+- [ ] Model comparison view: select two models for a side-by-side diff
 
 ---
 
