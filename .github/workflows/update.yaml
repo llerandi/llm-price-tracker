@@ -32,6 +32,9 @@ jobs:
       - name: Generate changelog
         run: python scripts/generate_changelog.py
 
+      - name: Generate history summary
+        run: python scripts/generate_history_summary.py
+
       - name: Generate badge files
         run: python scripts/generate_badges.py
 
@@ -57,6 +60,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add data/prices.json data/history/ data/badges/ data/providers/ data/changelog.md README.md
+          git add data/prices.json data/history/ data/badges/ data/providers/ data/changelog.md data/history_summary.json README.md
           git diff --staged --quiet || git commit -m "chore: update prices and snapshot [skip ci]"
           git push

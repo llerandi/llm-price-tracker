@@ -92,7 +92,7 @@
       display: flex;
       align-items: center;
       gap: 8px;
-      margin-bottom: 16px;
+      margin-bottom: 10px;
       font-size: 13px;
       color: var(--text-muted);
       cursor: pointer;
@@ -118,6 +118,33 @@
     }
     .toggle input:checked + .slider { background: var(--primary); }
     .toggle input:checked + .slider:before { transform: translateX(16px); }
+
+    /* cost calculator */
+    .calc-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+      padding: 10px 14px;
+      background: var(--bg-alt);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+    .calc-row label { display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+    .calc-input {
+      width: 110px;
+      padding: 5px 8px;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      font-size: 13px;
+      outline: none;
+      font-variant-numeric: tabular-nums;
+    }
+    .calc-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(9,105,218,.12); }
+    .calc-hint { font-size: 12px; color: var(--text-muted); margin-left: auto; }
 
     /* section */
     .section-title { font-size: 16px; font-weight: 600; margin: 32px 0 6px; }
@@ -151,7 +178,10 @@
     .center { text-align: center; }
     .na { color: #bbbfc3; }
 
-    /* badges */
+    /* cost column highlight */
+    td.cost-cell { font-weight: 500; color: var(--text); }
+
+    /* capability chips */
     .cap {
       display: inline-block;
       padding: 1px 6px;
@@ -219,6 +249,30 @@
       margin-bottom: 20px;
     }
 
+    /* history chart */
+    .history-controls { display: flex; gap: 10px; align-items: center; margin-bottom: 14px; flex-wrap: wrap; }
+    .history-select {
+      padding: 7px 11px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 14px;
+      min-width: 260px;
+      max-width: 400px;
+      outline: none;
+      background: var(--bg);
+      color: var(--text);
+      cursor: pointer;
+    }
+    .history-select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(9,105,218,.12); }
+    .chart-wrap {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      position: relative;
+      height: 300px;
+    }
+    .history-note { font-size: 12px; color: var(--text-muted); margin-top: 10px; }
+
     /* footer */
     footer {
       margin-top: 56px;
@@ -233,6 +287,7 @@
       header { padding: 16px; }
       .container { padding: 16px; }
       .search-box { max-width: 100%; }
+      .calc-hint { display: none; }
     }
   </style>
 </head>
@@ -271,6 +326,18 @@
       Show batch and cache pricing
     </label>
 
+    <div class="calc-row">
+      <label>
+        Input tokens
+        <input id="calc-input" class="calc-input" type="number" min="0" placeholder="e.g. 10000">
+      </label>
+      <label>
+        Output tokens
+        <input id="calc-output" class="calc-input" type="number" min="0" placeholder="e.g. 2000">
+      </label>
+      <span class="calc-hint">Fill in token counts to see estimated cost per model in the table.</span>
+    </div>
+
     <h2 class="section-title">Standard Pricing</h2>
 
     <div class="table-wrap">
@@ -284,6 +351,7 @@
             <th data-col="context_window_k" data-type="num" class="num">Context <span class="sort-icon">↕</span></th>
             <th data-col="tier" data-type="str" class="center">Tier <span class="sort-icon">↕</span></th>
             <th class="center">Capabilities</th>
+            <th id="cost-th" data-col="__cost" data-type="num" class="num" style="display:none">Est. Cost <span class="sort-icon">↕</span></th>
             <th class="center">Badge</th>
           </tr>
         </thead>
@@ -313,6 +381,22 @@
         </table>
       </div>
     </div>
+    <div id="history-section">
+      <h2 class="section-title">Price History</h2>
+      <p class="section-desc">Track how input and output prices have changed over time. Select a model to plot its history.</p>
+      <div class="history-controls">
+        <select id="history-model-select" class="history-select">
+          <option value="">-- Select a model --</option>
+        </select>
+      </div>
+      <div id="history-chart-wrap" style="display:none">
+        <div class="chart-wrap">
+          <canvas id="history-chart"></canvas>
+        </div>
+        <p class="history-note">Prices in USD per 1M tokens. Updated daily by GitHub Actions.</p>
+      </div>
+      <p id="history-empty" class="empty" style="display:none"></p>
+    </div>
   </div>
 </div>
 
@@ -324,14 +408,20 @@
   <a href="https://cdn.jsdelivr.net/gh/llerandi/llm-price-tracker@main/data/prices.json">JSON</a>
 </footer>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
 <script>
   const CDN_URL = "https://cdn.jsdelivr.net/gh/llerandi/llm-price-tracker@main/data/prices.json";
+  const HISTORY_URL = "https://cdn.jsdelivr.net/gh/llerandi/llm-price-tracker@main/data/history_summary.json";
 
   let models = [];
   let sortCol = "provider";
   let sortDir = 1;
   let activeProvider = null;
   let searchText = "";
+  let calcInputTokens = 0;
+  let calcOutputTokens = 0;
+  let historyData = null;
+  let historyChart = null;
 
   async function init() {
     try {
@@ -342,6 +432,7 @@
       document.getElementById("last-updated").textContent = data.last_updated;
       buildPills();
       render();
+      buildHistorySelect();
       document.getElementById("loading").style.display = "none";
       document.getElementById("app").style.display = "";
     } catch (e) {
@@ -380,8 +471,30 @@
     });
   }
 
+  function calcCost(m) {
+    if (!calcInputTokens && !calcOutputTokens) return null;
+    const inp = (m.input_per_1m_usd ?? 0) * calcInputTokens / 1_000_000;
+    const out = (m.output_per_1m_usd ?? 0) * calcOutputTokens / 1_000_000;
+    return inp + out;
+  }
+
+  function fmtCost(v) {
+    if (v == null) return '<span class="na">-</span>';
+    if (v === 0) return '$0.00';
+    if (v >= 1) return '$' + v.toFixed(2);
+    if (v >= 0.01) return '$' + v.toFixed(4);
+    if (v >= 0.0001) return '$' + v.toFixed(6);
+    return '$' + v.toExponential(2);
+  }
+
   function sortModels(list) {
     return [...list].sort((a, b) => {
+      if (sortCol === "__cost") {
+        const av = calcCost(a), bv = calcCost(b);
+        if (av == null) return 1;
+        if (bv == null) return -1;
+        return sortDir * (av - bv);
+      }
       const av = a[sortCol], bv = b[sortCol];
       if (av == null) return 1;
       if (bv == null) return -1;
@@ -412,20 +525,31 @@
     return `<span class="tier-badge tier-${t}">${t}</span>`;
   }
 
+  function showCostCol(show) {
+    document.getElementById("cost-th").style.display = show ? "" : "none";
+  }
+
   function render() {
+    const showCost = calcInputTokens > 0 || calcOutputTokens > 0;
+    showCostCol(showCost);
     const visible = sortModels(getVisible());
-    renderMain(visible);
+    renderMain(visible, showCost);
     renderBatch(visible);
     syncSortHeaders();
   }
 
-  function renderMain(visible) {
+  function renderMain(visible, showCost) {
     const tbody = document.getElementById("main-tbody");
+    const colspan = showCost ? 9 : 8;
     if (!visible.length) {
-      tbody.innerHTML = '<tr><td colspan="8" class="empty">No models match your filter.</td></tr>';
+      tbody.innerHTML = `<tr><td colspan="${colspan}" class="empty">No models match your filter.</td></tr>`;
       return;
     }
-    tbody.innerHTML = visible.map(m => `
+    tbody.innerHTML = visible.map(m => {
+      const costCell = showCost
+        ? `<td class="num cost-cell">${fmtCost(calcCost(m))}</td>`
+        : "";
+      return `
       <tr>
         <td>${m.provider}</td>
         <td>${m.model_name}</td>
@@ -434,8 +558,10 @@
         <td class="num">${fmtCtx(m.context_window_k)}</td>
         <td class="center">${fmtTier(m.tier)}</td>
         <td class="center">${fmtCaps(m)}</td>
+        ${costCell}
         <td class="center"><button class="copy-btn" data-id="${m.model_id.replace(/\//g, '-')}">Copy badge</button></td>
-      </tr>`).join("");
+      </tr>`;
+    }).join("");
 
     tbody.querySelectorAll(".copy-btn").forEach(btn => {
       btn.addEventListener("click", () => copyBadge(btn));
@@ -465,6 +591,7 @@
   function syncSortHeaders() {
     document.querySelectorAll("th[data-col]").forEach(th => {
       const icon = th.querySelector(".sort-icon");
+      if (!icon) return;
       if (th.dataset.col === sortCol) {
         th.classList.add("sorted");
         icon.textContent = sortDir === 1 ? " ↑" : " ↓";
@@ -509,6 +636,119 @@
     });
   }
 
+  // history chart
+  function buildHistorySelect() {
+    const sel = document.getElementById("history-model-select");
+    const byProvider = {};
+    models.forEach(m => {
+      if (!byProvider[m.provider]) byProvider[m.provider] = [];
+      byProvider[m.provider].push(m);
+    });
+    Object.keys(byProvider).sort().forEach(provider => {
+      const group = document.createElement("optgroup");
+      group.label = provider;
+      byProvider[provider].forEach(m => {
+        const opt = document.createElement("option");
+        opt.value = m.model_id;
+        opt.textContent = m.model_name;
+        group.appendChild(opt);
+      });
+      sel.appendChild(group);
+    });
+  }
+
+  async function renderHistoryChart(modelId) {
+    const wrap = document.getElementById("history-chart-wrap");
+    const empty = document.getElementById("history-empty");
+
+    if (!modelId) {
+      wrap.style.display = "none";
+      empty.style.display = "none";
+      return;
+    }
+
+    try {
+      if (!historyData) {
+        const res = await fetch(HISTORY_URL);
+        if (!res.ok) throw new Error("HTTP " + res.status);
+        historyData = await res.json();
+      }
+
+      const mData = historyData.models[modelId];
+      if (!mData || (!mData.input.some(v => v != null) && !mData.output.some(v => v != null))) {
+        wrap.style.display = "none";
+        empty.textContent = "No history data available for this model yet.";
+        empty.style.display = "";
+        return;
+      }
+
+      wrap.style.display = "";
+      empty.style.display = "none";
+
+      if (historyChart) historyChart.destroy();
+
+      const ctx = document.getElementById("history-chart").getContext("2d");
+      historyChart = new Chart(ctx, {
+        type: "line",
+        data: {
+          labels: historyData.dates,
+          datasets: [
+            {
+              label: "Input $/1M",
+              data: mData.input,
+              borderColor: "#0969da",
+              backgroundColor: "rgba(9,105,218,.08)",
+              fill: true,
+              tension: 0.2,
+              pointRadius: 4,
+              spanGaps: true,
+            },
+            {
+              label: "Output $/1M",
+              data: mData.output,
+              borderColor: "#e36209",
+              backgroundColor: "rgba(227,98,9,.08)",
+              fill: true,
+              tension: 0.2,
+              pointRadius: 4,
+              spanGaps: true,
+            }
+          ]
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { position: "top" },
+            tooltip: {
+              callbacks: {
+                label: ctx => {
+                  const v = ctx.parsed.y;
+                  return ctx.dataset.label + ": " + (v != null ? "$" + v.toFixed(4) : "N/A");
+                }
+              }
+            }
+          },
+          scales: {
+            y: {
+              beginAtZero: false,
+              ticks: { callback: v => "$" + v }
+            }
+          }
+        }
+      });
+
+    } catch (e) {
+      wrap.style.display = "none";
+      empty.textContent = "Could not load history data: " + e.message;
+      empty.style.display = "";
+    }
+  }
+
+  document.getElementById("history-model-select").addEventListener("change", e => {
+    renderHistoryChart(e.target.value);
+  });
+
   // sort headers
   document.querySelectorAll("th[data-col]").forEach(th => {
     th.addEventListener("click", () => {
@@ -528,6 +768,15 @@
   document.getElementById("show-batch").addEventListener("change", e => {
     document.getElementById("batch-section").style.display = e.target.checked ? "" : "none";
   });
+
+  // cost calculator
+  function updateCalc() {
+    calcInputTokens = parseInt(document.getElementById("calc-input").value) || 0;
+    calcOutputTokens = parseInt(document.getElementById("calc-output").value) || 0;
+    render();
+  }
+  document.getElementById("calc-input").addEventListener("input", updateCalc);
+  document.getElementById("calc-output").addEventListener("input", updateCalc);
 
   init();
 </script>

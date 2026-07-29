@@ -169,6 +169,7 @@ All endpoints are static JSON files served via jsDelivr CDN with full CORS suppo
 | `/data/prices.json` | All models from all providers |
 | `/data/providers/{provider}.json` | Models for a single provider (e.g. `anthropic`, `openai`, `google`, `mistral`, `cohere`, `together-ai`, `fireworks-ai`, `ai21-labs`, `xai`, `perplexity`, `amazon-bedrock`) |
 | `/data/history/YYYY-MM-DD.json` | Price snapshot for a given date |
+| `/data/history_summary.json` | Consolidated time-series of input/output prices for all models (used by the price history chart) |
 | `/data/changelog.md` | All price changes and model additions/removals, newest first |
 | `/data/badges/{model-id}-input.json` | shields.io endpoint badge for input price |
 | `/data/badges/{model-id}-output.json` | shields.io endpoint badge for output price |
@@ -291,10 +292,10 @@ jsDelivr CDN caches files for a period after each push. To force a refresh:
 
 ### Phase 4 - Insights
 
-- [ ] Price history chart on the live site (visualize changes over time per model)
-- [ ] Auto-generated changelog: markdown summary of price changes by date
-- [ ] Cost calculator on the live site (tokens x price = estimated cost)
-- [ ] Add providers: xAI (Grok), Perplexity, AWS Bedrock
+- [x] Price history chart on the live site (visualize changes over time per model)
+- [x] Auto-generated changelog: markdown summary of price changes by date
+- [x] Cost calculator on the live site (tokens x price = estimated cost)
+- [x] Add providers: xAI (Grok), Perplexity, AWS Bedrock
 
 ### Phase 5 - Community
 
