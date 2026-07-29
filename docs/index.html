@@ -474,6 +474,9 @@
         <button class="currency-btn active" data-cur="USD">$ USD</button>
         <button class="currency-btn" data-cur="EUR">€ EUR</button>
         <button class="currency-btn" data-cur="GBP">£ GBP</button>
+        <button class="currency-btn" data-cur="JPY">¥ JPY</button>
+        <button class="currency-btn" data-cur="CAD">CA$ CAD</button>
+        <button class="currency-btn" data-cur="AUD">A$ AUD</button>
       </div>
       <span>
         <a href="https://cdn.jsdelivr.net/gh/llerandi/llm-price-tracker@main/data/prices.json" target="_blank">Raw JSON</a>
@@ -625,10 +628,10 @@
   let historyChart = null;
 
   // currency
-  const RATES_URL = "https://api.frankfurter.app/latest?from=USD&to=EUR,GBP";
-  const SYMBOLS = { USD: "$", EUR: "€", GBP: "£" };
+  const RATES_URL = "https://api.frankfurter.app/latest?from=USD&to=EUR,GBP,JPY,CAD,AUD";
+  const SYMBOLS = { USD: "$", EUR: "€", GBP: "£", JPY: "¥", CAD: "CA$", AUD: "A$" };
   // Fallback rates (approximate, updated at runtime from Frankfurter API)
-  let rates = { USD: 1.0, EUR: 0.92, GBP: 0.79 };
+  let rates = { USD: 1.0, EUR: 0.92, GBP: 0.79, JPY: 155.0, CAD: 1.37, AUD: 1.55 };
   let currency = "USD";
 
   function sym() { return SYMBOLS[currency]; }
@@ -640,6 +643,9 @@
       const data = await res.json();
       rates.EUR = data.rates.EUR ?? rates.EUR;
       rates.GBP = data.rates.GBP ?? rates.GBP;
+      rates.JPY = data.rates.JPY ?? rates.JPY;
+      rates.CAD = data.rates.CAD ?? rates.CAD;
+      rates.AUD = data.rates.AUD ?? rates.AUD;
     } catch {
       // silently keep fallback rates (0.92 EUR, 0.79 GBP)
     }
