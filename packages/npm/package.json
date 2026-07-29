@@ -1,0 +1,17 @@
+{
+  "name": "llm-price-tracker",
+  "version": "1.0.0",
+  "description": "Daily-updated LLM pricing data from all major providers. Zero-dependency wrapper around the llm-price-tracker JSON API.",
+  "main": "index.js",
+  "types": "index.d.ts",
+  "keywords": ["llm", "pricing", "ai", "tokens", "anthropic", "openai", "google", "mistral"],
+  "author": "llerandi",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/llerandi/llm-price-tracker.git",
+    "directory": "packages/npm"
+  },
+  "homepage": "https://llerandi.github.io/llm-price-tracker/",
+  "engines": { "node": ">=18" }
+}
