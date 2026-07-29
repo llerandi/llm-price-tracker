@@ -5,6 +5,46 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>LLM Price Tracker</title>
   <meta name="description" content="Daily-updated LLM pricing across all major providers. Sortable, filterable, and available as JSON.">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://llerandi.github.io/llm-price-tracker/">
+  <meta property="og:title" content="LLM Price Tracker">
+  <meta property="og:description" content="Daily-updated LLM pricing across all major providers. Compare input/output costs, context windows, and capabilities - free JSON API included.">
+  <meta property="og:image" content="https://llerandi.github.io/llm-price-tracker/og-image.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="LLM Price Tracker">
+  <meta name="twitter:description" content="Daily-updated LLM pricing across all major providers.">
+
+  <!-- Canonical -->
+  <link rel="canonical" href="https://llerandi.github.io/llm-price-tracker/">
+
+  <!-- RSS feed discovery -->
+  <link rel="alternate" type="application/atom+xml" title="LLM Price Tracker - Price Changes" href="https://cdn.jsdelivr.net/gh/llerandi/llm-price-tracker@main/data/feed.xml">
+
+  <!-- JSON-LD structured data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Dataset",
+    "name": "LLM Price Tracker",
+    "description": "Daily-updated pricing data for large language models across all major providers, including input/output token costs, context windows, and capabilities.",
+    "url": "https://llerandi.github.io/llm-price-tracker/",
+    "license": "https://opensource.org/licenses/MIT",
+    "creator": {
+      "@type": "Person",
+      "name": "llerandi",
+      "url": "https://github.com/llerandi"
+    },
+    "distribution": {
+      "@type": "DataDownload",
+      "encodingFormat": "application/json",
+      "contentUrl": "https://cdn.jsdelivr.net/gh/llerandi/llm-price-tracker@main/data/prices.json"
+    },
+    "temporalCoverage": "2026/..",
+    "keywords": ["LLM", "pricing", "AI", "tokens", "Anthropic", "OpenAI", "Google", "Mistral"]
+  }
+  </script>
   <style>
     :root {
       --bg: #ffffff;
@@ -18,6 +58,21 @@
       --pill-bg: #f1f3f5;
       --pill-active: #0969da;
     }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0d1117;
+        --bg-alt: #161b22;
+        --border: #30363d;
+        --text: #e6edf3;
+        --text-muted: #8b949e;
+        --primary: #58a6ff;
+        --header-bg: #010409;
+        --row-hover: #161b22;
+        --pill-bg: #21262d;
+        --pill-active: #388bfd;
+      }
+    }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
@@ -349,6 +404,20 @@
     .compare-yes { color: #116329; font-weight: 500; }
     .compare-no { color: #bbbfc3; }
 
+    /* dark mode overrides for hardcoded colours */
+    @media (prefers-color-scheme: dark) {
+      .cap { background: #1c3a5e; color: #79c0ff; }
+      .cap.reasoning { background: #3b2f00; color: #e3b341; }
+      .tier-efficient { background: #0f2a1a; color: #56d364; }
+      .tier-performance { background: #0d2a45; color: #79c0ff; }
+      .tier-flagship { background: #2d1a00; color: #ffa657; }
+      .tier-specialized { background: #1e1540; color: #bc8cff; }
+      .error-box { background: #2d0a0e; border-color: #6e2230; color: #ff7b72; }
+      .copy-btn.copied { border-color: #56d364; color: #56d364; }
+      .compare-better { color: #56d364; }
+      .compare-yes { color: #56d364; }
+    }
+
     /* footer */
     footer {
       margin-top: 56px;
@@ -397,6 +466,7 @@
     <div class="filters">
       <input id="search" class="search-box" type="search" placeholder="Search provider or model...">
       <div class="pills" id="provider-pills"></div>
+      <button id="export-csv" class="pill" style="margin-left:auto">Export CSV</button>
     </div>
 
     <div class="filters">
@@ -1099,6 +1169,33 @@
       if (sel.value) renderHistoryChart(sel.value);
       if (document.getElementById("compare-result").style.display !== "none") renderCompare();
     });
+  });
+
+  // CSV export
+  document.getElementById("export-csv").addEventListener("click", () => {
+    const visible = sortModels(getVisible());
+    const headers = [
+      "provider", "model_name", "model_id", "tier",
+      "input_per_1m_usd", "output_per_1m_usd", "context_window_k",
+      "supports_vision", "supports_function_calling", "is_reasoning",
+      "batch_input_per_1m_usd", "batch_output_per_1m_usd",
+      "cache_read_per_1m_usd", "cache_write_per_1m_usd", "notes"
+    ];
+    const esc = v => {
+      if (v == null) return "";
+      const s = String(v);
+      return s.includes(",") || s.includes('"') || s.includes("\n")
+        ? '"' + s.replace(/"/g, '""') + '"'
+        : s;
+    };
+    const rows = [headers.join(",")];
+    visible.forEach(m => rows.push(headers.map(h => esc(m[h])).join(",")));
+    const blob = new Blob([rows.join("\n")], { type: "text/csv" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = `llm-prices-${new Date().toISOString().slice(0,10)}.csv`;
+    a.click();
+    URL.revokeObjectURL(a.href);
   });
 
   init();

@@ -1,0 +1,6 @@
+{
+  "schemaVersion": 1,
+  "label": "Qwen3 Max context",
+  "message": "128K",
+  "color": "orange"
+}
