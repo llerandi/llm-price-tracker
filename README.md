@@ -151,7 +151,7 @@ Add a live price badge to any README. Badges update daily and are served via jsD
 **URL pattern:**
 
 ```
-https://img.shields.io/endpoint?url=https%3A%2F%2Fcdn.jsdelivr.net%2Fgh%2Fllerandi%2Fllm-price-tracker%40main%2Fdata%2Fbadges%2F{model-id}-{input|output}.json
+https://img.shields.io/endpoint?url=https%3A%2F%2Fcdn.jsdelivr.net%2Fgh%2Fllerandi%2Fllm-price-tracker%40main%2Fdata%2Fbadges%2F{model-id}-{input|output|context}.json
 ```
 
 Model IDs with slashes (e.g. Fireworks AI, Together AI) have the `/` replaced with `-` in the filename. Browse all IDs in [`data/prices.json`](data/prices.json) or check [`data/badges/`](data/badges/).
@@ -177,6 +177,7 @@ All endpoints are static JSON files served via jsDelivr CDN with full CORS suppo
 | Endpoint | Description |
 |----------|-------------|
 | `/data/prices.json` | All models from all providers |
+| `/data/latest.json` | Permanent alias for `prices.json` - stable URL that always points to the current data |
 | `/data/providers/{provider}.json` | Models for a single provider (e.g. `anthropic`, `openai`, `google`, `mistral`, `cohere`, `together-ai`, `fireworks-ai`, `ai21-labs`, `xai`, `perplexity`, `amazon-bedrock`, `deepseek`, `groq`, `qwen`) |
 | `/data/history/YYYY-MM-DD.json` | Price snapshot for a given date |
 | `/data/history_summary.json` | Consolidated time-series of input/output prices for all models (used by the price history chart) |
@@ -371,6 +372,21 @@ jsDelivr CDN caches files for a period after each push. To force a refresh:
 - [x] Add providers: DeepSeek, Groq, Qwen (Alibaba Cloud)
 - [x] Filters on the live site by tier, capabilities, and max price
 - [x] Model comparison view: select two models for a side-by-side diff
+
+### Phase 7 - Polish and Reach
+
+- [x] Dark mode (respects system preference via prefers-color-scheme)
+- [x] data/latest.json permanent alias for the current prices
+- [x] Weekly price summary posted to GitHub Discussions every Monday
+- [x] SEO: sitemap.xml, Open Graph meta tags, JSON-LD structured data
+- [x] Embeddable context window badge (alongside existing price badges)
+- [x] Export current filtered table as CSV
+- [ ] Shareable URLs: query params preserve active filters and comparison
+- [ ] Changelog section on the live site
+- [ ] Cost calculator presets (e.g. "10-page PDF", "code review", "1K support chats")
+- [ ] Embedding model pricing (text-embedding-3, Cohere Embed, etc.)
+- [ ] More currencies: JPY, CAD, AUD
+- [ ] Provider stats: aggregate summary per provider on the live site
 
 ---
 
