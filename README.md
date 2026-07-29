@@ -301,7 +301,7 @@ jsDelivr CDN caches files for a period after each push. To force a refresh:
 ### Phase 5 - Community
 
 - [x] Automated price verification: script that cross-checks prices against official pages
-- [ ] Support for multiple currencies (EUR, GBP) on the live site
+- [x] Support for multiple currencies (EUR, GBP) on the live site
 - [ ] npm / PyPI package wrapping the jsDelivr JSON endpoint
 
 ---

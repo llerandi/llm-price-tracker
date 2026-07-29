@@ -146,6 +146,22 @@
     .calc-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(9,105,218,.12); }
     .calc-hint { font-size: 12px; color: var(--text-muted); margin-left: auto; }
 
+    /* currency selector */
+    .currency-selector { display: flex; gap: 3px; }
+    .currency-btn {
+      padding: 3px 9px;
+      border-radius: 4px;
+      border: 1px solid var(--border);
+      background: var(--pill-bg);
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-muted);
+      transition: all .12s;
+    }
+    .currency-btn:hover { border-color: var(--primary); color: var(--primary); }
+    .currency-btn.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+
     /* section */
     .section-title { font-size: 16px; font-weight: 600; margin: 32px 0 6px; }
     .section-desc { color: var(--text-muted); font-size: 13px; margin-bottom: 14px; }
@@ -306,6 +322,11 @@
   <div id="app" style="display:none">
     <div class="meta">
       <span>Last updated: <strong id="last-updated">-</strong></span>
+      <div class="currency-selector">
+        <button class="currency-btn active" data-cur="USD">$ USD</button>
+        <button class="currency-btn" data-cur="EUR">€ EUR</button>
+        <button class="currency-btn" data-cur="GBP">£ GBP</button>
+      </div>
       <span>
         <a href="https://cdn.jsdelivr.net/gh/llerandi/llm-price-tracker@main/data/prices.json" target="_blank">Raw JSON</a>
         &nbsp;-&nbsp;
@@ -346,8 +367,8 @@
           <tr>
             <th data-col="provider" data-type="str">Provider <span class="sort-icon">↕</span></th>
             <th data-col="model_name" data-type="str">Model <span class="sort-icon">↕</span></th>
-            <th data-col="input_per_1m_usd" data-type="num" class="num">Input $/1M <span class="sort-icon">↕</span></th>
-            <th data-col="output_per_1m_usd" data-type="num" class="num">Output $/1M <span class="sort-icon">↕</span></th>
+            <th data-col="input_per_1m_usd" data-type="num" class="num">Input <span class="price-unit">$/1M</span> <span class="sort-icon">↕</span></th>
+            <th data-col="output_per_1m_usd" data-type="num" class="num">Output <span class="price-unit">$/1M</span> <span class="sort-icon">↕</span></th>
             <th data-col="context_window_k" data-type="num" class="num">Context <span class="sort-icon">↕</span></th>
             <th data-col="tier" data-type="str" class="center">Tier <span class="sort-icon">↕</span></th>
             <th class="center">Capabilities</th>
@@ -371,10 +392,10 @@
             <tr>
               <th>Provider</th>
               <th>Model</th>
-              <th class="num">Batch Input $/1M</th>
-              <th class="num">Batch Output $/1M</th>
-              <th class="num">Cache Read $/1M</th>
-              <th class="num">Cache Write $/1M</th>
+              <th class="num">Batch Input <span class="price-unit">$/1M</span></th>
+              <th class="num">Batch Output <span class="price-unit">$/1M</span></th>
+              <th class="num">Cache Read <span class="price-unit">$/1M</span></th>
+              <th class="num">Cache Write <span class="price-unit">$/1M</span></th>
             </tr>
           </thead>
           <tbody id="batch-tbody"></tbody>
@@ -423,9 +444,30 @@
   let historyData = null;
   let historyChart = null;
 
+  // currency
+  const RATES_URL = "https://api.frankfurter.app/latest?from=USD&to=EUR,GBP";
+  const SYMBOLS = { USD: "$", EUR: "€", GBP: "£" };
+  let rates = { USD: 1.0, EUR: 1.0, GBP: 1.0 };
+  let currency = "USD";
+
+  function sym() { return SYMBOLS[currency]; }
+
+  async function fetchRates() {
+    try {
+      const res = await fetch(RATES_URL);
+      if (!res.ok) return;
+      const data = await res.json();
+      rates.EUR = data.rates.EUR ?? 1.0;
+      rates.GBP = data.rates.GBP ?? 1.0;
+    } catch {
+      // silently fall back to USD (rates stay at 1.0)
+    }
+  }
+
   async function init() {
     try {
-      const res = await fetch(CDN_URL);
+      const [pricesRes] = await Promise.all([fetch(CDN_URL), fetchRates()]);
+      const res = pricesRes;
       if (!res.ok) throw new Error("HTTP " + res.status);
       const data = await res.json();
       models = data.models;
@@ -480,11 +522,13 @@
 
   function fmtCost(v) {
     if (v == null) return '<span class="na">-</span>';
-    if (v === 0) return '$0.00';
-    if (v >= 1) return '$' + v.toFixed(2);
-    if (v >= 0.01) return '$' + v.toFixed(4);
-    if (v >= 0.0001) return '$' + v.toFixed(6);
-    return '$' + v.toExponential(2);
+    const cv = v * rates[currency];
+    const s = sym();
+    if (cv === 0) return s + '0.00';
+    if (cv >= 1) return s + cv.toFixed(2);
+    if (cv >= 0.01) return s + cv.toFixed(4);
+    if (cv >= 0.0001) return s + cv.toFixed(6);
+    return s + cv.toExponential(2);
   }
 
   function sortModels(list) {
@@ -505,7 +549,7 @@
 
   function fmt(v, decimals = 2) {
     if (v == null) return '<span class="na">-</span>';
-    return "$" + Number(v).toFixed(decimals);
+    return sym() + (Number(v) * rates[currency]).toFixed(decimals);
   }
 
   function fmtCtx(k) {
@@ -529,9 +573,16 @@
     document.getElementById("cost-th").style.display = show ? "" : "none";
   }
 
+  function updatePriceUnits() {
+    document.querySelectorAll(".price-unit").forEach(el => {
+      el.textContent = sym() + "/1M";
+    });
+  }
+
   function render() {
     const showCost = calcInputTokens > 0 || calcOutputTokens > 0;
     showCostCol(showCost);
+    updatePriceUnits();
     const visible = sortModels(getVisible());
     renderMain(visible, showCost);
     renderBatch(visible);
@@ -687,6 +738,8 @@
 
       if (historyChart) historyChart.destroy();
 
+      const s = sym();
+      const r = rates[currency];
       const ctx = document.getElementById("history-chart").getContext("2d");
       historyChart = new Chart(ctx, {
         type: "line",
@@ -694,8 +747,8 @@
           labels: historyData.dates,
           datasets: [
             {
-              label: "Input $/1M",
-              data: mData.input,
+              label: "Input " + s + "/1M",
+              data: mData.input.map(v => v != null ? v * r : null),
               borderColor: "#0969da",
               backgroundColor: "rgba(9,105,218,.08)",
               fill: true,
@@ -704,8 +757,8 @@
               spanGaps: true,
             },
             {
-              label: "Output $/1M",
-              data: mData.output,
+              label: "Output " + s + "/1M",
+              data: mData.output.map(v => v != null ? v * r : null),
               borderColor: "#e36209",
               backgroundColor: "rgba(227,98,9,.08)",
               fill: true,
@@ -724,7 +777,7 @@
               callbacks: {
                 label: ctx => {
                   const v = ctx.parsed.y;
-                  return ctx.dataset.label + ": " + (v != null ? "$" + v.toFixed(4) : "N/A");
+                  return ctx.dataset.label + ": " + (v != null ? sym() + v.toFixed(4) : "N/A");
                 }
               }
             }
@@ -732,11 +785,13 @@
           scales: {
             y: {
               beginAtZero: false,
-              ticks: { callback: v => "$" + v }
+              ticks: { callback: v => sym() + v }
             }
           }
         }
       });
+      document.querySelector(".history-note").textContent =
+        "Prices per 1M tokens in " + currency + ". Updated daily by GitHub Actions.";
 
     } catch (e) {
       wrap.style.display = "none";
@@ -777,6 +832,18 @@
   }
   document.getElementById("calc-input").addEventListener("input", updateCalc);
   document.getElementById("calc-output").addEventListener("input", updateCalc);
+
+  // currency switcher
+  document.querySelectorAll(".currency-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      currency = btn.dataset.cur;
+      document.querySelectorAll(".currency-btn").forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      render();
+      const sel = document.getElementById("history-model-select");
+      if (sel.value) renderHistoryChart(sel.value);
+    });
+  });
 
   init();
 </script>
