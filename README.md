@@ -33,6 +33,8 @@ Prices in USD per 1 million tokens. Sorted by provider, then by input price.
 | Cohere | Command R7B | $0.04 | $0.15 | 128K | tools |
 | Cohere | Command R | $0.15 | $0.60 | 128K | tools |
 | Cohere | Command R+ | $2.50 | $10.00 | 128K | tools |
+| DeepSeek | DeepSeek V4 | $0.07 | $0.28 | 64K | tools |
+| DeepSeek | DeepSeek R2 | $0.55 | $2.19 | 128K | reasoning |
 | Fireworks AI | DeepSeek V4 Flash | $0.14 | $0.28 | 128K | tools |
 | Google | Gemini 2.5 Flash Lite | $0.10 | $0.40 | 1M | vision, tools |
 | Google | Gemini 2.5 Flash | $0.30 | $2.50 | 1M | vision, tools, reasoning |
@@ -40,6 +42,9 @@ Prices in USD per 1 million tokens. Sorted by provider, then by input price.
 | Google | Gemini 2.5 Pro | $1.25 | $10.00 | 2M | vision, tools |
 | Google | Gemini 3.5 Flash | $1.50 | $9.00 | 1M | vision, tools, reasoning |
 | Google | Gemini 3.6 Flash | $1.50 | $7.50 | 1M | vision, tools, reasoning |
+| Groq | Llama 4 Scout | $0.05 | $0.08 | 128K | vision, tools |
+| Groq | Llama 4 Maverick | $0.20 | $0.60 | 128K | vision, tools |
+| Groq | DeepSeek R2 Distill Llama 70B | $0.50 | $0.75 | 32K | reasoning |
 | Mistral | Devstral Small 2 | $0.10 | $0.30 | 128K | tools |
 | Mistral | Mistral Small 4 | $0.15 | $0.60 | 128K | tools |
 | Mistral | Codestral | $0.30 | $0.90 | 256K | tools |
@@ -59,6 +64,9 @@ Prices in USD per 1 million tokens. Sorted by provider, then by input price.
 | Perplexity | Sonar | $1.00 | $1.00 | 128K | - |
 | Perplexity | Sonar Reasoning Pro | $2.00 | $8.00 | 128K | reasoning |
 | Perplexity | Sonar Pro | $3.00 | $15.00 | 200K | - |
+| Qwen | Qwen3 Turbo | $0.08 | $0.25 | 128K | tools |
+| Qwen | Qwen3 Plus | $0.40 | $1.20 | 256K | vision, tools |
+| Qwen | Qwen3 Max | $1.20 | $4.80 | 128K | vision, tools, reasoning |
 | Together AI | Llama 4 Scout | $0.18 | $0.59 | 128K | vision, tools |
 | Together AI | DeepSeek V3.1 | $0.60 | $1.70 | 128K | tools |
 | xAI | Grok Build 0.1 | $1.00 | $2.00 | 256K | tools |
@@ -86,6 +94,8 @@ Some providers offer discounted rates for asynchronous (batch) processing and pr
 | Anthropic | Claude Sonnet 5 | $1.00 | $5.00 | $0.20 | $2.50 |
 | Anthropic | Claude Opus 5 | $2.50 | $12.50 | $0.50 | $6.25 |
 | Anthropic | Claude Fable 5 | $5.00 | $25.00 | $1.00 | $12.50 |
+| DeepSeek | DeepSeek V4 | N/A | N/A | $0.02 | N/A |
+| DeepSeek | DeepSeek R2 | N/A | N/A | $0.14 | N/A |
 | Fireworks AI | DeepSeek V4 Flash | $0.07 | $0.14 | $0.07 | N/A |
 | Google | Gemini 2.5 Flash Lite | $0.05 | $0.20 | $0.01 | N/A |
 | Google | Gemini 2.5 Flash | $0.15 | $1.25 | $0.03 | N/A |
@@ -167,7 +177,7 @@ All endpoints are static JSON files served via jsDelivr CDN with full CORS suppo
 | Endpoint | Description |
 |----------|-------------|
 | `/data/prices.json` | All models from all providers |
-| `/data/providers/{provider}.json` | Models for a single provider (e.g. `anthropic`, `openai`, `google`, `mistral`, `cohere`, `together-ai`, `fireworks-ai`, `ai21-labs`, `xai`, `perplexity`, `amazon-bedrock`) |
+| `/data/providers/{provider}.json` | Models for a single provider (e.g. `anthropic`, `openai`, `google`, `mistral`, `cohere`, `together-ai`, `fireworks-ai`, `ai21-labs`, `xai`, `perplexity`, `amazon-bedrock`, `deepseek`, `groq`, `qwen`) |
 | `/data/history/YYYY-MM-DD.json` | Price snapshot for a given date |
 | `/data/history_summary.json` | Consolidated time-series of input/output prices for all models (used by the price history chart) |
 | `/data/feed.xml` | Atom 1.0 feed of daily price changes - subscribe in any RSS reader |
@@ -358,7 +368,7 @@ jsDelivr CDN caches files for a period after each push. To force a refresh:
 
 - [x] Automated GitHub Issue when a price changes by more than 10% (subscribe via Watch -> Issues)
 - [x] RSS/Atom feed of price changes, generated daily and served as static XML via jsDelivr CDN
-- [ ] Add providers: DeepSeek, Groq, Qwen (Alibaba Cloud)
+- [x] Add providers: DeepSeek, Groq, Qwen (Alibaba Cloud)
 - [x] Filters on the live site by tier, capabilities, and max price
 - [x] Model comparison view: select two models for a side-by-side diff
 
