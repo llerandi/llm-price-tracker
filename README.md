@@ -358,7 +358,7 @@ https://purge.jsdelivr.net/gh/llerandi/llm-price-tracker@main/data/prices.json
 - [ ] Cost calculator presets (e.g. "10-page PDF", "code review", "1K support chats")
 - [ ] Embedding model pricing (text-embedding-3, Cohere Embed, etc.)
 - [x] More currencies: JPY, CAD, AUD (with fallback rates if API fails)
-- [ ] Provider stats: aggregate summary per provider on the live site
+- [x] Provider stats: aggregate summary per provider on the live site
 
 ### Phase 8 - CDN Reliability and API
 
