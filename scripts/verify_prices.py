@@ -46,8 +46,12 @@ def check_model(
     warnings: list[str] = []
     mid = m.get("model_id", "<unknown>")
 
-    # Required fields
+    is_embedding = m.get("is_embedding", False)
+
+    # Required fields (embedding models have no output tokens - skip output check)
     for field in REQUIRED_FIELDS:
+        if field == "output_per_1m_usd" and is_embedding:
+            continue
         if m.get(field) is None:
             errors.append(f"{mid}: missing required field '{field}'")
 
