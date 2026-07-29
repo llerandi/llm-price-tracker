@@ -12,6 +12,7 @@ A daily-updated reference of LLM model pricing across all major providers. One s
 
 **Live site:** [llerandi.github.io/llm-price-tracker](https://llerandi.github.io/llm-price-tracker/) - sortable, filterable table updated daily.
 
+> [!TIP]
 > Looking for rate limits (RPM, TPM, RPD) instead? See the sister project: [LLM Rate Limits Tracker](https://github.com/llerandi/llm-rate-limits-tracker)
 
 ---
