@@ -1080,9 +1080,19 @@
   // currency switcher
   document.querySelectorAll(".currency-btn").forEach(btn => {
     btn.addEventListener("click", () => {
+      const prevCurrency = currency;
       currency = btn.dataset.cur;
       document.querySelectorAll(".currency-btn").forEach(b => b.classList.remove("active"));
       btn.classList.add("active");
+      // Convert max-price input to the new currency so the threshold stays equivalent
+      const maxEl = document.getElementById("max-price");
+      if (maxEl.value) {
+        const oldVal = parseFloat(maxEl.value);
+        if (!isNaN(oldVal) && oldVal > 0) {
+          const usd = oldVal / rates[prevCurrency];
+          maxEl.value = parseFloat((usd * rates[currency]).toFixed(4));
+        }
+      }
       render();
       const sel = document.getElementById("history-model-select");
       if (sel.value) renderHistoryChart(sel.value);
