@@ -582,6 +582,27 @@
       <p id="history-empty" class="empty" style="display:none"></p>
     </div>
 
+    <div id="provider-stats-section">
+      <h2 class="section-title">Provider Overview</h2>
+      <p class="section-desc">Aggregate pricing and capabilities per provider across all tracked models.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Provider</th>
+              <th class="num">Models</th>
+              <th>Cheapest model</th>
+              <th class="num">Input range <span class="price-unit">$/1M</span></th>
+              <th class="num">Output range <span class="price-unit">$/1M</span></th>
+              <th class="num">Max context</th>
+              <th class="center">Capabilities</th>
+            </tr>
+          </thead>
+          <tbody id="provider-stats-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
     <div id="compare-section">
       <h2 class="section-title">Compare Models</h2>
       <p class="section-desc">Select two models to see a side-by-side breakdown of pricing and capabilities.</p>
@@ -665,6 +686,7 @@
       render();
       buildHistorySelect();
       buildCompareSelects();
+      renderProviderStats();
       document.getElementById("loading").style.display = "none";
       document.getElementById("app").style.display = "";
     } catch (e) {
@@ -1136,6 +1158,59 @@
     result.style.display = "";
   }
 
+  function renderProviderStats() {
+    const byProvider = {};
+    models.forEach(m => {
+      if (!byProvider[m.provider]) byProvider[m.provider] = [];
+      byProvider[m.provider].push(m);
+    });
+
+    const r = rates[currency];
+    const s = sym();
+
+    function fmtRange(arr) {
+      if (!arr.length) return '<span class="na">-</span>';
+      const mn = Math.min(...arr) * r;
+      const mx = Math.max(...arr) * r;
+      if (mn === mx) return s + mn.toFixed(2);
+      return s + mn.toFixed(2) + " - " + s + mx.toFixed(2);
+    }
+
+    const rows = Object.keys(byProvider).sort().map(provider => {
+      const ms = byProvider[provider];
+      const inputs = ms.map(m => m.input_per_1m_usd).filter(v => v != null);
+      const outputs = ms.map(m => m.output_per_1m_usd).filter(v => v != null);
+      const contexts = ms.map(m => m.context_window_k).filter(v => v != null);
+
+      const cheapest = inputs.length
+        ? ms.filter(m => m.input_per_1m_usd != null)
+             .sort((a, b) => a.input_per_1m_usd - b.input_per_1m_usd)[0]
+        : null;
+
+      const caps = new Set();
+      ms.forEach(m => {
+        if (m.supports_vision) caps.add("vision");
+        if (m.supports_function_calling) caps.add("tools");
+        if (m.is_reasoning) caps.add("reasoning");
+      });
+      const capsHtml = [...caps].map(c =>
+        `<span class="cap${c === "reasoning" ? " reasoning" : ""}">${c}</span>`
+      ).join("") || '<span class="na">-</span>';
+
+      return `<tr>
+        <td><strong>${provider}</strong></td>
+        <td class="num">${ms.length}</td>
+        <td>${cheapest ? cheapest.model_name : '<span class="na">-</span>'}</td>
+        <td class="num">${fmtRange(inputs)}</td>
+        <td class="num">${fmtRange(outputs)}</td>
+        <td class="num">${contexts.length ? fmtCtx(Math.max(...contexts)) : '<span class="na">-</span>'}</td>
+        <td class="center">${capsHtml}</td>
+      </tr>`;
+    });
+
+    document.getElementById("provider-stats-tbody").innerHTML = rows.join("");
+  }
+
   document.getElementById("compare-a").addEventListener("change", renderCompare);
   document.getElementById("compare-b").addEventListener("change", renderCompare);
 
@@ -1190,6 +1265,7 @@
         }
       }
       render();
+      renderProviderStats();
       const sel = document.getElementById("history-model-select");
       if (sel.value) renderHistoryChart(sel.value);
       if (document.getElementById("compare-result").style.display !== "none") renderCompare();
