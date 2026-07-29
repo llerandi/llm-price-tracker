@@ -1,0 +1,58 @@
+{
+  "provider": "Qwen",
+  "last_updated": "2026-07-29",
+  "model_count": 3,
+  "models": [
+    {
+      "provider": "Qwen",
+      "model_id": "qwen3-turbo",
+      "model_name": "Qwen3 Turbo",
+      "input_per_1m_usd": 0.08,
+      "output_per_1m_usd": 0.25,
+      "context_window_k": 128,
+      "supports_vision": false,
+      "supports_function_calling": true,
+      "is_reasoning": false,
+      "tier": "efficient",
+      "notes": "",
+      "batch_input_per_1m_usd": null,
+      "batch_output_per_1m_usd": null,
+      "cache_read_per_1m_usd": null,
+      "cache_write_per_1m_usd": null
+    },
+    {
+      "provider": "Qwen",
+      "model_id": "qwen3-plus",
+      "model_name": "Qwen3 Plus",
+      "input_per_1m_usd": 0.4,
+      "output_per_1m_usd": 1.2,
+      "context_window_k": 256,
+      "supports_vision": true,
+      "supports_function_calling": true,
+      "is_reasoning": false,
+      "tier": "performance",
+      "notes": "",
+      "batch_input_per_1m_usd": null,
+      "batch_output_per_1m_usd": null,
+      "cache_read_per_1m_usd": null,
+      "cache_write_per_1m_usd": null
+    },
+    {
+      "provider": "Qwen",
+      "model_id": "qwen3-max",
+      "model_name": "Qwen3 Max",
+      "input_per_1m_usd": 1.2,
+      "output_per_1m_usd": 4.8,
+      "context_window_k": 128,
+      "supports_vision": true,
+      "supports_function_calling": true,
+      "is_reasoning": true,
+      "tier": "flagship",
+      "notes": "",
+      "batch_input_per_1m_usd": null,
+      "batch_output_per_1m_usd": null,
+      "cache_read_per_1m_usd": null,
+      "cache_write_per_1m_usd": null
+    }
+  ]
+}

@@ -101,13 +101,15 @@ def render_entry(
         for m in new_models:
             inp = fmt(m.get("input_per_1m_usd"))
             out = fmt(m.get("output_per_1m_usd"))
-            lines.append(f"- **{m['provider']}** {m['model_name']} — {inp} in / {out} out")
+            name = m.get("model_name", m.get("model_id", ""))
+            lines.append(f"- **{m['provider']}** {name} — {inp} in / {out} out")
         lines.append("")
 
     if removed_models:
         lines += ["### Removed models", ""]
         for m in removed_models:
-            lines.append(f"- **{m['provider']}** {m['model_name']}")
+            name = m.get("model_name", m.get("model_id", ""))
+            lines.append(f"- **{m['provider']}** {name}")
         lines.append("")
 
     return "\n".join(lines)
