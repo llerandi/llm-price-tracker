@@ -10,6 +10,7 @@ Uses urllib (stdlib) and ThreadPoolExecutor for parallel requests.
 from __future__ import annotations
 
 import json
+import urllib.error
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
@@ -58,7 +59,7 @@ def purge_one(path: str) -> tuple[str, bool, str]:
         req = urllib.request.Request(url)
         with urllib.request.urlopen(req, timeout=15) as r:
             return path, True, str(r.status)
-    except Exception as exc:
+    except (urllib.error.URLError, TimeoutError, OSError) as exc:
         return path, False, str(exc)
 
 
