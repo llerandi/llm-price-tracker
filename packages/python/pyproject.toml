@@ -1,0 +1,28 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "llm-price-tracker"
+version = "1.0.0"
+description = "Daily-updated LLM pricing data from all major providers. Zero-dependency wrapper around the llm-price-tracker JSON API."
+readme = "README.md"
+license = { text = "MIT" }
+authors = [{ name = "llerandi" }]
+keywords = ["llm", "pricing", "ai", "tokens", "anthropic", "openai", "google"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Intended Audience :: Developers",
+    "Topic :: Software Development :: Libraries",
+]
+requires-python = ">=3.9"
+dependencies = []
+
+[project.urls]
+Homepage = "https://llerandi.github.io/llm-price-tracker/"
+Repository = "https://github.com/llerandi/llm-price-tracker"
+"Bug Tracker" = "https://github.com/llerandi/llm-price-tracker/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/llm_price_tracker"]
