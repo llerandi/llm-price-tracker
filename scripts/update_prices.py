@@ -19,6 +19,8 @@ TABLE_END = "<!-- PRICING_TABLE_END -->"
 BATCH_TABLE_START = "<!-- BATCH_CACHE_TABLE_START -->"
 BATCH_TABLE_END = "<!-- BATCH_CACHE_TABLE_END -->"
 
+SITE_URL = "https://llerandi.github.io/llm-price-tracker/"
+
 
 # ---------------------------------------------------------------------------
 # Formatters
@@ -55,7 +57,22 @@ def fmt_capabilities(model: dict) -> str:
 # ---------------------------------------------------------------------------
 
 
-def build_table(models: list[dict]) -> str:
+def pick_preview_models(models: list[dict]) -> list[dict]:
+    """Return the cheapest model per provider for the README preview table.
+
+    Models must already be sorted by (provider, input_per_1m_usd) ascending.
+    """
+    seen: set[str] = set()
+    preview: list[dict] = []
+    for m in models:
+        if m["provider"] not in seen:
+            seen.add(m["provider"])
+            preview.append(m)
+    return preview
+
+
+def build_table(preview: list[dict], total: int) -> str:
+    """Build a short preview table showing one model per provider."""
     header = (
         "| Provider | Model | Input ($/1M) | Output ($/1M) | Context | Capabilities |\n"
         "|----------|-------|:------------:|:-------------:|:-------:|:------------:|\n"
@@ -67,33 +84,22 @@ def build_table(models: list[dict]) -> str:
         f"| {fmt_price(m.get('output_per_1m_usd'))} "
         f"| {fmt_context(m.get('context_window_k'))} "
         f"| {fmt_capabilities(m)} |"
-        for m in models
+        for m in preview
     ]
-    return header + "\n".join(rows)
-
-
-def build_batch_cache_table(models: list[dict]) -> str:
-    # Only include models that have at least one batch or cache value
-    rows = []
-    for m in models:
-        bi = m.get("batch_input_per_1m_usd")
-        bo = m.get("batch_output_per_1m_usd")
-        cr = m.get("cache_read_per_1m_usd")
-        cw = m.get("cache_write_per_1m_usd")
-        if any(v is not None for v in (bi, bo, cr, cw)):
-            rows.append(
-                f"| {m['provider']} "
-                f"| {m['model_name']} "
-                f"| {fmt_price(bi)} "
-                f"| {fmt_price(bo)} "
-                f"| {fmt_price(cr)} "
-                f"| {fmt_price(cw)} |"
-            )
-    header = (
-        "| Provider | Model | Batch Input ($/1M) | Batch Output ($/1M) | Cache Read ($/1M) | Cache Write ($/1M) |\n"
-        "|----------|-------|:------------------:|:-------------------:|:-----------------:|:------------------:|\n"
+    n_providers = len(preview)
+    cta = (
+        f"\n_Showing the cheapest model per provider ({n_providers} providers shown, "
+        f"{total} models total). "
+        f"[**View all models with filters and comparison →**]({SITE_URL})_"
     )
-    return header + "\n".join(rows)
+    return header + "\n".join(rows) + cta
+
+
+def build_batch_cache_note() -> str:
+    return (
+        f"_Batch and cache pricing is available for select models. "
+        f"[**See full pricing table →**]({SITE_URL})_"
+    )
 
 
 def update_readme(table_md: str, batch_cache_md: str, last_updated: str) -> None:
@@ -144,10 +150,11 @@ def main() -> None:
         json.dumps(data, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
     )
 
-    # Regenerate README tables
-    table = build_table(data["models"])
-    batch_cache_table = build_batch_cache_table(data["models"])
-    update_readme(table, batch_cache_table, today)
+    # Regenerate README tables (preview: one model per provider)
+    preview = pick_preview_models(data["models"])
+    table = build_table(preview, total=len(data["models"]))
+    batch_cache_note = build_batch_cache_note()
+    update_readme(table, batch_cache_note, today)
 
     print(f"Done. {len(data['models'])} models. Last updated: {today}")
 
