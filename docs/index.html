@@ -432,6 +432,40 @@
     }
     #theme-toggle:hover { border-color: rgba(255,255,255,.6); }
 
+    /* calc presets */
+    .calc-presets { display: flex; gap: 5px; flex-wrap: wrap; align-items: center; margin-left: auto; }
+    .preset-label { font-size: 11px; color: var(--text-muted); white-space: nowrap; }
+    .preset-btn {
+      padding: 4px 9px;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      background: var(--bg);
+      color: var(--text-muted);
+      font-size: 11px;
+      cursor: pointer;
+      transition: all .12s;
+      white-space: nowrap;
+    }
+    .preset-btn:hover { border-color: var(--primary); color: var(--primary); }
+
+    /* changelog */
+    .changelog-entry { margin-bottom: 24px; }
+    .changelog-date {
+      font-size: 13px;
+      font-weight: 600;
+      padding-bottom: 6px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 8px;
+    }
+    .changelog-items { list-style: none; padding: 0; }
+    .changelog-items li {
+      font-size: 13px;
+      color: var(--text-muted);
+      padding: 3px 0 3px 14px;
+      position: relative;
+    }
+    .changelog-items li::before { content: "·"; position: absolute; left: 0; }
+
     /* footer */
     footer {
       margin-top: 56px;
@@ -519,7 +553,13 @@
         Output tokens
         <input id="calc-output" class="calc-input" type="number" min="0" placeholder="e.g. 2000">
       </label>
-      <span class="calc-hint">Fill in token counts to see estimated cost per model in the table.</span>
+      <div class="calc-presets">
+        <span class="preset-label">Presets:</span>
+        <button class="preset-btn" data-in="7500" data-out="500">10-page PDF</button>
+        <button class="preset-btn" data-in="4000" data-out="1500">Code review</button>
+        <button class="preset-btn" data-in="500000" data-out="200000">1K support chats</button>
+        <button class="preset-btn" data-in="3000" data-out="800">Article summary</button>
+      </div>
     </div>
 
     <h2 class="section-title">Standard Pricing</h2>
@@ -603,6 +643,34 @@
       </div>
     </div>
 
+    <div id="embedding-section">
+      <h2 class="section-title">Embedding Models</h2>
+      <p class="section-desc">Embedding models generate vector representations of text. Priced on input tokens only - no output tokens.</p>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Provider</th>
+              <th>Model</th>
+              <th class="num">Input <span class="price-unit">$/1M</span></th>
+              <th class="num">Context</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody id="embedding-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="changelog-section">
+      <h2 class="section-title">Changelog</h2>
+      <p class="section-desc">Recent price changes and model additions detected by the daily update workflow.</p>
+      <div id="changelog-content"></div>
+      <p id="changelog-more" style="font-size:13px;margin-top:8px;display:none">
+        <a href="https://cdn.jsdelivr.net/gh/llerandi/llm-price-tracker@main/data/changelog.md" target="_blank">View full changelog →</a>
+      </p>
+    </div>
+
     <div id="compare-section">
       <h2 class="section-title">Compare Models</h2>
       <p class="section-desc">Select two models to see a side-by-side breakdown of pricing and capabilities.</p>
@@ -680,13 +748,17 @@
       const data = await res.json();
       models = data.models;
       document.getElementById("last-updated").textContent = data.last_updated;
+      applyUrlParams();
       buildPills();
       buildTierPills();
       buildCapPills();
       render();
       buildHistorySelect();
       buildCompareSelects();
+      applyCompareParams();
       renderProviderStats();
+      renderEmbeddings();
+      renderChangelog();
       document.getElementById("loading").style.display = "none";
       document.getElementById("app").style.display = "";
     } catch (e) {
@@ -702,13 +774,14 @@
     const container = document.getElementById("provider-pills");
     [null, ...providers].forEach(p => {
       const btn = document.createElement("button");
-      btn.className = "pill" + (p === null ? " active" : "");
+      btn.className = "pill" + (p === activeProvider ? " active" : "");
       btn.textContent = p === null ? "All" : p;
       btn.addEventListener("click", () => {
-        document.querySelectorAll(".pill").forEach(el => el.classList.remove("active"));
+        container.querySelectorAll(".pill").forEach(el => el.classList.remove("active"));
         btn.classList.add("active");
         activeProvider = p;
         render();
+        syncUrl();
       });
       container.appendChild(btn);
     });
@@ -719,13 +792,14 @@
     const container = document.getElementById("tier-pills");
     [null, ...tiers].forEach(t => {
       const btn = document.createElement("button");
-      btn.className = "pill" + (t === null ? " active" : "");
+      btn.className = "pill" + (t === activeTier ? " active" : "");
       btn.textContent = t === null ? "All" : t;
       btn.addEventListener("click", () => {
         activeTier = t;
         container.querySelectorAll(".pill").forEach(el => el.classList.remove("active"));
         btn.classList.add("active");
         render();
+        syncUrl();
       });
       container.appendChild(btn);
     });
@@ -740,7 +814,7 @@
     const container = document.getElementById("cap-pills");
     caps.forEach(({ key, label }) => {
       const btn = document.createElement("button");
-      btn.className = "pill";
+      btn.className = "pill" + (activeCaps.has(key) ? " active" : "");
       btn.textContent = label;
       btn.addEventListener("click", () => {
         if (activeCaps.has(key)) {
@@ -751,6 +825,7 @@
           btn.classList.add("active");
         }
         render();
+        syncUrl();
       });
       container.appendChild(btn);
     });
@@ -759,6 +834,7 @@
   function getVisible() {
     const maxPriceVal = parseFloat(document.getElementById("max-price").value) || null;
     return models.filter(m => {
+      if (m.is_embedding) return false;  // handled in embedding section
       if (activeProvider && m.provider !== activeProvider) return false;
       if (searchText) {
         const q = searchText.toLowerCase();
@@ -773,6 +849,24 @@
       }
       return true;
     });
+  }
+
+  function renderEmbeddings() {
+    const embedModels = models
+      .filter(m => m.is_embedding)
+      .sort((a, b) => a.provider.localeCompare(b.provider) || (a.input_per_1m_usd ?? 0) - (b.input_per_1m_usd ?? 0));
+    const tbody = document.getElementById("embedding-tbody");
+    if (!embedModels.length) {
+      tbody.innerHTML = '<tr><td colspan="5" class="empty">No embedding models in dataset yet.</td></tr>';
+      return;
+    }
+    tbody.innerHTML = embedModels.map(m => `<tr>
+      <td>${m.provider}</td>
+      <td>${m.model_name}</td>
+      <td class="num">${fmt(m.input_per_1m_usd)}</td>
+      <td class="num">${fmtCtx(m.context_window_k)}</td>
+      <td style="font-size:12px;color:var(--text-muted)">${m.notes || ""}</td>
+    </tr>`).join("");
   }
 
   function calcCost(m) {
@@ -1211,12 +1305,55 @@
     document.getElementById("provider-stats-tbody").innerHTML = rows.join("");
   }
 
-  document.getElementById("compare-a").addEventListener("change", renderCompare);
-  document.getElementById("compare-b").addEventListener("change", renderCompare);
+  document.getElementById("compare-a").addEventListener("change", () => { renderCompare(); syncUrl(); });
+  document.getElementById("compare-b").addEventListener("change", () => { renderCompare(); syncUrl(); });
 
   document.getElementById("history-model-select").addEventListener("change", e => {
     renderHistoryChart(e.target.value);
   });
+
+  // URL sync
+  function syncUrl() {
+    const params = new URLSearchParams();
+    if (activeProvider) params.set("provider", activeProvider);
+    if (activeTier) params.set("tier", activeTier);
+    if (activeCaps.size) params.set("caps", [...activeCaps].join(","));
+    if (searchText) params.set("q", searchText);
+    if (sortCol !== "provider") params.set("sort", sortCol);
+    if (sortDir !== 1) params.set("dir", "desc");
+    if (currency !== "USD") params.set("cur", currency);
+    const cmpA = document.getElementById("compare-a").value;
+    const cmpB = document.getElementById("compare-b").value;
+    if (cmpA) params.set("compare_a", cmpA);
+    if (cmpB) params.set("compare_b", cmpB);
+    const str = params.toString();
+    history.replaceState(null, "", str ? "?" + str : location.pathname);
+  }
+
+  function applyUrlParams() {
+    const params = new URLSearchParams(location.search);
+    if (params.has("provider")) activeProvider = params.get("provider") || null;
+    if (params.has("tier")) activeTier = params.get("tier") || null;
+    if (params.has("caps")) params.get("caps").split(",").filter(Boolean).forEach(c => activeCaps.add(c));
+    if (params.has("q")) { searchText = params.get("q"); document.getElementById("search").value = searchText; }
+    if (params.has("sort")) sortCol = params.get("sort");
+    if (params.has("dir")) sortDir = params.get("dir") === "desc" ? -1 : 1;
+    if (params.has("cur")) {
+      currency = params.get("cur");
+      document.querySelectorAll(".currency-btn").forEach(b => {
+        b.classList.toggle("active", b.dataset.cur === currency);
+      });
+    }
+  }
+
+  function applyCompareParams() {
+    const params = new URLSearchParams(location.search);
+    if (params.has("compare_a")) document.getElementById("compare-a").value = params.get("compare_a");
+    if (params.has("compare_b")) {
+      document.getElementById("compare-b").value = params.get("compare_b");
+      if (params.get("compare_a") && params.get("compare_b")) renderCompare();
+    }
+  }
 
   // sort headers
   document.querySelectorAll("th[data-col]").forEach(th => {
@@ -1224,6 +1361,7 @@
       if (sortCol === th.dataset.col) sortDir *= -1;
       else { sortCol = th.dataset.col; sortDir = 1; }
       render();
+      syncUrl();
     });
   });
 
@@ -1231,6 +1369,7 @@
   document.getElementById("search").addEventListener("input", e => {
     searchText = e.target.value.trim();
     render();
+    syncUrl();
   });
 
   // batch toggle
@@ -1247,6 +1386,15 @@
   document.getElementById("calc-input").addEventListener("input", updateCalc);
   document.getElementById("calc-output").addEventListener("input", updateCalc);
   document.getElementById("max-price").addEventListener("input", render);
+
+  // preset buttons
+  document.querySelectorAll(".preset-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      document.getElementById("calc-input").value = btn.dataset.in;
+      document.getElementById("calc-output").value = btn.dataset.out;
+      updateCalc();
+    });
+  });
 
   // currency switcher
   document.querySelectorAll(".currency-btn").forEach(btn => {
@@ -1266,11 +1414,53 @@
       }
       render();
       renderProviderStats();
+      renderEmbeddings();
+      syncUrl();
       const sel = document.getElementById("history-model-select");
       if (sel.value) renderHistoryChart(sel.value);
       if (document.getElementById("compare-result").style.display !== "none") renderCompare();
     });
   });
+
+  // changelog
+  const CHANGELOG_URL = "https://cdn.jsdelivr.net/gh/llerandi/llm-price-tracker@main/data/changelog.md";
+  const MAX_CHANGELOG_ENTRIES = 8;
+
+  async function renderChangelog() {
+    const container = document.getElementById("changelog-content");
+    try {
+      const res = await fetch(CHANGELOG_URL);
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      const text = await res.text();
+
+      // Split on ## date headers
+      const sections = text.split(/^## /m).filter(s => s.trim());
+      if (!sections.length) {
+        container.innerHTML = '<p class="empty">No changelog entries yet.</p>';
+        return;
+      }
+
+      const shown = sections.slice(0, MAX_CHANGELOG_ENTRIES);
+      container.innerHTML = shown.map(section => {
+        const lines = section.trim().split("\n");
+        const date = lines[0].trim();
+        const items = lines.slice(1)
+          .filter(l => l.trim().startsWith("-"))
+          .map(l => `<li>${l.replace(/^-\s*/, "").replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>")}</li>`);
+        if (!items.length) return "";
+        return `<div class="changelog-entry">
+          <div class="changelog-date">${date}</div>
+          <ul class="changelog-items">${items.join("")}</ul>
+        </div>`;
+      }).filter(Boolean).join("");
+
+      if (sections.length > MAX_CHANGELOG_ENTRIES) {
+        document.getElementById("changelog-more").style.display = "";
+      }
+    } catch {
+      container.innerHTML = '<p class="empty" style="font-size:13px">Changelog not available yet.</p>';
+    }
+  }
 
   // CSV export
   document.getElementById("export-csv").addEventListener("click", () => {

@@ -25,6 +25,7 @@ OPTIONAL_FIELDS: dict[str, type | tuple[type, ...]] = {
     "batch_output_per_1m_usd": (int, float, type(None)),
     "cache_read_per_1m_usd": (int, float, type(None)),
     "cache_write_per_1m_usd": (int, float, type(None)),
+    "is_embedding": bool,
 }
 
 VALID_TIERS = {"efficient", "performance", "flagship", "specialized"}
