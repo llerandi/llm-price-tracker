@@ -360,7 +360,7 @@ jsDelivr CDN caches files for a period after each push. To force a refresh:
 - [x] RSS/Atom feed of price changes, generated daily and served as static XML via jsDelivr CDN
 - [ ] Add providers: DeepSeek, Groq, Qwen (Alibaba Cloud)
 - [x] Filters on the live site by tier, capabilities, and max price
-- [ ] Model comparison view: select two models for a side-by-side diff
+- [x] Model comparison view: select two models for a side-by-side diff
 
 ---
 
