@@ -4,6 +4,7 @@
     {
       "provider": "AI21 Labs",
       "model_id": "jamba-1-7-large",
+      "model_name": "Jamba 1.7 Large",
       "input_per_1m_usd": 2.0,
       "output_per_1m_usd": 8.0,
       "batch_input_per_1m_usd": null,
@@ -14,6 +15,7 @@
     {
       "provider": "Amazon Bedrock",
       "model_id": "amazon.nova-micro-v1",
+      "model_name": "Nova Micro",
       "input_per_1m_usd": 0.035,
       "output_per_1m_usd": 0.14,
       "batch_input_per_1m_usd": 0.0175,
@@ -24,6 +26,7 @@
     {
       "provider": "Amazon Bedrock",
       "model_id": "amazon.nova-lite-v1",
+      "model_name": "Nova Lite",
       "input_per_1m_usd": 0.06,
       "output_per_1m_usd": 0.24,
       "batch_input_per_1m_usd": 0.03,
@@ -34,6 +37,7 @@
     {
       "provider": "Amazon Bedrock",
       "model_id": "amazon.nova-pro-v1",
+      "model_name": "Nova Pro",
       "input_per_1m_usd": 0.8,
       "output_per_1m_usd": 3.2,
       "batch_input_per_1m_usd": 0.4,
@@ -44,6 +48,7 @@
     {
       "provider": "Amazon Bedrock",
       "model_id": "amazon.nova-premier-v1",
+      "model_name": "Nova Premier",
       "input_per_1m_usd": 2.0,
       "output_per_1m_usd": 8.0,
       "batch_input_per_1m_usd": 1.0,
@@ -54,6 +59,7 @@
     {
       "provider": "Anthropic",
       "model_id": "claude-haiku-4-5-20251001",
+      "model_name": "Claude Haiku 4.5",
       "input_per_1m_usd": 1.0,
       "output_per_1m_usd": 5.0,
       "batch_input_per_1m_usd": 0.5,
@@ -64,6 +70,7 @@
     {
       "provider": "Anthropic",
       "model_id": "claude-sonnet-5",
+      "model_name": "Claude Sonnet 5",
       "input_per_1m_usd": 2.0,
       "output_per_1m_usd": 10.0,
       "batch_input_per_1m_usd": 1.0,
@@ -74,6 +81,7 @@
     {
       "provider": "Anthropic",
       "model_id": "claude-opus-5",
+      "model_name": "Claude Opus 5",
       "input_per_1m_usd": 5.0,
       "output_per_1m_usd": 25.0,
       "batch_input_per_1m_usd": 2.5,
@@ -84,6 +92,7 @@
     {
       "provider": "Anthropic",
       "model_id": "claude-fable-5",
+      "model_name": "Claude Fable 5",
       "input_per_1m_usd": 10.0,
       "output_per_1m_usd": 50.0,
       "batch_input_per_1m_usd": 5.0,
@@ -94,6 +103,7 @@
     {
       "provider": "Cohere",
       "model_id": "command-r7b-08-2024",
+      "model_name": "Command R7B",
       "input_per_1m_usd": 0.0375,
       "output_per_1m_usd": 0.15,
       "batch_input_per_1m_usd": null,
@@ -104,6 +114,7 @@
     {
       "provider": "Cohere",
       "model_id": "command-r-08-2024",
+      "model_name": "Command R",
       "input_per_1m_usd": 0.15,
       "output_per_1m_usd": 0.6,
       "batch_input_per_1m_usd": null,
@@ -114,6 +125,7 @@
     {
       "provider": "Cohere",
       "model_id": "command-r-plus-08-2024",
+      "model_name": "Command R+",
       "input_per_1m_usd": 2.5,
       "output_per_1m_usd": 10.0,
       "batch_input_per_1m_usd": null,
@@ -122,8 +134,31 @@
       "cache_write_per_1m_usd": null
     },
     {
+      "provider": "DeepSeek",
+      "model_id": "deepseek-v4",
+      "model_name": "DeepSeek V4",
+      "input_per_1m_usd": 0.07,
+      "output_per_1m_usd": 0.28,
+      "batch_input_per_1m_usd": null,
+      "batch_output_per_1m_usd": null,
+      "cache_read_per_1m_usd": 0.018,
+      "cache_write_per_1m_usd": null
+    },
+    {
+      "provider": "DeepSeek",
+      "model_id": "deepseek-r2",
+      "model_name": "DeepSeek R2",
+      "input_per_1m_usd": 0.55,
+      "output_per_1m_usd": 2.19,
+      "batch_input_per_1m_usd": null,
+      "batch_output_per_1m_usd": null,
+      "cache_read_per_1m_usd": 0.14,
+      "cache_write_per_1m_usd": null
+    },
+    {
       "provider": "Fireworks AI",
       "model_id": "accounts/fireworks/models/deepseek-v4-flash",
+      "model_name": "DeepSeek V4 Flash",
       "input_per_1m_usd": 0.14,
       "output_per_1m_usd": 0.28,
       "batch_input_per_1m_usd": 0.07,
@@ -134,6 +169,7 @@
     {
       "provider": "Google",
       "model_id": "gemini-2.5-flash-lite",
+      "model_name": "Gemini 2.5 Flash Lite",
       "input_per_1m_usd": 0.1,
       "output_per_1m_usd": 0.4,
       "batch_input_per_1m_usd": 0.05,
@@ -144,6 +180,7 @@
     {
       "provider": "Google",
       "model_id": "gemini-2.5-flash",
+      "model_name": "Gemini 2.5 Flash",
       "input_per_1m_usd": 0.3,
       "output_per_1m_usd": 2.5,
       "batch_input_per_1m_usd": 0.15,
@@ -154,6 +191,7 @@
     {
       "provider": "Google",
       "model_id": "gemini-3.5-flash-lite",
+      "model_name": "Gemini 3.5 Flash-Lite",
       "input_per_1m_usd": 0.3,
       "output_per_1m_usd": 2.5,
       "batch_input_per_1m_usd": 0.15,
@@ -164,6 +202,7 @@
     {
       "provider": "Google",
       "model_id": "gemini-2.5-pro",
+      "model_name": "Gemini 2.5 Pro",
       "input_per_1m_usd": 1.25,
       "output_per_1m_usd": 10.0,
       "batch_input_per_1m_usd": 0.625,
@@ -174,6 +213,7 @@
     {
       "provider": "Google",
       "model_id": "gemini-3.5-flash",
+      "model_name": "Gemini 3.5 Flash",
       "input_per_1m_usd": 1.5,
       "output_per_1m_usd": 9.0,
       "batch_input_per_1m_usd": 0.75,
@@ -184,6 +224,7 @@
     {
       "provider": "Google",
       "model_id": "gemini-3.6-flash",
+      "model_name": "Gemini 3.6 Flash",
       "input_per_1m_usd": 1.5,
       "output_per_1m_usd": 7.5,
       "batch_input_per_1m_usd": 0.75,
@@ -192,8 +233,42 @@
       "cache_write_per_1m_usd": null
     },
     {
+      "provider": "Groq",
+      "model_id": "llama-4-scout-groq",
+      "model_name": "Llama 4 Scout",
+      "input_per_1m_usd": 0.05,
+      "output_per_1m_usd": 0.08,
+      "batch_input_per_1m_usd": null,
+      "batch_output_per_1m_usd": null,
+      "cache_read_per_1m_usd": null,
+      "cache_write_per_1m_usd": null
+    },
+    {
+      "provider": "Groq",
+      "model_id": "llama-4-maverick-groq",
+      "model_name": "Llama 4 Maverick",
+      "input_per_1m_usd": 0.2,
+      "output_per_1m_usd": 0.6,
+      "batch_input_per_1m_usd": null,
+      "batch_output_per_1m_usd": null,
+      "cache_read_per_1m_usd": null,
+      "cache_write_per_1m_usd": null
+    },
+    {
+      "provider": "Groq",
+      "model_id": "deepseek-r2-distill-llama-70b-groq",
+      "model_name": "DeepSeek R2 Distill Llama 70B",
+      "input_per_1m_usd": 0.5,
+      "output_per_1m_usd": 0.75,
+      "batch_input_per_1m_usd": null,
+      "batch_output_per_1m_usd": null,
+      "cache_read_per_1m_usd": null,
+      "cache_write_per_1m_usd": null
+    },
+    {
       "provider": "Mistral",
       "model_id": "devstral-small-2",
+      "model_name": "Devstral Small 2",
       "input_per_1m_usd": 0.1,
       "output_per_1m_usd": 0.3,
       "batch_input_per_1m_usd": null,
@@ -204,6 +279,7 @@
     {
       "provider": "Mistral",
       "model_id": "mistral-small-4",
+      "model_name": "Mistral Small 4",
       "input_per_1m_usd": 0.15,
       "output_per_1m_usd": 0.6,
       "batch_input_per_1m_usd": null,
@@ -214,6 +290,7 @@
     {
       "provider": "Mistral",
       "model_id": "codestral",
+      "model_name": "Codestral",
       "input_per_1m_usd": 0.3,
       "output_per_1m_usd": 0.9,
       "batch_input_per_1m_usd": null,
@@ -224,6 +301,7 @@
     {
       "provider": "Mistral",
       "model_id": "devstral-medium-2",
+      "model_name": "Devstral Medium 2",
       "input_per_1m_usd": 0.4,
       "output_per_1m_usd": 2.0,
       "batch_input_per_1m_usd": null,
@@ -234,6 +312,7 @@
     {
       "provider": "Mistral",
       "model_id": "mistral-large-3",
+      "model_name": "Mistral Large 3",
       "input_per_1m_usd": 0.5,
       "output_per_1m_usd": 1.5,
       "batch_input_per_1m_usd": null,
@@ -244,6 +323,7 @@
     {
       "provider": "Mistral",
       "model_id": "mistral-medium-3-5",
+      "model_name": "Mistral Medium 3.5",
       "input_per_1m_usd": 1.5,
       "output_per_1m_usd": 7.5,
       "batch_input_per_1m_usd": null,
@@ -254,6 +334,7 @@
     {
       "provider": "OpenAI",
       "model_id": "gpt-5-nano",
+      "model_name": "GPT-5 Nano",
       "input_per_1m_usd": 0.05,
       "output_per_1m_usd": 0.4,
       "batch_input_per_1m_usd": 0.025,
@@ -264,6 +345,7 @@
     {
       "provider": "OpenAI",
       "model_id": "gpt-4.1-nano",
+      "model_name": "GPT-4.1 Nano",
       "input_per_1m_usd": 0.1,
       "output_per_1m_usd": 0.4,
       "batch_input_per_1m_usd": 0.05,
@@ -274,6 +356,7 @@
     {
       "provider": "OpenAI",
       "model_id": "gpt-4.1-mini",
+      "model_name": "GPT-4.1 Mini",
       "input_per_1m_usd": 0.4,
       "output_per_1m_usd": 1.6,
       "batch_input_per_1m_usd": 0.2,
@@ -284,6 +367,7 @@
     {
       "provider": "OpenAI",
       "model_id": "gpt-5.6-luna",
+      "model_name": "GPT-5.6 Luna",
       "input_per_1m_usd": 1.0,
       "output_per_1m_usd": 6.0,
       "batch_input_per_1m_usd": 0.5,
@@ -294,6 +378,7 @@
     {
       "provider": "OpenAI",
       "model_id": "o4-mini",
+      "model_name": "o4-mini",
       "input_per_1m_usd": 1.1,
       "output_per_1m_usd": 4.4,
       "batch_input_per_1m_usd": 0.55,
@@ -304,6 +389,7 @@
     {
       "provider": "OpenAI",
       "model_id": "o3",
+      "model_name": "o3",
       "input_per_1m_usd": 2.0,
       "output_per_1m_usd": 8.0,
       "batch_input_per_1m_usd": 1.0,
@@ -314,6 +400,7 @@
     {
       "provider": "OpenAI",
       "model_id": "gpt-4.1",
+      "model_name": "GPT-4.1",
       "input_per_1m_usd": 2.0,
       "output_per_1m_usd": 8.0,
       "batch_input_per_1m_usd": 1.0,
@@ -324,6 +411,7 @@
     {
       "provider": "OpenAI",
       "model_id": "gpt-5.6-terra",
+      "model_name": "GPT-5.6 Terra",
       "input_per_1m_usd": 2.5,
       "output_per_1m_usd": 15.0,
       "batch_input_per_1m_usd": 1.25,
@@ -334,6 +422,7 @@
     {
       "provider": "OpenAI",
       "model_id": "gpt-5.6-sol",
+      "model_name": "GPT-5.6 Sol",
       "input_per_1m_usd": 5.0,
       "output_per_1m_usd": 30.0,
       "batch_input_per_1m_usd": 2.5,
@@ -344,6 +433,7 @@
     {
       "provider": "OpenAI",
       "model_id": "gpt-5.5",
+      "model_name": "GPT-5.5",
       "input_per_1m_usd": 5.0,
       "output_per_1m_usd": 30.0,
       "batch_input_per_1m_usd": 2.5,
@@ -354,6 +444,7 @@
     {
       "provider": "Perplexity",
       "model_id": "sonar",
+      "model_name": "Sonar",
       "input_per_1m_usd": 1.0,
       "output_per_1m_usd": 1.0,
       "batch_input_per_1m_usd": null,
@@ -364,6 +455,7 @@
     {
       "provider": "Perplexity",
       "model_id": "sonar-reasoning-pro",
+      "model_name": "Sonar Reasoning Pro",
       "input_per_1m_usd": 2.0,
       "output_per_1m_usd": 8.0,
       "batch_input_per_1m_usd": null,
@@ -374,6 +466,7 @@
     {
       "provider": "Perplexity",
       "model_id": "sonar-pro",
+      "model_name": "Sonar Pro",
       "input_per_1m_usd": 3.0,
       "output_per_1m_usd": 15.0,
       "batch_input_per_1m_usd": null,
@@ -382,8 +475,42 @@
       "cache_write_per_1m_usd": null
     },
     {
+      "provider": "Qwen",
+      "model_id": "qwen3-turbo",
+      "model_name": "Qwen3 Turbo",
+      "input_per_1m_usd": 0.08,
+      "output_per_1m_usd": 0.25,
+      "batch_input_per_1m_usd": null,
+      "batch_output_per_1m_usd": null,
+      "cache_read_per_1m_usd": null,
+      "cache_write_per_1m_usd": null
+    },
+    {
+      "provider": "Qwen",
+      "model_id": "qwen3-plus",
+      "model_name": "Qwen3 Plus",
+      "input_per_1m_usd": 0.4,
+      "output_per_1m_usd": 1.2,
+      "batch_input_per_1m_usd": null,
+      "batch_output_per_1m_usd": null,
+      "cache_read_per_1m_usd": null,
+      "cache_write_per_1m_usd": null
+    },
+    {
+      "provider": "Qwen",
+      "model_id": "qwen3-max",
+      "model_name": "Qwen3 Max",
+      "input_per_1m_usd": 1.2,
+      "output_per_1m_usd": 4.8,
+      "batch_input_per_1m_usd": null,
+      "batch_output_per_1m_usd": null,
+      "cache_read_per_1m_usd": null,
+      "cache_write_per_1m_usd": null
+    },
+    {
       "provider": "Together AI",
       "model_id": "meta-llama/Llama-4-Scout-17B-16E-Instruct",
+      "model_name": "Llama 4 Scout",
       "input_per_1m_usd": 0.18,
       "output_per_1m_usd": 0.59,
       "batch_input_per_1m_usd": null,
@@ -394,6 +521,7 @@
     {
       "provider": "Together AI",
       "model_id": "deepseek-ai/DeepSeek-V3-1",
+      "model_name": "DeepSeek V3.1",
       "input_per_1m_usd": 0.6,
       "output_per_1m_usd": 1.7,
       "batch_input_per_1m_usd": null,
@@ -404,6 +532,7 @@
     {
       "provider": "xAI",
       "model_id": "grok-build-0.1",
+      "model_name": "Grok Build 0.1",
       "input_per_1m_usd": 1.0,
       "output_per_1m_usd": 2.0,
       "batch_input_per_1m_usd": null,
@@ -414,6 +543,7 @@
     {
       "provider": "xAI",
       "model_id": "grok-4.3",
+      "model_name": "Grok 4.3",
       "input_per_1m_usd": 1.25,
       "output_per_1m_usd": 2.5,
       "batch_input_per_1m_usd": null,

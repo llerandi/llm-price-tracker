@@ -508,6 +508,102 @@
         2.5,
         2.5
       ]
+    },
+    "deepseek-v4": {
+      "provider": "DeepSeek",
+      "model_name": "DeepSeek V4",
+      "input": [
+        null,
+        0.07
+      ],
+      "output": [
+        null,
+        0.28
+      ]
+    },
+    "deepseek-r2": {
+      "provider": "DeepSeek",
+      "model_name": "DeepSeek R2",
+      "input": [
+        null,
+        0.55
+      ],
+      "output": [
+        null,
+        2.19
+      ]
+    },
+    "llama-4-scout-groq": {
+      "provider": "Groq",
+      "model_name": "Llama 4 Scout",
+      "input": [
+        null,
+        0.05
+      ],
+      "output": [
+        null,
+        0.08
+      ]
+    },
+    "llama-4-maverick-groq": {
+      "provider": "Groq",
+      "model_name": "Llama 4 Maverick",
+      "input": [
+        null,
+        0.2
+      ],
+      "output": [
+        null,
+        0.6
+      ]
+    },
+    "deepseek-r2-distill-llama-70b-groq": {
+      "provider": "Groq",
+      "model_name": "DeepSeek R2 Distill Llama 70B",
+      "input": [
+        null,
+        0.5
+      ],
+      "output": [
+        null,
+        0.75
+      ]
+    },
+    "qwen3-turbo": {
+      "provider": "Qwen",
+      "model_name": "Qwen3 Turbo",
+      "input": [
+        null,
+        0.08
+      ],
+      "output": [
+        null,
+        0.25
+      ]
+    },
+    "qwen3-plus": {
+      "provider": "Qwen",
+      "model_name": "Qwen3 Plus",
+      "input": [
+        null,
+        0.4
+      ],
+      "output": [
+        null,
+        1.2
+      ]
+    },
+    "qwen3-max": {
+      "provider": "Qwen",
+      "model_name": "Qwen3 Max",
+      "input": [
+        null,
+        1.2
+      ],
+      "output": [
+        null,
+        4.8
+      ]
     }
   }
 }

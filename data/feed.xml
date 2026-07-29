@@ -3,14 +3,15 @@
   <title>LLM Price Tracker</title>
   <link href="https://llerandi.github.io/llm-price-tracker/"/>
   <link rel="self" type="application/atom+xml" href="https://cdn.jsdelivr.net/gh/llerandi/llm-price-tracker@main/data/feed.xml"/>
-  <updated>2026-07-29T16:44:32Z</updated>
+  <updated>2026-07-29T06:00:00Z</updated>
   <id>https://github.com/llerandi/llm-price-tracker</id>
   <author><name>LLM Price Tracker</name></author>
   <entry>
-    <title>LLM Price Tracker - no changes recorded yet</title>
+    <title>Price update - 2026-07-29: 8 new model(s)</title>
     <link href="https://llerandi.github.io/llm-price-tracker/"/>
-    <id>https://github.com/llerandi/llm-price-tracker/init</id>
-    <updated>2026-07-29T16:44:32Z</updated>
-    <summary>Daily LLM pricing data is now tracked. Price changes will appear here as they are detected.</summary>
+    <id>https://github.com/llerandi/llm-price-tracker/blob/main/data/history/2026-07-29.json</id>
+    <updated>2026-07-29T06:00:00Z</updated>
+    <summary>8 new model(s)</summary>
+    <content type="html"><![CDATA[<h2>Price update - 2026-07-29</h2><h3>New models</h3><ul><li><strong>DeepSeek</strong> DeepSeek V4 — $0.0700/1M in / $0.2800/1M out</li><li><strong>DeepSeek</strong> DeepSeek R2 — $0.5500/1M in / $2.1900/1M out</li><li><strong>Groq</strong> Llama 4 Scout — $0.0500/1M in / $0.0800/1M out</li><li><strong>Groq</strong> Llama 4 Maverick — $0.2000/1M in / $0.6000/1M out</li><li><strong>Groq</strong> DeepSeek R2 Distill Llama 70B — $0.5000/1M in / $0.7500/1M out</li><li><strong>Qwen</strong> Qwen3 Turbo — $0.0800/1M in / $0.2500/1M out</li><li><strong>Qwen</strong> Qwen3 Plus — $0.4000/1M in / $1.2000/1M out</li><li><strong>Qwen</strong> Qwen3 Max — $1.2000/1M in / $4.8000/1M out</li></ul><p><a href="https://llerandi.github.io/llm-price-tracker/">Live site</a> &nbsp;|&nbsp; <a href="https://github.com/llerandi/llm-price-tracker/blob/main/data/prices.json">Raw JSON</a></p>]]></content>
   </entry>
 </feed>

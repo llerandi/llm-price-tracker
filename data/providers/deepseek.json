@@ -1,0 +1,41 @@
+{
+  "provider": "DeepSeek",
+  "last_updated": "2026-07-29",
+  "model_count": 2,
+  "models": [
+    {
+      "provider": "DeepSeek",
+      "model_id": "deepseek-v4",
+      "model_name": "DeepSeek V4",
+      "input_per_1m_usd": 0.07,
+      "output_per_1m_usd": 0.28,
+      "context_window_k": 64,
+      "supports_vision": false,
+      "supports_function_calling": true,
+      "is_reasoning": false,
+      "tier": "efficient",
+      "notes": "",
+      "batch_input_per_1m_usd": null,
+      "batch_output_per_1m_usd": null,
+      "cache_read_per_1m_usd": 0.018,
+      "cache_write_per_1m_usd": null
+    },
+    {
+      "provider": "DeepSeek",
+      "model_id": "deepseek-r2",
+      "model_name": "DeepSeek R2",
+      "input_per_1m_usd": 0.55,
+      "output_per_1m_usd": 2.19,
+      "context_window_k": 128,
+      "supports_vision": false,
+      "supports_function_calling": false,
+      "is_reasoning": true,
+      "tier": "flagship",
+      "notes": "",
+      "batch_input_per_1m_usd": null,
+      "batch_output_per_1m_usd": null,
+      "cache_read_per_1m_usd": 0.14,
+      "cache_write_per_1m_usd": null
+    }
+  ]
+}

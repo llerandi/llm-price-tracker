@@ -35,6 +35,7 @@ def main() -> None:
             {
                 "provider": m["provider"],
                 "model_id": m["model_id"],
+                "model_name": m.get("model_name", m["model_id"]),
                 **{f: m.get(f) for f in PRICE_FIELDS},
             }
             for m in data["models"]
