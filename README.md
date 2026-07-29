@@ -231,9 +231,10 @@ Prices change frequently. If you spot an outdated entry or a missing model, cont
 
 1. Fork the repository and create a branch.
 2. Edit `data/prices.json` with the correct values.
-3. Run `python scripts/validate.py` to check your changes pass validation.
-4. Run `python scripts/update_prices.py` to regenerate the README table.
-5. Open a pull request with a link to the official pricing page as evidence.
+3. Run `python scripts/validate.py` to check the schema.
+4. Run `python scripts/verify_prices.py` to check consistency (prices positive, batch <= standard, no duplicates).
+5. Run `python scripts/update_prices.py` to regenerate the README table.
+6. Open a pull request with a link to the official pricing page as evidence.
 
 To add a new provider, add a new entry in `data/prices.json` following the existing schema.
 
@@ -299,7 +300,7 @@ jsDelivr CDN caches files for a period after each push. To force a refresh:
 
 ### Phase 5 - Community
 
-- [ ] Automated price verification: script that cross-checks prices against official pages
+- [x] Automated price verification: script that cross-checks prices against official pages
 - [ ] Support for multiple currencies (EUR, GBP) on the live site
 - [ ] npm / PyPI package wrapping the jsDelivr JSON endpoint
 

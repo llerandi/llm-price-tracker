@@ -28,3 +28,6 @@ jobs:
 
       - name: Validate prices.json
         run: python scripts/validate.py
+
+      - name: Verify price consistency
+        run: python scripts/verify_prices.py
