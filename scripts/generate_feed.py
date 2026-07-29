@@ -230,8 +230,7 @@ def main() -> None:
             f'    <link href="{SITE_URL}"/>',
             f"    <id>{REPO_URL}/init</id>",
             f"    <updated>{now_iso}</updated>",
-            "    <summary>Daily LLM pricing data is now tracked. "
-            "Price changes will appear here as they are detected.</summary>",
+            "    <summary>Daily LLM pricing data is now tracked. Price changes will appear here as they are detected.</summary>",
             "  </entry>",
         ]
 
