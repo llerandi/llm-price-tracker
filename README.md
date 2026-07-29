@@ -106,7 +106,7 @@ Use the [live site](https://llerandi.github.io/llm-price-tracker/) to browse all
 
 ## API Reference
 
-All endpoints are static JSON files served via jsDelivr CDN with full CORS support (`Access-Control-Allow-Origin: *`). No API key required. Updated daily.
+All endpoints are static JSON files served via jsDelivr CDN with full CORS support (`Access-Control-Allow-Origin: *`). No API key required. Updated and CDN-purged daily at 06:00 UTC.
 
 **Base URL:** `https://cdn.jsdelivr.net/gh/llerandi/llm-price-tracker@main`
 
@@ -121,26 +121,57 @@ All endpoints are static JSON files served via jsDelivr CDN with full CORS suppo
 | `/data/changelog.md` | All price changes and model additions/removals, newest first |
 | `/data/badges/{model-id}-input.json` | shields.io endpoint badge for input price |
 | `/data/badges/{model-id}-output.json` | shields.io endpoint badge for output price |
+| `/data/badges/{model-id}-context.json` | shields.io endpoint badge for context window |
 
-Model IDs that contain `/` (Fireworks AI, Together AI) use `-` in filenames.
+Model IDs that contain `/` (Fireworks AI, Together AI) use `-` in badge filenames.
 
-**Example - fetch all models and filter by price (Python):**
+### Schema stability
+
+The JSON schema is stable. New fields may be added in future but existing fields will not be renamed or removed without a deprecation period. `input_per_1m_usd`, `output_per_1m_usd`, `context_window_k`, and all boolean capability fields are guaranteed to remain in the schema. Optional fields (`batch_*`, `cache_*`, `notes`) are present only when data is available; treat their absence or `null` as equivalent.
+
+### Endpoints
+
+**Get all models (curl):**
+
+```bash
+curl https://cdn.jsdelivr.net/gh/llerandi/llm-price-tracker@main/data/prices.json
+```
+
+**Get models for a single provider (curl):**
+
+```bash
+curl https://cdn.jsdelivr.net/gh/llerandi/llm-price-tracker@main/data/providers/anthropic.json
+```
+
+**Filter by price (Python, no dependencies):**
 
 ```python
-import urllib.request
-import json
+import urllib.request, json
 
-BASE = "https://cdn.jsdelivr.net/gh/llerandi/llm-price-tracker@main"
-
-with urllib.request.urlopen(f"{BASE}/data/prices.json") as r:
+url = "https://cdn.jsdelivr.net/gh/llerandi/llm-price-tracker@main/data/prices.json"
+with urllib.request.urlopen(url) as r:
     data = json.load(r)
 
 cheap = [m for m in data["models"] if (m["input_per_1m_usd"] or 999) < 1.0]
 for m in cheap:
-    print(f"{m['provider']} {m['model_name']}: ${m['input_per_1m_usd']}/1M input")
+    print(f"{m['provider']} {m['model_name']}: ${m['input_per_1m_usd']}/1M in")
 ```
 
-**Example - fetch a single provider (JavaScript):**
+**Filter by capability (JavaScript):**
+
+```js
+const res = await fetch(
+  "https://cdn.jsdelivr.net/gh/llerandi/llm-price-tracker@main/data/prices.json"
+);
+const { models } = await res.json();
+
+// Models with vision support under $5/1M input
+const visionModels = models.filter(
+  m => m.supports_vision && (m.input_per_1m_usd ?? Infinity) < 5
+);
+```
+
+**Get a specific provider (JavaScript):**
 
 ```js
 const res = await fetch(
@@ -155,21 +186,28 @@ Each entry in `models` contains:
 
 | Field | Type | Description |
 |-------|------|-------------|
-| `provider` | string | Provider name (e.g. `"OpenAI"`) |
-| `model_id` | string | API identifier for the model |
-| `model_name` | string | Human-readable name |
+| `provider` | string | Provider display name (e.g. `"OpenAI"`) |
+| `model_id` | string | API identifier used when calling the provider |
+| `model_name` | string | Human-readable model name |
 | `input_per_1m_usd` | number or null | Input cost per 1M tokens in USD |
 | `output_per_1m_usd` | number or null | Output cost per 1M tokens in USD |
-| `context_window_k` | integer or null | Context window in thousands of tokens |
-| `supports_vision` | boolean | Whether the model accepts image inputs |
-| `supports_function_calling` | boolean | Whether the model supports tool/function calls |
-| `is_reasoning` | boolean | Whether the model is a reasoning (chain-of-thought) model |
-| `tier` | string | `efficient`, `performance`, `flagship`, or `specialized` |
-| `notes` | string | Any pricing caveats or special conditions |
-| `batch_input_per_1m_usd` | number or null | Batch input cost per 1M tokens (optional) |
-| `batch_output_per_1m_usd` | number or null | Batch output cost per 1M tokens (optional) |
-| `cache_read_per_1m_usd` | number or null | Prompt cache read cost per 1M tokens (optional) |
-| `cache_write_per_1m_usd` | number or null | Prompt cache write cost per 1M tokens (optional) |
+| `context_window_k` | integer or null | Context window size in thousands of tokens |
+| `supports_vision` | boolean | Accepts image inputs |
+| `supports_function_calling` | boolean | Supports tool/function call syntax |
+| `is_reasoning` | boolean | Chain-of-thought / extended thinking model |
+| `tier` | string | `"efficient"`, `"performance"`, `"flagship"`, or `"specialized"` |
+| `notes` | string or null | Pricing caveats or special conditions |
+| `batch_input_per_1m_usd` | number or null | Asynchronous batch input price (optional) |
+| `batch_output_per_1m_usd` | number or null | Asynchronous batch output price (optional) |
+| `cache_read_per_1m_usd` | number or null | Prompt cache read price (optional) |
+| `cache_write_per_1m_usd` | number or null | Prompt cache write price (optional) |
+
+**Top-level fields in `prices.json`:**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `last_updated` | string | ISO 8601 date of the last update (`"YYYY-MM-DD"`) |
+| `models` | array | Array of model objects (see above) |
 
 ---
 
@@ -254,15 +292,13 @@ A second workflow (`ci.yaml`) runs on every push and pull request to lint the sc
 
 ## Troubleshooting
 
-**The live site or badges show stale data after a push to main.**
+**The live site or badges show stale data.**
 
-jsDelivr CDN caches files for a period after each push. To force a refresh:
+The daily workflow automatically purges the jsDelivr CDN cache after each push, so data is normally fresh within seconds. If you are still seeing stale data, hard-refresh the live site (`Ctrl+Shift+R` on Windows/Linux, `Cmd+Shift+R` on Mac). To force a manual purge for a specific file, open this URL in your browser:
 
-1. Purge the CDN cache by opening this URL in your browser:
-   ```
-   https://purge.jsdelivr.net/gh/llerandi/llm-price-tracker@main/data/prices.json
-   ```
-2. Hard-refresh the live site (`Ctrl+Shift+R` on Windows/Linux, `Cmd+Shift+R` on Mac).
+```
+https://purge.jsdelivr.net/gh/llerandi/llm-price-tracker@main/data/prices.json
+```
 
 ---
 
@@ -324,9 +360,10 @@ jsDelivr CDN caches files for a period after each push. To force a refresh:
 - [ ] More currencies: JPY, CAD, AUD
 - [ ] Provider stats: aggregate summary per provider on the live site
 
-### Phase 8 - CDN Reliability
+### Phase 8 - CDN Reliability and API
 
 - [x] Auto-purge jsDelivr CDN cache after every daily update (prices, badges, feed, providers)
+- [x] API documentation: stable schema contract, curl and JS/Python examples, versioning policy
 
 ---
 
