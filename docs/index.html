@@ -538,7 +538,8 @@
   // currency
   const RATES_URL = "https://api.frankfurter.app/latest?from=USD&to=EUR,GBP";
   const SYMBOLS = { USD: "$", EUR: "€", GBP: "£" };
-  let rates = { USD: 1.0, EUR: 1.0, GBP: 1.0 };
+  // Fallback rates (approximate, updated at runtime from Frankfurter API)
+  let rates = { USD: 1.0, EUR: 0.92, GBP: 0.79 };
   let currency = "USD";
 
   function sym() { return SYMBOLS[currency]; }
@@ -548,10 +549,10 @@
       const res = await fetch(RATES_URL);
       if (!res.ok) return;
       const data = await res.json();
-      rates.EUR = data.rates.EUR ?? 1.0;
-      rates.GBP = data.rates.GBP ?? 1.0;
+      rates.EUR = data.rates.EUR ?? rates.EUR;
+      rates.GBP = data.rates.GBP ?? rates.GBP;
     } catch {
-      // silently fall back to USD (rates stay at 1.0)
+      // silently keep fallback rates (0.92 EUR, 0.79 GBP)
     }
   }
 
