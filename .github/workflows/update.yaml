@@ -69,3 +69,6 @@ jobs:
           git add data/prices.json data/latest.json data/history/ data/badges/ data/providers/ data/changelog.md data/history_summary.json data/feed.xml README.md
           git diff --staged --quiet || git commit -m "chore: update prices and snapshot [skip ci]"
           git push
+
+      - name: Purge jsDelivr CDN cache
+        run: python scripts/purge_cdn.py
