@@ -355,7 +355,7 @@ jsDelivr CDN caches files for a period after each push. To force a refresh:
 
 ### Phase 6 - Automation and Discovery
 
-- [ ] Automated GitHub Issue when a price changes by more than 10% (subscribe via Watch -> Issues)
+- [x] Automated GitHub Issue when a price changes by more than 10% (subscribe via Watch -> Issues)
 - [ ] RSS/Atom feed of price changes, generated daily and served as static XML via jsDelivr CDN
 - [ ] Add providers: DeepSeek, Groq, Qwen (Alibaba Cloud)
 - [ ] Filters on the live site by tier, capabilities, and max price
