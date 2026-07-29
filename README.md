@@ -311,7 +311,7 @@ jsDelivr CDN caches files for a period after each push. To force a refresh:
 
 ### Phase 7 - Polish and Reach
 
-- [x] Dark mode (respects system preference via prefers-color-scheme)
+- [x] Dark mode with manual toggle (light by default, persisted in localStorage)
 - [x] data/latest.json permanent alias for the current prices
 - [x] Weekly price summary posted to GitHub Discussions every Monday
 - [x] SEO: sitemap.xml, Open Graph meta tags, JSON-LD structured data
@@ -323,6 +323,10 @@ jsDelivr CDN caches files for a period after each push. To force a refresh:
 - [ ] Embedding model pricing (text-embedding-3, Cohere Embed, etc.)
 - [ ] More currencies: JPY, CAD, AUD
 - [ ] Provider stats: aggregate summary per provider on the live site
+
+### Phase 8 - CDN Reliability
+
+- [x] Auto-purge jsDelivr CDN cache after every daily update (prices, badges, feed, providers)
 
 ---
 
