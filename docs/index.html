@@ -309,6 +309,46 @@
     }
     .history-note { font-size: 12px; color: var(--text-muted); margin-top: 10px; }
 
+    /* compare */
+    .compare-selects {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .compare-vs {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+    .compare-table { width: 100%; border-collapse: collapse; }
+    .compare-table th, .compare-table td {
+      padding: 9px 13px;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+      vertical-align: middle;
+    }
+    .compare-table th {
+      background: var(--bg-alt);
+      font-weight: 600;
+      text-transform: none;
+      letter-spacing: 0;
+      font-size: 13px;
+    }
+    .compare-table td:first-child {
+      color: var(--text-muted);
+      font-size: 12px;
+      white-space: nowrap;
+      width: 160px;
+    }
+    .compare-table tr:last-child td { border-bottom: none; }
+    .compare-better { color: #116329; font-weight: 600; }
+    .compare-worse { color: #cf222e; }
+    .compare-diff { font-size: 11px; margin-left: 4px; color: var(--text-muted); }
+    .compare-yes { color: #116329; font-weight: 500; }
+    .compare-no { color: #bbbfc3; }
+
     /* footer */
     footer {
       margin-top: 56px;
@@ -449,6 +489,24 @@
       </div>
       <p id="history-empty" class="empty" style="display:none"></p>
     </div>
+
+    <div id="compare-section">
+      <h2 class="section-title">Compare Models</h2>
+      <p class="section-desc">Select two models to see a side-by-side breakdown of pricing and capabilities.</p>
+      <div class="compare-selects">
+        <select id="compare-a" class="history-select"><option value="">-- Model A --</option></select>
+        <span class="compare-vs">vs</span>
+        <select id="compare-b" class="history-select"><option value="">-- Model B --</option></select>
+      </div>
+      <div id="compare-result" style="display:none">
+        <div class="table-wrap">
+          <table class="compare-table">
+            <thead id="compare-thead"></thead>
+            <tbody id="compare-tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -510,6 +568,7 @@
       buildCapPills();
       render();
       buildHistorySelect();
+      buildCompareSelects();
       document.getElementById("loading").style.display = "none";
       document.getElementById("app").style.display = "";
     } catch (e) {
@@ -886,6 +945,104 @@
     }
   }
 
+  // model comparison
+  function buildCompareSelects() {
+    const byProvider = {};
+    models.forEach(m => {
+      if (!byProvider[m.provider]) byProvider[m.provider] = [];
+      byProvider[m.provider].push(m);
+    });
+    ["compare-a", "compare-b"].forEach(id => {
+      const sel = document.getElementById(id);
+      Object.keys(byProvider).sort().forEach(provider => {
+        const group = document.createElement("optgroup");
+        group.label = provider;
+        byProvider[provider].forEach(m => {
+          const opt = document.createElement("option");
+          opt.value = m.model_id;
+          opt.textContent = m.model_name;
+          group.appendChild(opt);
+        });
+        sel.appendChild(group);
+      });
+    });
+  }
+
+  function renderCompare() {
+    const idA = document.getElementById("compare-a").value;
+    const idB = document.getElementById("compare-b").value;
+    const result = document.getElementById("compare-result");
+    if (!idA || !idB) { result.style.display = "none"; return; }
+    const a = models.find(m => m.model_id === idA);
+    const b = models.find(m => m.model_id === idB);
+    if (!a || !b) { result.style.display = "none"; return; }
+
+    const s = sym();
+    const r = rates[currency];
+
+    function priceCells(va, vb) {
+      if (va == null && vb == null) return ['<span class="na">-</span>', '<span class="na">-</span>'];
+      if (va == null) return ['<span class="na">-</span>', `<span class="compare-better">${s}${(vb * r).toFixed(4)}</span>`];
+      if (vb == null) return [`<span class="compare-better">${s}${(va * r).toFixed(4)}</span>`, '<span class="na">-</span>'];
+      const ca = va * r, cb = vb * r;
+      if (ca === cb) return [`${s}${ca.toFixed(4)}`, `${s}${cb.toFixed(4)}`];
+      if (ca < cb) {
+        const diff = ((cb - ca) / ca * 100).toFixed(0);
+        return [
+          `<span class="compare-better">${s}${ca.toFixed(4)}</span>`,
+          `<span class="compare-worse">${s}${cb.toFixed(4)}</span><span class="compare-diff">+${diff}%</span>`
+        ];
+      }
+      const diff = ((ca - cb) / cb * 100).toFixed(0);
+      return [
+        `<span class="compare-worse">${s}${ca.toFixed(4)}</span><span class="compare-diff">+${diff}%</span>`,
+        `<span class="compare-better">${s}${cb.toFixed(4)}</span>`
+      ];
+    }
+
+    function ctxCells(va, vb) {
+      const fa = va != null ? fmtCtx(va) : '<span class="na">-</span>';
+      const fb = vb != null ? fmtCtx(vb) : '<span class="na">-</span>';
+      if (va == null || vb == null || va === vb) return [fa, fb];
+      return va > vb
+        ? [`<span class="compare-better">${fa}</span>`, fb]
+        : [fa, `<span class="compare-better">${fb}</span>`];
+    }
+
+    function boolCell(v) {
+      return v ? '<span class="compare-yes">Yes</span>' : '<span class="compare-no">No</span>';
+    }
+
+    const optPriceFields = [
+      [`Batch Input ${s}/1M`, "batch_input_per_1m_usd"],
+      [`Batch Output ${s}/1M`, "batch_output_per_1m_usd"],
+      [`Cache Read ${s}/1M`, "cache_read_per_1m_usd"],
+      [`Cache Write ${s}/1M`, "cache_write_per_1m_usd"],
+    ].filter(([, f]) => a[f] != null || b[f] != null);
+
+    const rows = [
+      ["Provider", a.provider, b.provider],
+      ["Tier", fmtTier(a.tier), fmtTier(b.tier)],
+      ["Context", ...ctxCells(a.context_window_k, b.context_window_k)],
+      [`Input ${s}/1M`, ...priceCells(a.input_per_1m_usd, b.input_per_1m_usd)],
+      [`Output ${s}/1M`, ...priceCells(a.output_per_1m_usd, b.output_per_1m_usd)],
+      ...optPriceFields.map(([label, field]) => [label, ...priceCells(a[field], b[field])]),
+      ["Vision", boolCell(a.supports_vision), boolCell(b.supports_vision)],
+      ["Tools", boolCell(a.supports_function_calling), boolCell(b.supports_function_calling)],
+      ["Reasoning", boolCell(a.is_reasoning), boolCell(b.is_reasoning)],
+    ];
+    if (a.notes || b.notes) rows.push(["Notes", a.notes || "-", b.notes || "-"]);
+
+    document.getElementById("compare-thead").innerHTML =
+      `<tr><th style="width:160px">Field</th><th>${a.model_name}</th><th>${b.model_name}</th></tr>`;
+    document.getElementById("compare-tbody").innerHTML =
+      rows.map(([label, va, vb]) => `<tr><td>${label}</td><td>${va}</td><td>${vb}</td></tr>`).join("");
+    result.style.display = "";
+  }
+
+  document.getElementById("compare-a").addEventListener("change", renderCompare);
+  document.getElementById("compare-b").addEventListener("change", renderCompare);
+
   document.getElementById("history-model-select").addEventListener("change", e => {
     renderHistoryChart(e.target.value);
   });
@@ -929,6 +1086,7 @@
       render();
       const sel = document.getElementById("history-model-select");
       if (sel.value) renderHistoryChart(sel.value);
+      if (document.getElementById("compare-result").style.display !== "none") renderCompare();
     });
   });
 
