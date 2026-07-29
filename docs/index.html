@@ -58,19 +58,17 @@
       --pill-bg: #f1f3f5;
       --pill-active: #0969da;
     }
-    @media (prefers-color-scheme: dark) {
-      :root {
-        --bg: #0d1117;
-        --bg-alt: #161b22;
-        --border: #30363d;
-        --text: #e6edf3;
-        --text-muted: #8b949e;
-        --primary: #58a6ff;
-        --header-bg: #010409;
-        --row-hover: #161b22;
-        --pill-bg: #21262d;
-        --pill-active: #388bfd;
-      }
+    [data-theme="dark"] {
+      --bg: #0d1117;
+      --bg-alt: #161b22;
+      --border: #30363d;
+      --text: #e6edf3;
+      --text-muted: #8b949e;
+      --primary: #58a6ff;
+      --header-bg: #010409;
+      --row-hover: #161b22;
+      --pill-bg: #21262d;
+      --pill-active: #388bfd;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -405,18 +403,34 @@
     .compare-no { color: #bbbfc3; }
 
     /* dark mode overrides for hardcoded colours */
-    @media (prefers-color-scheme: dark) {
-      .cap { background: #1c3a5e; color: #79c0ff; }
-      .cap.reasoning { background: #3b2f00; color: #e3b341; }
-      .tier-efficient { background: #0f2a1a; color: #56d364; }
-      .tier-performance { background: #0d2a45; color: #79c0ff; }
-      .tier-flagship { background: #2d1a00; color: #ffa657; }
-      .tier-specialized { background: #1e1540; color: #bc8cff; }
-      .error-box { background: #2d0a0e; border-color: #6e2230; color: #ff7b72; }
-      .copy-btn.copied { border-color: #56d364; color: #56d364; }
-      .compare-better { color: #56d364; }
-      .compare-yes { color: #56d364; }
+    [data-theme="dark"] .cap { background: #1c3a5e; color: #79c0ff; }
+    [data-theme="dark"] .cap.reasoning { background: #3b2f00; color: #e3b341; }
+    [data-theme="dark"] .tier-efficient { background: #0f2a1a; color: #56d364; }
+    [data-theme="dark"] .tier-performance { background: #0d2a45; color: #79c0ff; }
+    [data-theme="dark"] .tier-flagship { background: #2d1a00; color: #ffa657; }
+    [data-theme="dark"] .tier-specialized { background: #1e1540; color: #bc8cff; }
+    [data-theme="dark"] .error-box { background: #2d0a0e; border-color: #6e2230; color: #ff7b72; }
+    [data-theme="dark"] .copy-btn.copied { border-color: #56d364; color: #56d364; }
+    [data-theme="dark"] .compare-better { color: #56d364; }
+    [data-theme="dark"] .compare-yes { color: #56d364; }
+    /* Fix: unselected pills/buttons in dark mode need more contrast */
+    [data-theme="dark"] .pill { border-color: #484f58; }
+    [data-theme="dark"] .currency-btn { border-color: #484f58; }
+
+    /* dark mode toggle button (lives in the header) */
+    #theme-toggle {
+      background: none;
+      border: 1px solid rgba(255,255,255,.25);
+      border-radius: 6px;
+      color: #e6edf3;
+      cursor: pointer;
+      padding: 5px 10px;
+      font-size: 16px;
+      line-height: 1;
+      flex-shrink: 0;
+      transition: border-color .15s;
     }
+    #theme-toggle:hover { border-color: rgba(255,255,255,.6); }
 
     /* footer */
     footer {
@@ -439,9 +453,14 @@
 <body>
 
 <header>
-  <h1>LLM Price Tracker</h1>
-  <p>Daily-updated pricing across all major LLM providers.
-     Source: <a href="https://github.com/llerandi/llm-price-tracker">github.com/llerandi/llm-price-tracker</a></p>
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:16px">
+    <div>
+      <h1>LLM Price Tracker</h1>
+      <p>Daily-updated pricing across all major LLM providers.
+         Source: <a href="https://github.com/llerandi/llm-price-tracker">github.com/llerandi/llm-price-tracker</a></p>
+    </div>
+    <button id="theme-toggle" title="Toggle dark mode" aria-label="Toggle dark mode">☾</button>
+  </div>
 </header>
 
 <div class="container">
@@ -1197,6 +1216,21 @@
     a.click();
     URL.revokeObjectURL(a.href);
   });
+
+  // theme toggle (default: light)
+  (function () {
+    const saved = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = saved;
+    const btn = document.getElementById("theme-toggle");
+    btn.textContent = saved === "dark" ? "☀" : "☾";
+    btn.addEventListener("click", () => {
+      const isDark = document.documentElement.dataset.theme === "dark";
+      const next = isDark ? "light" : "dark";
+      document.documentElement.dataset.theme = next;
+      btn.textContent = next === "dark" ? "☀" : "☾";
+      localStorage.setItem("theme", next);
+    });
+  })();
 
   init();
 </script>
