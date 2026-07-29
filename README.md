@@ -355,10 +355,10 @@ https://purge.jsdelivr.net/gh/llerandi/llm-price-tracker@main/data/prices.json
 - [x] SEO: sitemap.xml, Open Graph meta tags, JSON-LD structured data
 - [x] Embeddable context window badge (alongside existing price badges)
 - [x] Export current filtered table as CSV
-- [ ] Shareable URLs: query params preserve active filters and comparison
-- [ ] Changelog section on the live site
-- [ ] Cost calculator presets (e.g. "10-page PDF", "code review", "1K support chats")
-- [ ] Embedding model pricing (text-embedding-3, Cohere Embed, etc.)
+- [x] Shareable URLs: query params preserve active filters and comparison
+- [x] Changelog section on the live site
+- [x] Cost calculator presets (10-page PDF, code review, 1K support chats, article summary)
+- [x] Embedding model pricing (OpenAI, Google, Cohere, Voyage AI)
 - [x] More currencies: JPY, CAD, AUD (with fallback rates if API fails)
 - [x] Provider stats: aggregate summary per provider on the live site
 
