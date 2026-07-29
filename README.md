@@ -225,6 +225,56 @@ Each entry in `models` contains:
 
 ---
 
+## Client Libraries
+
+Installable wrappers around the jsDelivr JSON API. Both are zero-dependency and read-only.
+
+### JavaScript / TypeScript (Node >= 18 and browsers)
+
+```bash
+npm install llm-price-tracker
+```
+
+```js
+const { fetchPrices, getModel, getProvider } = require("llm-price-tracker");
+
+// All models
+const { models } = await fetchPrices();
+
+// Single model
+const sonnet = await getModel("claude-sonnet-5");
+console.log(sonnet.input_per_1m_usd); // 2.00
+
+// All models for a provider
+const { models: anthropicModels } = await getProvider("anthropic");
+```
+
+Source: [`packages/npm/`](packages/npm/)
+
+### Python (>= 3.9, no dependencies)
+
+```bash
+pip install llm-price-tracker
+```
+
+```python
+from llm_price_tracker import fetch_prices, get_model, get_provider
+
+# All models
+data = fetch_prices()
+
+# Single model
+sonnet = get_model("claude-sonnet-5")
+print(sonnet["input_per_1m_usd"])  # 2.0
+
+# All models for a provider
+anthropic = get_provider("anthropic")
+```
+
+Source: [`packages/python/`](packages/python/)
+
+---
+
 ## Contributing
 
 Prices change frequently. If you spot an outdated entry or a missing model, contributions are welcome.
@@ -302,7 +352,7 @@ jsDelivr CDN caches files for a period after each push. To force a refresh:
 
 - [x] Automated price verification: script that cross-checks prices against official pages
 - [x] Support for multiple currencies (EUR, GBP) on the live site
-- [ ] npm / PyPI package wrapping the jsDelivr JSON endpoint
+- [x] npm / PyPI package wrapping the jsDelivr JSON endpoint
 
 ---
 
