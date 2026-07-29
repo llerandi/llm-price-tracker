@@ -1,0 +1,30 @@
+name: Weekly Price Summary
+
+on:
+  schedule:
+    # Every Monday at 08:00 UTC
+    - cron: "0 8 * * 1"
+  workflow_dispatch:
+
+jobs:
+  post-summary:
+    name: Post weekly summary to Discussions
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      discussions: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Build summary and post to Discussions
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: python scripts/post_weekly_summary.py

@@ -23,6 +23,7 @@ TIER_COLORS: dict[str, str] = {
 FIELDS: list[tuple[str, str]] = [
     ("input_per_1m_usd", "input"),
     ("output_per_1m_usd", "output"),
+    ("context_window_k", "context"),
 ]
 
 
@@ -35,6 +36,12 @@ def fmt_price(value: float | None) -> str:
     if value is None:
         return "N/A"
     return f"${value:.2f}/1M"
+
+
+def fmt_context(value: float | None) -> str:
+    if value is None:
+        return "N/A"
+    return f"{int(value / 1000)}M" if value >= 1000 else f"{int(value)}K"
 
 
 def main() -> None:
@@ -62,10 +69,12 @@ def main() -> None:
         color = TIER_COLORS.get(model.get("tier", ""), "blue")
 
         for field, suffix in FIELDS:
+            value = model.get(field)
+            message = fmt_context(value) if suffix == "context" else fmt_price(value)
             badge = {
                 "schemaVersion": 1,
                 "label": f"{model['model_name']} {suffix}",
-                "message": fmt_price(model.get(field)),
+                "message": message,
                 "color": color,
             }
             out = BADGES_DIR / f"{file_id}-{suffix}.json"
