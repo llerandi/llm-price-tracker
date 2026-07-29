@@ -59,8 +59,7 @@ def build_body(data: dict, prev: dict[str, dict] | None, today: str) -> str:
         f"## Weekly LLM Price Summary - {today}",
         "",
         f"Tracking **{n_models} models** across **{n_providers} providers**.",
-        f"Data: [{SITE_URL}]({SITE_URL}) | "
-        f"[Raw JSON]({REPO_URL}/blob/main/data/prices.json)",
+        f"Data: [{SITE_URL}]({SITE_URL}) | [Raw JSON]({REPO_URL}/blob/main/data/prices.json)",
         "",
     ]
 
@@ -147,9 +146,7 @@ def build_body(data: dict, prev: dict[str, dict] | None, today: str) -> str:
     lines += [
         "",
         "---",
-        f"_Posted automatically every Monday. "
-        f"[Subscribe to updates]({REPO_URL}/discussions) or "
-        f"[watch the repo]({REPO_URL}) for price change alerts._",
+        f"_Posted automatically every Monday. [Subscribe to updates]({REPO_URL}/discussions) or [watch the repo]({REPO_URL}) for price change alerts._",
     ]
 
     return "\n".join(lines)
@@ -215,7 +212,7 @@ def create_discussion(repo_id: str, category_id: str, title: str, body: str) -> 
          "-f", f"categoryId={category_id}",
          "-f", f"title={title}",
          "-f", f"body={body}"],
-        capture_output=True, text=True,
+        capture_output=True, text=True, check=False,
     )
     if result.returncode != 0:
         print(f"Failed to create discussion: {result.stderr}", file=sys.stderr)
