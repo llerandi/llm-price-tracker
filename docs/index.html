@@ -87,6 +87,26 @@
     .pill:hover { border-color: var(--primary); color: var(--primary); }
     .pill.active { background: var(--pill-active); color: #fff; border-color: var(--pill-active); }
 
+    /* filter label */
+    .filter-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text-muted);
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .max-price-input {
+      width: 80px;
+      padding: 4px 7px;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      font-size: 12px;
+      outline: none;
+    }
+    .max-price-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(9,105,218,.12); }
+
     /* toggle */
     .toggle-row {
       display: flex;
@@ -339,6 +359,17 @@
       <div class="pills" id="provider-pills"></div>
     </div>
 
+    <div class="filters">
+      <span class="filter-label">Tier</span>
+      <div class="pills" id="tier-pills"></div>
+      <span class="filter-label" style="margin-left:4px">Capabilities</span>
+      <div class="pills" id="cap-pills"></div>
+      <label class="filter-label" style="margin-left:4px">
+        Max input
+        <input id="max-price" class="max-price-input" type="number" min="0" step="0.1" placeholder="$/1M">
+      </label>
+    </div>
+
     <label class="toggle-row">
       <span class="toggle">
         <input type="checkbox" id="show-batch">
@@ -439,6 +470,8 @@
   let sortDir = 1;
   let activeProvider = null;
   let searchText = "";
+  let activeTier = null;
+  let activeCaps = new Set();
   let calcInputTokens = 0;
   let calcOutputTokens = 0;
   let historyData = null;
@@ -473,6 +506,8 @@
       models = data.models;
       document.getElementById("last-updated").textContent = data.last_updated;
       buildPills();
+      buildTierPills();
+      buildCapPills();
       render();
       buildHistorySelect();
       document.getElementById("loading").style.display = "none";
@@ -502,12 +537,62 @@
     });
   }
 
+  function buildTierPills() {
+    const tiers = ["efficient", "performance", "flagship", "specialized"];
+    const container = document.getElementById("tier-pills");
+    [null, ...tiers].forEach(t => {
+      const btn = document.createElement("button");
+      btn.className = "pill" + (t === null ? " active" : "");
+      btn.textContent = t === null ? "All" : t;
+      btn.addEventListener("click", () => {
+        activeTier = t;
+        container.querySelectorAll(".pill").forEach(el => el.classList.remove("active"));
+        btn.classList.add("active");
+        render();
+      });
+      container.appendChild(btn);
+    });
+  }
+
+  function buildCapPills() {
+    const caps = [
+      { key: "supports_vision", label: "Vision" },
+      { key: "supports_function_calling", label: "Tools" },
+      { key: "is_reasoning", label: "Reasoning" },
+    ];
+    const container = document.getElementById("cap-pills");
+    caps.forEach(({ key, label }) => {
+      const btn = document.createElement("button");
+      btn.className = "pill";
+      btn.textContent = label;
+      btn.addEventListener("click", () => {
+        if (activeCaps.has(key)) {
+          activeCaps.delete(key);
+          btn.classList.remove("active");
+        } else {
+          activeCaps.add(key);
+          btn.classList.add("active");
+        }
+        render();
+      });
+      container.appendChild(btn);
+    });
+  }
+
   function getVisible() {
+    const maxPriceVal = parseFloat(document.getElementById("max-price").value) || null;
     return models.filter(m => {
       if (activeProvider && m.provider !== activeProvider) return false;
       if (searchText) {
         const q = searchText.toLowerCase();
         if (!m.provider.toLowerCase().includes(q) && !m.model_name.toLowerCase().includes(q)) return false;
+      }
+      if (activeTier && m.tier !== activeTier) return false;
+      for (const cap of activeCaps) {
+        if (!m[cap]) return false;
+      }
+      if (maxPriceVal != null && m.input_per_1m_usd != null) {
+        if (m.input_per_1m_usd * rates[currency] > maxPriceVal) return false;
       }
       return true;
     });
@@ -577,6 +662,7 @@
     document.querySelectorAll(".price-unit").forEach(el => {
       el.textContent = sym() + "/1M";
     });
+    document.getElementById("max-price").placeholder = sym() + "/1M";
   }
 
   function render() {
@@ -832,6 +918,7 @@
   }
   document.getElementById("calc-input").addEventListener("input", updateCalc);
   document.getElementById("calc-output").addEventListener("input", updateCalc);
+  document.getElementById("max-price").addEventListener("input", render);
 
   // currency switcher
   document.querySelectorAll(".currency-btn").forEach(btn => {
