@@ -1,0 +1,428 @@
+{
+  "last_updated": "2026-07-29",
+  "dates": [
+    "2026-07-28"
+  ],
+  "models": {
+    "jamba-1-7-large": {
+      "provider": "AI21 Labs",
+      "model_name": "jamba-1-7-large",
+      "input": [
+        2.0
+      ],
+      "output": [
+        8.0
+      ]
+    },
+    "amazon.nova-micro-v1": {
+      "provider": "Amazon Bedrock",
+      "model_name": "amazon.nova-micro-v1",
+      "input": [
+        0.035
+      ],
+      "output": [
+        0.14
+      ]
+    },
+    "amazon.nova-lite-v1": {
+      "provider": "Amazon Bedrock",
+      "model_name": "amazon.nova-lite-v1",
+      "input": [
+        0.06
+      ],
+      "output": [
+        0.24
+      ]
+    },
+    "amazon.nova-pro-v1": {
+      "provider": "Amazon Bedrock",
+      "model_name": "amazon.nova-pro-v1",
+      "input": [
+        0.8
+      ],
+      "output": [
+        3.2
+      ]
+    },
+    "amazon.nova-premier-v1": {
+      "provider": "Amazon Bedrock",
+      "model_name": "amazon.nova-premier-v1",
+      "input": [
+        2.0
+      ],
+      "output": [
+        8.0
+      ]
+    },
+    "claude-haiku-4-5-20251001": {
+      "provider": "Anthropic",
+      "model_name": "claude-haiku-4-5-20251001",
+      "input": [
+        1.0
+      ],
+      "output": [
+        5.0
+      ]
+    },
+    "claude-sonnet-5": {
+      "provider": "Anthropic",
+      "model_name": "claude-sonnet-5",
+      "input": [
+        2.0
+      ],
+      "output": [
+        10.0
+      ]
+    },
+    "claude-opus-5": {
+      "provider": "Anthropic",
+      "model_name": "claude-opus-5",
+      "input": [
+        5.0
+      ],
+      "output": [
+        25.0
+      ]
+    },
+    "claude-fable-5": {
+      "provider": "Anthropic",
+      "model_name": "claude-fable-5",
+      "input": [
+        10.0
+      ],
+      "output": [
+        50.0
+      ]
+    },
+    "command-r7b-08-2024": {
+      "provider": "Cohere",
+      "model_name": "command-r7b-08-2024",
+      "input": [
+        0.0375
+      ],
+      "output": [
+        0.15
+      ]
+    },
+    "command-r-08-2024": {
+      "provider": "Cohere",
+      "model_name": "command-r-08-2024",
+      "input": [
+        0.15
+      ],
+      "output": [
+        0.6
+      ]
+    },
+    "command-r-plus-08-2024": {
+      "provider": "Cohere",
+      "model_name": "command-r-plus-08-2024",
+      "input": [
+        2.5
+      ],
+      "output": [
+        10.0
+      ]
+    },
+    "accounts/fireworks/models/deepseek-v4-flash": {
+      "provider": "Fireworks AI",
+      "model_name": "accounts/fireworks/models/deepseek-v4-flash",
+      "input": [
+        0.14
+      ],
+      "output": [
+        0.28
+      ]
+    },
+    "gemini-2.5-flash-lite": {
+      "provider": "Google",
+      "model_name": "gemini-2.5-flash-lite",
+      "input": [
+        0.1
+      ],
+      "output": [
+        0.4
+      ]
+    },
+    "gemini-2.5-flash": {
+      "provider": "Google",
+      "model_name": "gemini-2.5-flash",
+      "input": [
+        0.3
+      ],
+      "output": [
+        2.5
+      ]
+    },
+    "gemini-3.5-flash-lite": {
+      "provider": "Google",
+      "model_name": "gemini-3.5-flash-lite",
+      "input": [
+        0.3
+      ],
+      "output": [
+        2.5
+      ]
+    },
+    "gemini-2.5-pro": {
+      "provider": "Google",
+      "model_name": "gemini-2.5-pro",
+      "input": [
+        1.25
+      ],
+      "output": [
+        10.0
+      ]
+    },
+    "gemini-3.5-flash": {
+      "provider": "Google",
+      "model_name": "gemini-3.5-flash",
+      "input": [
+        1.5
+      ],
+      "output": [
+        9.0
+      ]
+    },
+    "gemini-3.6-flash": {
+      "provider": "Google",
+      "model_name": "gemini-3.6-flash",
+      "input": [
+        1.5
+      ],
+      "output": [
+        7.5
+      ]
+    },
+    "devstral-small-2": {
+      "provider": "Mistral",
+      "model_name": "devstral-small-2",
+      "input": [
+        0.1
+      ],
+      "output": [
+        0.3
+      ]
+    },
+    "mistral-small-4": {
+      "provider": "Mistral",
+      "model_name": "mistral-small-4",
+      "input": [
+        0.15
+      ],
+      "output": [
+        0.6
+      ]
+    },
+    "codestral": {
+      "provider": "Mistral",
+      "model_name": "codestral",
+      "input": [
+        0.3
+      ],
+      "output": [
+        0.9
+      ]
+    },
+    "devstral-medium-2": {
+      "provider": "Mistral",
+      "model_name": "devstral-medium-2",
+      "input": [
+        0.4
+      ],
+      "output": [
+        2.0
+      ]
+    },
+    "mistral-large-3": {
+      "provider": "Mistral",
+      "model_name": "mistral-large-3",
+      "input": [
+        0.5
+      ],
+      "output": [
+        1.5
+      ]
+    },
+    "mistral-medium-3-5": {
+      "provider": "Mistral",
+      "model_name": "mistral-medium-3-5",
+      "input": [
+        1.5
+      ],
+      "output": [
+        7.5
+      ]
+    },
+    "gpt-5-nano": {
+      "provider": "OpenAI",
+      "model_name": "gpt-5-nano",
+      "input": [
+        0.05
+      ],
+      "output": [
+        0.4
+      ]
+    },
+    "gpt-4.1-nano": {
+      "provider": "OpenAI",
+      "model_name": "gpt-4.1-nano",
+      "input": [
+        0.1
+      ],
+      "output": [
+        0.4
+      ]
+    },
+    "gpt-4.1-mini": {
+      "provider": "OpenAI",
+      "model_name": "gpt-4.1-mini",
+      "input": [
+        0.4
+      ],
+      "output": [
+        1.6
+      ]
+    },
+    "gpt-5.6-luna": {
+      "provider": "OpenAI",
+      "model_name": "gpt-5.6-luna",
+      "input": [
+        1.0
+      ],
+      "output": [
+        6.0
+      ]
+    },
+    "o4-mini": {
+      "provider": "OpenAI",
+      "model_name": "o4-mini",
+      "input": [
+        1.1
+      ],
+      "output": [
+        4.4
+      ]
+    },
+    "o3": {
+      "provider": "OpenAI",
+      "model_name": "o3",
+      "input": [
+        2.0
+      ],
+      "output": [
+        8.0
+      ]
+    },
+    "gpt-4.1": {
+      "provider": "OpenAI",
+      "model_name": "gpt-4.1",
+      "input": [
+        2.0
+      ],
+      "output": [
+        8.0
+      ]
+    },
+    "gpt-5.6-terra": {
+      "provider": "OpenAI",
+      "model_name": "gpt-5.6-terra",
+      "input": [
+        2.5
+      ],
+      "output": [
+        15.0
+      ]
+    },
+    "gpt-5.6-sol": {
+      "provider": "OpenAI",
+      "model_name": "gpt-5.6-sol",
+      "input": [
+        5.0
+      ],
+      "output": [
+        30.0
+      ]
+    },
+    "gpt-5.5": {
+      "provider": "OpenAI",
+      "model_name": "gpt-5.5",
+      "input": [
+        5.0
+      ],
+      "output": [
+        30.0
+      ]
+    },
+    "sonar": {
+      "provider": "Perplexity",
+      "model_name": "sonar",
+      "input": [
+        1.0
+      ],
+      "output": [
+        1.0
+      ]
+    },
+    "sonar-reasoning-pro": {
+      "provider": "Perplexity",
+      "model_name": "sonar-reasoning-pro",
+      "input": [
+        2.0
+      ],
+      "output": [
+        8.0
+      ]
+    },
+    "sonar-pro": {
+      "provider": "Perplexity",
+      "model_name": "sonar-pro",
+      "input": [
+        3.0
+      ],
+      "output": [
+        15.0
+      ]
+    },
+    "meta-llama/Llama-4-Scout-17B-16E-Instruct": {
+      "provider": "Together AI",
+      "model_name": "meta-llama/Llama-4-Scout-17B-16E-Instruct",
+      "input": [
+        0.18
+      ],
+      "output": [
+        0.59
+      ]
+    },
+    "deepseek-ai/DeepSeek-V3-1": {
+      "provider": "Together AI",
+      "model_name": "deepseek-ai/DeepSeek-V3-1",
+      "input": [
+        0.6
+      ],
+      "output": [
+        1.7
+      ]
+    },
+    "grok-build-0.1": {
+      "provider": "xAI",
+      "model_name": "grok-build-0.1",
+      "input": [
+        1.0
+      ],
+      "output": [
+        2.0
+      ]
+    },
+    "grok-4.3": {
+      "provider": "xAI",
+      "model_name": "grok-4.3",
+      "input": [
+        1.25
+      ],
+      "output": [
+        2.5
+      ]
+    }
+  }
+}
