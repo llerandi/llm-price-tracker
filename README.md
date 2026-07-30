@@ -4,7 +4,7 @@
 [![License](https://img.shields.io/github/license/llerandi/llm-price-tracker)](LICENSE)
 [![Stars](https://img.shields.io/github/stars/llerandi/llm-price-tracker?style=social)](https://github.com/llerandi/llm-price-tracker/stargazers)
 [![Last commit](https://img.shields.io/github/last-commit/llerandi/llm-price-tracker)](https://github.com/llerandi/llm-price-tracker/commits/main)
-[![Updated daily](https://img.shields.io/badge/last--updated-2026--07--30-brightgreen)](https://github.com/llerandi/llm-price-tracker/actions/workflows/update.yaml)
+[![Updated daily](https://img.shields.io/badge/last--updated-2026--07--31-brightgreen)](https://github.com/llerandi/llm-price-tracker/actions/workflows/update.yaml)
 [![Python](https://img.shields.io/badge/python-3.13%2B-blue?logo=python)](https://www.python.org/)
 [![Live site](https://img.shields.io/badge/live%20site-GitHub%20Pages-0969da)](https://llerandi.github.io/llm-price-tracker/)
 
@@ -27,6 +27,8 @@ Prices in USD per 1 million tokens. Sorted by provider, then by input price.
 | AI21 Labs | Jamba 1.7 Large | $2.00 | $8.00 | 256K | tools |
 | Amazon Bedrock | Nova Micro | $0.04 | $0.14 | 128K | tools |
 | Anthropic | Claude Haiku 4.5 | $1.00 | $5.00 | 200K | vision, tools |
+| Azure OpenAI | GPT-5.4 Nano | $0.20 | $1.25 | 1100K | vision, tools |
+| Cerebras | GPT-OSS 120B | $0.35 | $0.75 | 128K | tools |
 | Cohere | Command R7B | $0.04 | $0.15 | 128K | tools |
 | DeepSeek | DeepSeek V4 | $0.07 | $0.28 | 64K | tools |
 | Fireworks AI | DeepSeek V4 Flash | $0.14 | $0.28 | 128K | tools |
@@ -39,7 +41,7 @@ Prices in USD per 1 million tokens. Sorted by provider, then by input price.
 | Together AI | Llama 4 Scout | $0.18 | $0.59 | 128K | vision, tools |
 | Voyage AI | Voyage 4 Lite | $0.02 | N/A | 32K | - |
 | xAI | Grok Build 0.1 | $1.00 | $2.00 | 256K | tools |
-_Showing the cheapest model per provider (15 providers shown, 55 models total). [**View all models with filters and comparison →**](https://llerandi.github.io/llm-price-tracker/)_
+_Showing the cheapest model per provider (17 providers shown, 64 models total). [**View all models with filters and comparison →**](https://llerandi.github.io/llm-price-tracker/)_
 <!-- PRICING_TABLE_END -->
 
 ---
@@ -368,6 +370,11 @@ https://purge.jsdelivr.net/gh/llerandi/llm-price-tracker@main/data/prices.json
 
 - [x] Auto-purge jsDelivr CDN cache after every daily update (prices, badges, feed, providers)
 - [x] API documentation: stable schema contract, curl and JS/Python examples, versioning policy
+
+### Phase 9 - Coverage
+
+- [x] Add Azure OpenAI pricing
+- [x] Add Cerebras pricing
 
 ---
 
