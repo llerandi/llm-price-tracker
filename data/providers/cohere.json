@@ -1,7 +1,7 @@
 {
   "provider": "Cohere",
-  "last_updated": "2026-07-29",
-  "model_count": 3,
+  "last_updated": "2026-07-30",
+  "model_count": 4,
   "models": [
     {
       "provider": "Cohere",
@@ -15,6 +15,24 @@
       "is_reasoning": false,
       "tier": "efficient",
       "notes": "",
+      "batch_input_per_1m_usd": null,
+      "batch_output_per_1m_usd": null,
+      "cache_read_per_1m_usd": null,
+      "cache_write_per_1m_usd": null
+    },
+    {
+      "provider": "Cohere",
+      "model_id": "embed-english-v3.0",
+      "model_name": "Embed English v3",
+      "input_per_1m_usd": 0.1,
+      "output_per_1m_usd": null,
+      "context_window_k": 1,
+      "supports_vision": false,
+      "supports_function_calling": false,
+      "is_reasoning": false,
+      "is_embedding": true,
+      "tier": "efficient",
+      "notes": "Embedding model. No output tokens.",
       "batch_input_per_1m_usd": null,
       "batch_output_per_1m_usd": null,
       "cache_read_per_1m_usd": null,

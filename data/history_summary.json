@@ -1,8 +1,9 @@
 {
-  "last_updated": "2026-07-29",
+  "last_updated": "2026-07-30",
   "dates": [
     "2026-07-28",
-    "2026-07-29"
+    "2026-07-29",
+    "2026-07-30"
   ],
   "models": {
     "jamba-1-7-large": {
@@ -10,9 +11,11 @@
       "model_name": "jamba-1-7-large",
       "input": [
         2.0,
+        2.0,
         2.0
       ],
       "output": [
+        8.0,
         8.0,
         8.0
       ]
@@ -22,9 +25,11 @@
       "model_name": "amazon.nova-micro-v1",
       "input": [
         0.035,
+        0.035,
         0.035
       ],
       "output": [
+        0.14,
         0.14,
         0.14
       ]
@@ -34,9 +39,11 @@
       "model_name": "amazon.nova-lite-v1",
       "input": [
         0.06,
+        0.06,
         0.06
       ],
       "output": [
+        0.24,
         0.24,
         0.24
       ]
@@ -46,9 +53,11 @@
       "model_name": "amazon.nova-pro-v1",
       "input": [
         0.8,
+        0.8,
         0.8
       ],
       "output": [
+        3.2,
         3.2,
         3.2
       ]
@@ -58,9 +67,11 @@
       "model_name": "amazon.nova-premier-v1",
       "input": [
         2.0,
+        2.0,
         2.0
       ],
       "output": [
+        8.0,
         8.0,
         8.0
       ]
@@ -70,9 +81,11 @@
       "model_name": "claude-haiku-4-5-20251001",
       "input": [
         1.0,
+        1.0,
         1.0
       ],
       "output": [
+        5.0,
         5.0,
         5.0
       ]
@@ -82,9 +95,11 @@
       "model_name": "claude-sonnet-5",
       "input": [
         2.0,
+        2.0,
         2.0
       ],
       "output": [
+        10.0,
         10.0,
         10.0
       ]
@@ -94,9 +109,11 @@
       "model_name": "claude-opus-5",
       "input": [
         5.0,
+        5.0,
         5.0
       ],
       "output": [
+        25.0,
         25.0,
         25.0
       ]
@@ -106,9 +123,11 @@
       "model_name": "claude-fable-5",
       "input": [
         10.0,
+        10.0,
         10.0
       ],
       "output": [
+        50.0,
         50.0,
         50.0
       ]
@@ -118,9 +137,11 @@
       "model_name": "command-r7b-08-2024",
       "input": [
         0.0375,
+        0.0375,
         0.0375
       ],
       "output": [
+        0.15,
         0.15,
         0.15
       ]
@@ -130,9 +151,11 @@
       "model_name": "command-r-08-2024",
       "input": [
         0.15,
+        0.15,
         0.15
       ],
       "output": [
+        0.6,
         0.6,
         0.6
       ]
@@ -142,9 +165,11 @@
       "model_name": "command-r-plus-08-2024",
       "input": [
         2.5,
+        2.5,
         2.5
       ],
       "output": [
+        10.0,
         10.0,
         10.0
       ]
@@ -154,9 +179,11 @@
       "model_name": "accounts/fireworks/models/deepseek-v4-flash",
       "input": [
         0.14,
+        0.14,
         0.14
       ],
       "output": [
+        0.28,
         0.28,
         0.28
       ]
@@ -166,9 +193,11 @@
       "model_name": "gemini-2.5-flash-lite",
       "input": [
         0.1,
+        0.1,
         0.1
       ],
       "output": [
+        0.4,
         0.4,
         0.4
       ]
@@ -178,9 +207,11 @@
       "model_name": "gemini-2.5-flash",
       "input": [
         0.3,
+        0.3,
         0.3
       ],
       "output": [
+        2.5,
         2.5,
         2.5
       ]
@@ -190,9 +221,11 @@
       "model_name": "gemini-3.5-flash-lite",
       "input": [
         0.3,
+        0.3,
         0.3
       ],
       "output": [
+        2.5,
         2.5,
         2.5
       ]
@@ -202,9 +235,11 @@
       "model_name": "gemini-2.5-pro",
       "input": [
         1.25,
+        1.25,
         1.25
       ],
       "output": [
+        10.0,
         10.0,
         10.0
       ]
@@ -214,9 +249,11 @@
       "model_name": "gemini-3.5-flash",
       "input": [
         1.5,
+        1.5,
         1.5
       ],
       "output": [
+        9.0,
         9.0,
         9.0
       ]
@@ -226,9 +263,11 @@
       "model_name": "gemini-3.6-flash",
       "input": [
         1.5,
+        1.5,
         1.5
       ],
       "output": [
+        7.5,
         7.5,
         7.5
       ]
@@ -238,9 +277,11 @@
       "model_name": "devstral-small-2",
       "input": [
         0.1,
+        0.1,
         0.1
       ],
       "output": [
+        0.3,
         0.3,
         0.3
       ]
@@ -250,9 +291,11 @@
       "model_name": "mistral-small-4",
       "input": [
         0.15,
+        0.15,
         0.15
       ],
       "output": [
+        0.6,
         0.6,
         0.6
       ]
@@ -262,9 +305,11 @@
       "model_name": "codestral",
       "input": [
         0.3,
+        0.3,
         0.3
       ],
       "output": [
+        0.9,
         0.9,
         0.9
       ]
@@ -274,9 +319,11 @@
       "model_name": "devstral-medium-2",
       "input": [
         0.4,
+        0.4,
         0.4
       ],
       "output": [
+        2.0,
         2.0,
         2.0
       ]
@@ -286,9 +333,11 @@
       "model_name": "mistral-large-3",
       "input": [
         0.5,
+        0.5,
         0.5
       ],
       "output": [
+        1.5,
         1.5,
         1.5
       ]
@@ -298,9 +347,11 @@
       "model_name": "mistral-medium-3-5",
       "input": [
         1.5,
+        1.5,
         1.5
       ],
       "output": [
+        7.5,
         7.5,
         7.5
       ]
@@ -310,9 +361,11 @@
       "model_name": "gpt-5-nano",
       "input": [
         0.05,
+        0.05,
         0.05
       ],
       "output": [
+        0.4,
         0.4,
         0.4
       ]
@@ -322,9 +375,11 @@
       "model_name": "gpt-4.1-nano",
       "input": [
         0.1,
+        0.1,
         0.1
       ],
       "output": [
+        0.4,
         0.4,
         0.4
       ]
@@ -334,9 +389,11 @@
       "model_name": "gpt-4.1-mini",
       "input": [
         0.4,
+        0.4,
         0.4
       ],
       "output": [
+        1.6,
         1.6,
         1.6
       ]
@@ -346,9 +403,11 @@
       "model_name": "gpt-5.6-luna",
       "input": [
         1.0,
+        1.0,
         1.0
       ],
       "output": [
+        6.0,
         6.0,
         6.0
       ]
@@ -358,9 +417,11 @@
       "model_name": "o4-mini",
       "input": [
         1.1,
+        1.1,
         1.1
       ],
       "output": [
+        4.4,
         4.4,
         4.4
       ]
@@ -370,9 +431,11 @@
       "model_name": "o3",
       "input": [
         2.0,
+        2.0,
         2.0
       ],
       "output": [
+        8.0,
         8.0,
         8.0
       ]
@@ -382,9 +445,11 @@
       "model_name": "gpt-4.1",
       "input": [
         2.0,
+        2.0,
         2.0
       ],
       "output": [
+        8.0,
         8.0,
         8.0
       ]
@@ -394,9 +459,11 @@
       "model_name": "gpt-5.6-terra",
       "input": [
         2.5,
+        2.5,
         2.5
       ],
       "output": [
+        15.0,
         15.0,
         15.0
       ]
@@ -406,9 +473,11 @@
       "model_name": "gpt-5.6-sol",
       "input": [
         5.0,
+        5.0,
         5.0
       ],
       "output": [
+        30.0,
         30.0,
         30.0
       ]
@@ -418,9 +487,11 @@
       "model_name": "gpt-5.5",
       "input": [
         5.0,
+        5.0,
         5.0
       ],
       "output": [
+        30.0,
         30.0,
         30.0
       ]
@@ -430,9 +501,11 @@
       "model_name": "sonar",
       "input": [
         1.0,
+        1.0,
         1.0
       ],
       "output": [
+        1.0,
         1.0,
         1.0
       ]
@@ -442,9 +515,11 @@
       "model_name": "sonar-reasoning-pro",
       "input": [
         2.0,
+        2.0,
         2.0
       ],
       "output": [
+        8.0,
         8.0,
         8.0
       ]
@@ -454,9 +529,11 @@
       "model_name": "sonar-pro",
       "input": [
         3.0,
+        3.0,
         3.0
       ],
       "output": [
+        15.0,
         15.0,
         15.0
       ]
@@ -466,9 +543,11 @@
       "model_name": "meta-llama/Llama-4-Scout-17B-16E-Instruct",
       "input": [
         0.18,
+        0.18,
         0.18
       ],
       "output": [
+        0.59,
         0.59,
         0.59
       ]
@@ -478,9 +557,11 @@
       "model_name": "deepseek-ai/DeepSeek-V3-1",
       "input": [
         0.6,
+        0.6,
         0.6
       ],
       "output": [
+        1.7,
         1.7,
         1.7
       ]
@@ -490,9 +571,11 @@
       "model_name": "grok-build-0.1",
       "input": [
         1.0,
+        1.0,
         1.0
       ],
       "output": [
+        2.0,
         2.0,
         2.0
       ]
@@ -502,9 +585,11 @@
       "model_name": "grok-4.3",
       "input": [
         1.25,
+        1.25,
         1.25
       ],
       "output": [
+        2.5,
         2.5,
         2.5
       ]
@@ -514,10 +599,12 @@
       "model_name": "DeepSeek V4",
       "input": [
         null,
+        0.07,
         0.07
       ],
       "output": [
         null,
+        0.28,
         0.28
       ]
     },
@@ -526,10 +613,12 @@
       "model_name": "DeepSeek R2",
       "input": [
         null,
+        0.55,
         0.55
       ],
       "output": [
         null,
+        2.19,
         2.19
       ]
     },
@@ -538,10 +627,12 @@
       "model_name": "Llama 4 Scout",
       "input": [
         null,
+        0.05,
         0.05
       ],
       "output": [
         null,
+        0.08,
         0.08
       ]
     },
@@ -550,10 +641,12 @@
       "model_name": "Llama 4 Maverick",
       "input": [
         null,
+        0.2,
         0.2
       ],
       "output": [
         null,
+        0.6,
         0.6
       ]
     },
@@ -562,10 +655,12 @@
       "model_name": "DeepSeek R2 Distill Llama 70B",
       "input": [
         null,
+        0.5,
         0.5
       ],
       "output": [
         null,
+        0.75,
         0.75
       ]
     },
@@ -574,10 +669,12 @@
       "model_name": "Qwen3 Turbo",
       "input": [
         null,
+        0.08,
         0.08
       ],
       "output": [
         null,
+        0.25,
         0.25
       ]
     },
@@ -586,10 +683,12 @@
       "model_name": "Qwen3 Plus",
       "input": [
         null,
+        0.4,
         0.4
       ],
       "output": [
         null,
+        1.2,
         1.2
       ]
     },
@@ -598,11 +697,83 @@
       "model_name": "Qwen3 Max",
       "input": [
         null,
+        1.2,
         1.2
       ],
       "output": [
         null,
+        4.8,
         4.8
+      ]
+    },
+    "embed-english-v3.0": {
+      "provider": "Cohere",
+      "model_name": "Embed English v3",
+      "input": [
+        null,
+        null,
+        0.1
+      ],
+      "output": [
+        null,
+        null,
+        null
+      ]
+    },
+    "text-embedding-005": {
+      "provider": "Google",
+      "model_name": "Text Embedding 005",
+      "input": [
+        null,
+        null,
+        0.006
+      ],
+      "output": [
+        null,
+        null,
+        null
+      ]
+    },
+    "text-embedding-3-small": {
+      "provider": "OpenAI",
+      "model_name": "Text Embedding 3 Small",
+      "input": [
+        null,
+        null,
+        0.02
+      ],
+      "output": [
+        null,
+        null,
+        null
+      ]
+    },
+    "text-embedding-3-large": {
+      "provider": "OpenAI",
+      "model_name": "Text Embedding 3 Large",
+      "input": [
+        null,
+        null,
+        0.13
+      ],
+      "output": [
+        null,
+        null,
+        null
+      ]
+    },
+    "voyage-4-lite": {
+      "provider": "Voyage AI",
+      "model_name": "Voyage 4 Lite",
+      "input": [
+        null,
+        null,
+        0.02
+      ],
+      "output": [
+        null,
+        null,
+        null
       ]
     }
   }

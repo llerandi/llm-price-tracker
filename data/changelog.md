@@ -5,6 +5,18 @@ Sorted by date (newest first). Source: [`data/history/`](data/history/)
 
 ---
 
+## 2026-07-30
+
+### New models
+
+- **Cohere** Embed English v3 — $0.1/1M in / N/A out
+- **Google** Text Embedding 005 — $0.006/1M in / N/A out
+- **OpenAI** Text Embedding 3 Small — $0.02/1M in / N/A out
+- **OpenAI** Text Embedding 3 Large — $0.13/1M in / N/A out
+- **Voyage AI** Voyage 4 Lite — $0.02/1M in / N/A out
+
+---
+
 ## 2026-07-29
 
 ### New models

@@ -1,0 +1,25 @@
+{
+  "provider": "Voyage AI",
+  "last_updated": "2026-07-30",
+  "model_count": 1,
+  "models": [
+    {
+      "provider": "Voyage AI",
+      "model_id": "voyage-4-lite",
+      "model_name": "Voyage 4 Lite",
+      "input_per_1m_usd": 0.02,
+      "output_per_1m_usd": null,
+      "context_window_k": 32,
+      "supports_vision": false,
+      "supports_function_calling": false,
+      "is_reasoning": false,
+      "is_embedding": true,
+      "tier": "efficient",
+      "notes": "Embedding model. No output tokens.",
+      "batch_input_per_1m_usd": null,
+      "batch_output_per_1m_usd": null,
+      "cache_read_per_1m_usd": null,
+      "cache_write_per_1m_usd": null
+    }
+  ]
+}

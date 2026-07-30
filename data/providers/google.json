@@ -1,8 +1,26 @@
 {
   "provider": "Google",
-  "last_updated": "2026-07-29",
-  "model_count": 6,
+  "last_updated": "2026-07-30",
+  "model_count": 7,
   "models": [
+    {
+      "provider": "Google",
+      "model_id": "text-embedding-005",
+      "model_name": "Text Embedding 005",
+      "input_per_1m_usd": 0.006,
+      "output_per_1m_usd": null,
+      "context_window_k": 2,
+      "supports_vision": false,
+      "supports_function_calling": false,
+      "is_reasoning": false,
+      "is_embedding": true,
+      "tier": "efficient",
+      "notes": "Embedding model. No output tokens.",
+      "batch_input_per_1m_usd": null,
+      "batch_output_per_1m_usd": null,
+      "cache_read_per_1m_usd": null,
+      "cache_write_per_1m_usd": null
+    },
     {
       "provider": "Google",
       "model_id": "gemini-2.5-flash-lite",

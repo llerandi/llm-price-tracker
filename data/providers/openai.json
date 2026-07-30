@@ -1,8 +1,26 @@
 {
   "provider": "OpenAI",
-  "last_updated": "2026-07-29",
-  "model_count": 10,
+  "last_updated": "2026-07-30",
+  "model_count": 12,
   "models": [
+    {
+      "provider": "OpenAI",
+      "model_id": "text-embedding-3-small",
+      "model_name": "Text Embedding 3 Small",
+      "input_per_1m_usd": 0.02,
+      "output_per_1m_usd": null,
+      "context_window_k": 8,
+      "supports_vision": false,
+      "supports_function_calling": false,
+      "is_reasoning": false,
+      "is_embedding": true,
+      "tier": "efficient",
+      "notes": "Embedding model. No output tokens. Batch: $0.01/1M.",
+      "batch_input_per_1m_usd": 0.01,
+      "batch_output_per_1m_usd": null,
+      "cache_read_per_1m_usd": null,
+      "cache_write_per_1m_usd": null
+    },
     {
       "provider": "OpenAI",
       "model_id": "gpt-5-nano",
@@ -35,6 +53,24 @@
       "batch_input_per_1m_usd": 0.05,
       "batch_output_per_1m_usd": 0.2,
       "cache_read_per_1m_usd": 0.025,
+      "cache_write_per_1m_usd": null
+    },
+    {
+      "provider": "OpenAI",
+      "model_id": "text-embedding-3-large",
+      "model_name": "Text Embedding 3 Large",
+      "input_per_1m_usd": 0.13,
+      "output_per_1m_usd": null,
+      "context_window_k": 8,
+      "supports_vision": false,
+      "supports_function_calling": false,
+      "is_reasoning": false,
+      "is_embedding": true,
+      "tier": "performance",
+      "notes": "Embedding model. No output tokens. Batch: $0.065/1M.",
+      "batch_input_per_1m_usd": 0.065,
+      "batch_output_per_1m_usd": null,
+      "cache_read_per_1m_usd": null,
       "cache_write_per_1m_usd": null
     },
     {
