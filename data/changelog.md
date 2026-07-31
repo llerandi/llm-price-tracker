@@ -5,6 +5,22 @@ Sorted by date (newest first). Source: [`data/history/`](data/history/)
 
 ---
 
+## 2026-07-31
+
+### New models
+
+- **Azure OpenAI** GPT-5.4 Nano — $0.2/1M in / $1.25/1M out
+- **Azure OpenAI** GPT-5.4 Mini — $0.75/1M in / $4.5/1M out
+- **Azure OpenAI** o4-mini — $1.1/1M in / $4.4/1M out
+- **Azure OpenAI** GPT-5.1 — $1.25/1M in / $10/1M out
+- **Azure OpenAI** o3 — $2/1M in / $8/1M out
+- **Azure OpenAI** GPT-5.4 — $2.5/1M in / $15/1M out
+- **Cerebras** GPT-OSS 120B — $0.35/1M in / $0.75/1M out
+- **Cerebras** Gemma 4 31B Instruct — $0.99/1M in / $1.49/1M out
+- **Cerebras** GLM 4.7 — $2.25/1M in / $2.75/1M out
+
+---
+
 ## 2026-07-30
 
 ### New models

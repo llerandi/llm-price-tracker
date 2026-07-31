@@ -27,7 +27,7 @@ Prices in USD per 1 million tokens. Sorted by provider, then by input price.
 | AI21 Labs | Jamba 1.7 Large | $2.00 | $8.00 | 256K | tools |
 | Amazon Bedrock | Nova Micro | $0.04 | $0.14 | 128K | tools |
 | Anthropic | Claude Haiku 4.5 | $1.00 | $5.00 | 200K | vision, tools |
-| Azure OpenAI | GPT-5.4 Nano | $0.20 | $1.25 | 1100K | vision, tools |
+| Azure OpenAI | GPT-5.4 Nano | $0.20 | $1.25 | 1M | vision, tools |
 | Cerebras | GPT-OSS 120B | $0.35 | $0.75 | 128K | tools |
 | Cohere | Command R7B | $0.04 | $0.15 | 128K | tools |
 | DeepSeek | DeepSeek V4 | $0.07 | $0.28 | 64K | tools |
