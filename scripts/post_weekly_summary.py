@@ -127,9 +127,11 @@ def build_body(data: dict, prev: dict[str, dict] | None, today: str) -> str:
         "|----------|-------|:----------:|:-----------:|",
     ]
     for m in cheapest:
+        out = m.get("output_per_1m_usd")
+        out_str = f"${out:.4f}" if out is not None else "N/A"
         lines.append(
             f"| {m['provider']} | {m.get('model_name', m['model_id'])} "
-            f"| ${m['input_per_1m_usd']:.4f} | ${m.get('output_per_1m_usd', 0):.4f} |"
+            f"| ${m['input_per_1m_usd']:.4f} | {out_str} |"
         )
     lines += [
         "",
@@ -139,9 +141,11 @@ def build_body(data: dict, prev: dict[str, dict] | None, today: str) -> str:
         "|----------|-------|:----------:|:-----------:|",
     ]
     for m in priciest:
+        out = m.get("output_per_1m_usd")
+        out_str = f"${out:.4f}" if out is not None else "N/A"
         lines.append(
             f"| {m['provider']} | {m.get('model_name', m['model_id'])} "
-            f"| ${m['input_per_1m_usd']:.4f} | ${m.get('output_per_1m_usd', 0):.4f} |"
+            f"| ${m['input_per_1m_usd']:.4f} | {out_str} |"
         )
     lines += [
         "",
