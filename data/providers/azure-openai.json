@@ -1,6 +1,6 @@
 {
   "provider": "Azure OpenAI",
-  "last_updated": "2026-08-09",
+  "last_updated": "2026-08-10",
   "model_count": 6,
   "models": [
     {
