@@ -4,7 +4,7 @@
 [![License](https://img.shields.io/github/license/llerandi/llm-price-tracker)](LICENSE)
 [![Stars](https://img.shields.io/github/stars/llerandi/llm-price-tracker?style=social)](https://github.com/llerandi/llm-price-tracker/stargazers)
 [![Last commit](https://img.shields.io/github/last-commit/llerandi/llm-price-tracker)](https://github.com/llerandi/llm-price-tracker/commits/main)
-[![Updated daily](https://img.shields.io/badge/last--updated-2026--08--24-brightgreen)](https://github.com/llerandi/llm-price-tracker/actions/workflows/update.yaml)
+[![Updated daily](https://img.shields.io/badge/last--updated-2026--08--25-brightgreen)](https://github.com/llerandi/llm-price-tracker/actions/workflows/update.yaml)
 [![Python](https://img.shields.io/badge/python-3.13%2B-blue?logo=python)](https://www.python.org/)
 [![Live site](https://img.shields.io/badge/live%20site-GitHub%20Pages-0969da)](https://llerandi.github.io/llm-price-tracker/)
 
